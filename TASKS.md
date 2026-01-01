@@ -1,5 +1,5 @@
 # Tasks
 
-- [ ] Initialize repository
-- [ ] Verify agent prompts
+- [x] Initialize repository
+- [x] Verify agent prompts
 - [ ] Write first blog post
