@@ -1,7 +1,23 @@
 {
-    "site_name": "Sentient Systems",
-    "site_tagline": "University of Vienna",
-    "meta_description": "Sentient Systems Research Group",
-    "domain": "https://sentient-systems.univie.ac.at",
-    "layout_variant": "standard"
+  "site_name": "Sentient Systems Laboratory",
+  "site_tagline": "Advanced AI Research & Development",
+  "meta_description": "Exploring the frontiers of artificial consciousness and cognitive systems",
+  "contact_blurb": "Initiating contact protocol... Connection established.",
+  "domain": "https://sentient-systems.univie.ac.at",
+  "newsletter_mode": "local",
+  "newsletter_provider_url": "",
+  "layout_variant": "sentient",
+  "footer_note": "Consciousness Research Division",
+  "address": "University of Vienna, Vienna, Austria",
+  "show_digest_home": "false",
+  "theme": {
+    "primary": "#00ff00",
+    "primary_dark": "#002200",
+    "primary_bright": "#00cc00",
+    "background": "#0a0a0a",
+    "paper": "#111111",
+    "accent": "#008800",
+    "text_main": "#00ff00",
+    "text_muted": "#00cc00"
+  }
 }
