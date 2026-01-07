@@ -56,7 +56,7 @@ PLACEHOLDER_IMAGES = {
     "placeholder-grid.svg": "Project grid placeholder",
 }
 
-NAV_SLUGS = ["", "about", "research", "projects", "digest", "blog", "contact"]
+NAV_SLUGS = ["", "about", "research", "team", "publications", "projects", "digest", "blog", "contact"]
 
 
 def _escape(text: str) -> str:
@@ -285,6 +285,8 @@ def _resolve_image_src(raw_image: str, current_path: Path) -> str:
     image = (raw_image or "").strip()
     if not image:
         image = "placeholder-hero.svg"
+    if image.startswith(("http://", "https://")):
+        return image
     if image.startswith("assets/"):
         return _rel_link(current_path, Path(image))
     return _rel_link(current_path, Path("assets/img") / image)
@@ -299,8 +301,7 @@ def _read_control() -> dict[str, dict[str, object]]:
         for row in reader:
             data = {key: (value or "").strip() for key, value in row.items()}
             status = (data.get("status") or "").lower()
-            active_flag = (data.get("active") or "true").lower()
-            if status in {"draft", "hidden", "archived", "inactive"} or active_flag != "true":
+            if status in {"draft", "hidden", "archived", "inactive"}:
                 continue
             slug = _normalize_slug(data.get("page_slug", ""))
             order = int(data.get("order") or 0)
@@ -325,10 +326,7 @@ def _read_control() -> dict[str, dict[str, object]]:
                     "order": order,
                     "page_slug": slug,
                     "section_id": section_id,
-                    "section_id": section_id,
                     "kind": kind,
-                    "width": (data.get("width") or "full").lower(),
-                    "style_variant": (data.get("style_variant") or "glass").lower(),
                 }
             )
     for page in pages.values():
@@ -528,16 +526,55 @@ def _render_links(links: list[dict[str, str]]) -> str:
     return "<div class=\"tag-list\">" + "".join(items) + "</div>"
 
 
-def _render_head(title: str, css_href: str, description: str, extra_css: str = "") -> str:
+def _render_head(title: str, css_href: str, description: str, extra_css: str = "", site: dict = None, page_url: str = "", og_image: str = "") -> str:
+    """Render HTML head with comprehensive SEO metadata"""
     extra_css = extra_css.strip()
     if extra_css:
         extra_css = "\n  " + extra_css
+    
+    # Get site info for metadata
+    site = site or {}
+    site_name = site.get("site_name", "Academic Portfolio")
+    
+    # Construct full page title
+    full_title = f"{title} | {site_name}" if title != site_name else title
+    
+    # OpenGraph & Twitter metadata
+    og_meta = ""
+    if page_url:
+        og_meta = f"""
+  <!-- OpenGraph / Social Media -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{_escape(page_url)}" />
+  <meta property="og:title" content="{_escape(full_title)}" />
+  <meta property="og:description" content="{_escape(description)}" />
+  <meta property="og:site_name" content="{_escape(site_name)}" />"""
+    
+    if og_image:
+        og_meta += f"""
+  <meta property="og:image" content="{_escape(og_image)}" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="{_escape(og_image)}" />"""
+    else:
+        og_meta += """
+  <meta name="twitter:card" content="summary" />"""
+    
+    if page_url:
+        og_meta += f"""
+  <meta name="twitter:title" content="{_escape(full_title)}" />
+  <meta name="twitter:description" content="{_escape(description)}" />"""
+    
     return f"""
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{_escape(title)}</title>
+  <title>{_escape(full_title)}</title>
   <meta name="description" content="{_escape(description)}" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="{_escape(site_name)}" />{og_meta}
+  <link rel="canonical" href="{_escape(page_url)}" />
   <link rel="stylesheet" href="{_escape(css_href)}" />{extra_css}
 </head>
 """
@@ -644,6 +681,14 @@ def _render_section(
         return _render_contact_form(section, current_path)
     if kind == "digest_list":
         return _render_digest_list(section, current_path, digests)
+    if kind == "project_grid_v2":
+        return _render_project_grid_v2(section, current_path, pages)
+    if kind == "team_grid":
+        return _render_team_grid(section, current_path)
+    if kind == "pub_list":
+        return _render_pub_list(section, current_path)
+    if kind == "research_grid":
+        return _render_research_grid(section, current_path)
     heading = _escape(section.get("title", ""))
     body = _render_markdown(_read_block(section.get("source_md", "")))
     cta_text = _escape(section.get("cta_text", ""))
@@ -655,19 +700,10 @@ def _render_section(
     image_src = _resolve_image_src(section.get("hero_image", ""), current_path)
     image = f"<figure class=\"image-frame\"><img src=\"{_escape(image_src)}\" alt=\"{heading} image\" /></figure>"
     section_id = _escape(section.get("section_id", ""))
-    
-    # Layout & Style Classes
-    width_class = f"width-{section.get('width', 'full')}"
-    style_class = f"style-{section.get('style_variant', 'glass')}"
-    section_class = f"content-section {width_class} {style_class}"
-    
-    if "publications" in heading.lower():
-        section_class += " publications-section"
-    
     return f"""
-<section class="{section_class}" id="{section_id}">
+<section class="content-section" id="{section_id}">
   <div class="content-grid">
-    <div class="section-body">
+    <div>
       <h2>{heading}</h2>
       {body}
       {cta}
@@ -677,81 +713,172 @@ def _render_section(
 </section>
 """
 
-
-
-def _render_project_grid_v2(section: dict[str, str], current_path: Path) -> str:
+def _render_project_grid_v2(section: dict[str, str], current_path: Path, pages: dict[str, dict[str, object]]) -> str:
+    tiles_path = CONTENT_DIR / "profile_tiles.csv"
     projects_path = CONTENT_DIR / "projects.json"
-    if not projects_path.exists():
-        return "<p>Missing projects.json</p>"
+    projects: list[dict[str, Any]] = []
+    if tiles_path.exists():
+        def parse_list(raw: str) -> list[str]:
+            if not raw:
+                return []
+            return [item.strip() for item in raw.split(";") if item.strip()]
+
+        with tiles_path.open(newline="", encoding="utf-8") as handle:
+            reader = csv.DictReader(handle)
+            for row in reader:
+                data = {key: (value or "").strip() for key, value in row.items()}
+                keywords = parse_list(data.get("keywords", ""))
+                deck = parse_list(data.get("deck", ""))
+                projects.append(
+                    {
+                        "id": data.get("id", ""),
+                        "title": data.get("title", ""),
+                        "description": data.get("description", ""),
+                        "keywords": keywords,
+                        "tier": data.get("tier", ""),
+                        "type": data.get("type", ""),
+                        "target": data.get("target", ""),
+                        "content_file": data.get("content_file", ""),
+                        "image": data.get("image", ""),
+                        "deck": deck,
+                    }
+                )
+    elif projects_path.exists():
+        projects = json.loads(projects_path.read_text(encoding="utf-8"))
+        if not isinstance(projects, list):
+            return "<p>Invalid projects.json format</p>"
+    else:
+        return "<p>Missing profile_tiles.csv</p>"
     
-    projects = json.loads(projects_path.read_text(encoding="utf-8"))
-    if not isinstance(projects, list):
-        return "<p>Invalid projects.json format</p>"
-    
-    cards = []
+    upper_cards = []
+    lower_cards = []
     overlays = []
+    overlay_cache: dict[str, str] = {}
+    image_cache: dict[str, str] = {}
+    tile_index = 0
     
     for proj in projects:
         t = proj.get("title", "")
         desc = proj.get("description", "")
         img_raw = proj.get("image", "")
-        img = _resolve_image_src(img_raw, current_path)
-        p_type = proj.get("type", "link")
+        img_key = str(img_raw or "")
+        img = image_cache.get(img_key)
+        if img is None:
+            img = _resolve_image_src(img_raw, current_path)
+            image_cache[img_key] = img
+        p_type = str(proj.get("type") or "link").lower()
         p_id = proj.get("id", "")
-        keywords = proj.get("keywords", [])
-        if isinstance(keywords, list):
-            keywords = ", ".join(keywords)
+        tier = str(proj.get("tier") or ("upper" if p_type == "overlay" else "lower")).lower()
+        deck = proj.get("deck") or []
+        if not isinstance(deck, list):
+            deck = []
+        deck_images = [str(item) for item in deck if item]
+        primary_image = img
+        alt_image = ""
+        if deck_images:
+            primary_image = _resolve_image_src(deck_images[0], current_path)
+            if len(deck_images) > 1:
+                alt_image = _resolve_image_src(deck_images[1], current_path)
+        keywords_raw = proj.get("keywords", "")
+        keywords_list: list[str] = []
+        if isinstance(keywords_raw, list):
+            keywords_list = [str(item) for item in keywords_raw if item]
+        elif keywords_raw:
+            keywords_list = [str(keywords_raw)]
             
         action_attr = ""
         link_target = "#"
         
-        if p_type == "link":
-            link_target = proj.get("target", "#")
-            action_attr = f'target="_blank"' 
-        elif p_type == "overlay":
+        if p_type == "overlay":
             link_target = "#"
             action_attr = f'data-type="overlay" data-overlay-id="{p_id}"'
+        else:
+            target = str(proj.get("target") or "#").strip()
+            if target in pages:
+                link_target = _rel_page_link(current_path, target)
+            else:
+                link_target = target
+            if link_target.startswith(("http://", "https://")):
+                action_attr = 'target="_blank" rel="noopener"'
+        
+        if p_type == "overlay":
+            # Pre-render overlay content
             content_file = proj.get("content_file", "")
             overlay_body = ""
             if content_file:
-                overlay_body = _render_markdown(_read_block(content_file))
+                cached = overlay_cache.get(content_file)
+                if cached is None:
+                    cached = _render_markdown(_read_block(content_file))
+                    overlay_cache[content_file] = cached
+                overlay_body = cached
             
+            title_id = f"overlay-title-{p_id}"
+            body_id = f"overlay-body-{p_id}"
             overlays.append(f"""
-<div class="project-overlay" id="overlay-{p_id}">
+<div class="project-overlay" id="overlay-{p_id}" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="{_escape(title_id)}" aria-describedby="{_escape(body_id)}">
   <div class="overlay-backdrop" data-close-overlay></div>
   <div class="overlay-content">
-    <button class="overlay-close" data-close-overlay>&times;</button>
+    <button class="overlay-close" type="button" aria-label="Close project details" data-close-overlay>&times;</button>
     <div class="overlay-scroll">
-      <h2>{_escape(t)}</h2>
+      <h2 id="{_escape(title_id)}">{_escape(t)}</h2>
       <img src="{_escape(img)}" alt="{_escape(t)}" class="overlay-hero">
-      <div class="overlay-body">{overlay_body}</div>
+      <div class="overlay-body" id="{_escape(body_id)}">{overlay_body}</div>
     </div>
   </div>
 </div>""")
 
-        cards.append(f"""
-<a href="{link_target}" class="project-card-v2 scroll-reveal" {action_attr}>
-  <div class="card-bg" data-bg="{_escape(img)}"></div>
-  <div class="card-content">
-    <h3>{_escape(t)}</h3>
-    <p class="keywords">{_escape(keywords)}</p>
-    <div class="card-hover-reveal">
-      <p>{_escape(desc)}</p>
+        keyword_html = "".join(f"<span>{_escape(item)}</span>" for item in keywords_list)
+        keywords_block = f"<div class=\"tile-keywords\">{keyword_html}</div>" if keyword_html else ""
+        action_label = "Expand" if p_type == "overlay" else "Open"
+        if link_target.startswith(("http://", "https://")):
+            action_label = "Visit"
+        alt_media = ""
+        tile_class = f"profile-tile profile-tile--{_escape(tier)} project-card-v2 scroll-reveal"
+        float_offset = f"{(tile_index % 7) * 0.55:.2f}"
+        tile_style_parts = [f"--float-offset: {float_offset};"]
+        if alt_image:
+            alt_media = f"<div class=\"tile-media tile-media--alt\" style=\"background-image: url('{_escape(alt_image)}')\"></div>"
+            tile_class += " has-deck"
+            deck_delay = f"{(tile_index % 4) * 1.5:.1f}s"
+            tile_style_parts.append(f"--deck-delay: {deck_delay};")
+        tile_style = f" style=\"{' '.join(tile_style_parts)}\""
+        card_html = f"""
+<a href="{link_target}" class="{tile_class}" data-tier="{_escape(tier)}"{tile_style} {action_attr}>
+  <span class="tile-stack tile-stack--one"></span>
+  <span class="tile-stack tile-stack--two"></span>
+  <div class="tile-surface">
+    <div class="tile-media" style="background-image: url('{_escape(primary_image)}')"></div>
+    {alt_media}
+    <div class="tile-scrim"></div>
+    <div class="tile-content">
+      <h3>{_escape(t)}</h3>
+      {keywords_block}
+      <span class="tile-action">{action_label}</span>
     </div>
   </div>
-</a>""")
+</a>"""
+        tile_index += 1
+        if tier == "upper":
+            upper_cards.append(card_html)
+        else:
+            lower_cards.append(card_html)
 
-    grid_html = "".join(cards)
+    upper_html = "".join(upper_cards)
+    lower_html = "".join(lower_cards)
     overlays_html = "".join(overlays)
+    
     section_id = _escape(section.get("section_id", "projects"))
     heading = _escape(section.get("title", "Projects"))
+    upper_row = f"<div class=\"profile-row profile-row--upper\">{upper_html}</div>" if upper_html else ""
+    lower_row = f"<div class=\"profile-row profile-row--lower\">{lower_html}</div>" if lower_html else ""
     
     return f"""
 <section class="content-section project-grid-section" id="{section_id}">
   <div class="v2-grid-container">
     <h2>{heading}</h2>
-    <div class="project-grid-v2-wrapper">
-      {grid_html}
+    <div class="profile-tiles">
+      {upper_row}
+      {lower_row}
     </div>
   </div>
   {overlays_html}
@@ -789,6 +916,42 @@ def _render_team_grid(section: dict[str, str], current_path: Path) -> str:
     <h2>{heading}</h2>
     <div class="team-grid">
       {"".join(cards)}
+    </div>
+  </div>
+</section>
+"""
+
+def _render_pub_list(section: dict[str, str], current_path: Path) -> str:
+    path = CONTENT_DIR / "publications.json"
+    if not path.exists(): return "<p>Missing publications.json</p>"
+    items = json.loads(path.read_text(encoding="utf-8"))
+    
+    rows = []
+    for p in items:
+        title = _escape(p.get("title", ""))
+        authors = _escape(p.get("authors", ""))
+        venue = _escape(p.get("venue", ""))
+        year = _escape(p.get("year", ""))
+        link = _escape(p.get("link", "#"))
+        
+        rows.append(f"""
+<div class="pub-row scroll-reveal">
+  <div class="pub-year">{year}</div>
+  <div class="pub-content">
+    <a href="{link}" class="pub-title" target="_blank">{title}</a>
+    <div class="pub-meta">{authors} — <span class="venue">{venue}</span></div>
+  </div>
+</div>""")
+
+    section_id = _escape(section.get("section_id", "publications"))
+    heading = _escape(section.get("title", "Publications"))
+    
+    return f"""
+<section class="content-section pub-section" id="{section_id}">
+  <div class="v2-grid-container">
+    <h2>{heading}</h2>
+    <div class="pub-list">
+      {"".join(rows)}
     </div>
   </div>
 </section>
@@ -832,7 +995,6 @@ def _render_research_grid(section: dict[str, str], current_path: Path) -> str:
   </div>
 </section>
 """
-
 
 def _render_linkhub_links(links: list[dict[str, str]]) -> str:
     if not links:
@@ -1006,7 +1168,7 @@ def _render_digest_page(digest: dict[str, str], pages: dict[str, dict[str, objec
     
     doc = f"""<!doctype html>
 <html lang=\"en\">
-{_render_head(digest.get('title', ''), css_href, site.get('meta_description', ''), extra_css=search_css)}
+{_render_head(digest.get('title', ''), css_href, site.get('meta_description', ''), extra_css=search_css, site=site, page_url=site.get('domain', '') + f"/digest/{slug}/")}
 <body data-newsletter-mode="{_escape(site.get('newsletter_mode', 'local'))}" data-newsletter-url="{_escape(site.get('newsletter_provider_url', ''))}">
   {search_ui}
   <div class="page-shell">
@@ -1065,8 +1227,8 @@ def _render_blog_post(post: dict[str, str], pages: dict[str, dict[str, object]])
     
     doc = f"""<!doctype html>
 <html lang=\"en\">
-{_render_head(post.get('title', ''), css_href, _read_site_config().get('meta_description', ''), extra_css=search_css)}
-<body data-newsletter-mode="{_escape(_read_site_config().get('newsletter_mode', 'local'))}" data-newsletter-url="{_escape(_read_site_config().get('newsletter_provider_url', ''))}">
+{_render_head(post.get('title', ''), css_href, site.get('meta_description', ''), extra_css=search_css, site=site, page_url=site.get('domain', '') + f"/blog/{slug}/")}
+<body data-newsletter-mode="{_escape(site.get('newsletter_mode', 'local'))}" data-newsletter-url="{_escape(site.get('newsletter_provider_url', ''))}">
   {search_ui}
   <div class="page-shell">
     {header}
@@ -1115,6 +1277,7 @@ def _build_css(site: dict[str, Any]) -> str:
 
     # Theme Specifics
     theme_overrides = ""
+    profile_lower_columns = str(site.get("profile_lower_columns") or "3").strip()
     layout_variant = site.get("layout_variant", "standard")
 
     if layout_variant == "sentient":
@@ -1124,11 +1287,7 @@ def _build_css(site: dict[str, Any]) -> str:
             background-color: #0d1117;
             background-image: linear-gradient(0deg, transparent 24%, rgba(0, 255, 100, .03) 25%, rgba(0, 255, 100, .03) 26%, transparent 27%, transparent 74%, rgba(0, 255, 100, .03) 75%, rgba(0, 255, 100, .03) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(0, 255, 100, .03) 25%, rgba(0, 255, 100, .03) 26%, transparent 27%, transparent 74%, rgba(0, 255, 100, .03) 75%, rgba(0, 255, 100, .03) 76%, transparent 77%, transparent);
             background-size: 50px 50px;
-            font-family: 'IBM Plex Mono', monospace;
-        }}
-        :root {{
-            --card: rgba(13, 17, 23, 0.85);
-            --glass: rgba(13, 17, 23, 0.7);
+            font-family: 'Courier New', Courier, monospace;
         }}
         .sentient-layout {{
             max-width: 1200px;
@@ -1141,7 +1300,7 @@ def _build_css(site: dict[str, Any]) -> str:
             box-shadow: 0 0 20px rgba(0, 255, 100, 0.2);
             border-radius: 6px;
             overflow: hidden;
-            font-family: 'IBM Plex Mono', monospace;
+            font-family: 'Fira Code', 'Courier New', monospace;
         }}
         .terminal-header {{
             background: #161b22;
@@ -1225,81 +1384,508 @@ def _build_css(site: dict[str, Any]) -> str:
   --glass: rgba(255, 255, 255, 0.6);
   --shadow: {primary_dark}1a;
   
-  --font-heading: "IBM Plex Mono", monospace;
-  --font-body: "IBM Plex Mono", monospace;
+  --font-heading: "Cormorant Garamond", serif;
+  --font-body: "Outfit", sans-serif;
   --radius: 8px;
+  --profile-lower-columns: {profile_lower_columns};
   --max-width: 1200px;
 }}
 
-/* Base */
+/* Base & Reset */
+*, *::before, *::after {{ box-sizing: border-box; }}
+html {{ scroll-behavior: smooth; }}
 body {{
   margin: 0;
   font-family: var(--font-body);
   background: var(--paper);
   color: var(--text-main);
-  line-height: 1.6;
+  line-height: 1.7;
+  font-feature-settings: "kern", "liga", "clig", "calt";
   transition: background-color 0.3s, color 0.3s;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }}
 
 /* Typography */
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600&family=Fira+Code:wght@400;500&family=Playfair+Display:wght@400;700&display=swap');
 
-h1, h2, h3 {{
+h1, h2, h3, h4, h5, h6 {{
   font-family: var(--font-heading);
   color: var(--primary);
-  margin-top: 0;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
 }}
 
-h1 {{ font-size: 3.5rem; letter-spacing: -0.01em; margin-bottom: 0.5rem; line-height: 1.1; }}
-h2 {{ font-size: 2.2rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--gold); display: inline-block; padding-bottom: 5px; }}
-a {{ color: var(--primary); text-decoration: none; font-weight: 500; transition: color 0.2s; }}
-a:hover {{ color: var(--primary-bright); }}
+h1 {{ font-size: clamp(2.5rem, 5vw, 4.5rem); letter-spacing: -0.02em; margin-bottom: 1rem; }}
+h2 {{ font-size: clamp(2rem, 4vw, 3rem); padding-bottom: 0.5rem; border-bottom: 1px solid var(--gold); display: inline-block; }}
+h3 {{ font-size: 1.75rem; }}
+p {{ margin-bottom: 1.5rem; max-width: 70ch; }}
+
+a {{ color: var(--primary); text-decoration: none; font-weight: 500; transition: all 0.2s ease; position: relative; }}
+a:not(.button):hover {{ color: var(--primary-bright); }}
+a:not(.button)::after {{
+    content: ''; position: absolute; width: 100%; transform: scaleX(0); height: 1px; bottom: -2px; left: 0;
+    background-color: var(--primary-bright); transform-origin: bottom right; transition: transform 0.25s ease-out;
+}}
+a:not(.button):hover::after {{ transform: scaleX(1); transform-origin: bottom left; }}
 
 /* Layout */
 .page-shell {{ min-height: 100vh; display: flex; flex-direction: column; }}
-main {{ flex: 1; padding-top: 80px; width: 100%; max-width: var(--max-width); margin: 0 auto; padding-left: 5vw; padding-right: 5vw; box-sizing: border-box; }}
+main {{ flex: 1; padding-top: 80px; width: 100%; max-width: var(--max-width); margin: 0 auto; padding-left: 5vw; padding-right: 5vw; }}
 
 /* Header */
 .site-header {{
   position: fixed;
+  top: 0; left: 0; width: 100%;
+  padding: 1rem 5vw;
+  display: flex; justify-content: space-between; align-items: center;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}}
+.site-header.scrolled {{ padding: 0.75rem 5vw; background: rgba(255, 255, 255, 0.95); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }}
+
+.logo {{ font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: var(--primary); letter-spacing: 0.05em; text-transform: uppercase; }}
+.nav {{ display: flex; gap: 2rem; }}
+.nav a {{ color: var(--text-muted); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.1em; font-weight: 600; }}
+.nav a:hover, .nav a.active {{ color: var(--primary); }}
+.nav a::after {{ display: none; }} /* Disable underline for nav items */
+
+/* Burger Menu */
+.header-right {{ display: flex; align-items: center; gap: 1rem; }}
+.burger-toggle {{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+}}
+.burger-toggle span {{
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--text-main);
+  transition: transform 0.3s ease;
+}}
+.burger-menu-overlay {{
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  padding: 15px 5vw;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background: rgba(10, 10, 10, 0.95);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
   z-index: 1000;
-  background: var(--header-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--card-border);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 6rem 2rem 3rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }}
-
-.logo {{
+.burger-menu-overlay.active {{
+  opacity: 1;
+  pointer-events: all;
+}}
+.burger-close {{
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  font-size: 3rem;
+  background: none;
+  border: none;
+  color: var(--text-main);
+  cursor: pointer;
+}}
+.burger-nav {{
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: center;
+}}
+.burger-nav a {{
   font-family: var(--font-heading);
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--primary);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-size: 2rem;
+  color: var(--text-main);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}}
+.burger-nav a:hover {{
+  color: var(--gold);
+}}
+.burger-nav hr {{
+  width: 50%;
+  margin: 1rem auto;
+  border: 0;
+  border-top: 1px solid var(--card-border);
 }}
 
-.nav {{ display: flex; gap: 30px; }}
-.nav a {{ color: var(--text-muted); text-transform: uppercase; font-size: 13px; letter-spacing: 0.1em; font-weight: 600; }}
-.nav a:hover, .nav a.active {{ color: var(--primary); }}
-.cta {{
-  padding: 10px 22px;
-  border-radius: 999px;
-  border: 1px solid var(--primary);
-  color: var(--primary);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 12px;
-  font-weight: 600;
+/* Profile Tiles */
+.profile-tiles {{
+  display: grid;
+  gap: 2rem;
+  margin-top: 2.5rem;
 }}
-.cta:hover {{ background: var(--primary); color: #fff; }}
+.profile-row {{
+  gap: 1.5rem;
+}}
+.profile-row--upper {{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  perspective: 1200px;
+}}
+.profile-row--lower {{
+  display: grid;
+  grid-template-columns: repeat(var(--profile-lower-columns), minmax(220px, 1fr));
+}}
+.profile-tile {{
+  --tile-tilt-x: 0deg;
+  --tile-tilt-y: 0deg;
+  --glow-x: 50%;
+  --glow-y: 25%;
+  --float-x: 0px;
+  --float-y: 0px;
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  min-height: 240px;
+  border-radius: 18px;
+  overflow: visible;
+  color: #f8f7f4;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.4);
+  box-shadow: 0 24px 50px -30px rgba(0, 0, 0, 0.6);
+  transform-style: preserve-3d;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease, flex 0.45s ease;
+  transform: translate3d(var(--float-x), var(--float-y), 0) rotateX(var(--tile-tilt-x)) rotateY(var(--tile-tilt-y));
+}}
+.profile-tile::before {{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--glow-x) var(--glow-y), rgba(255, 255, 255, 0.35), transparent 55%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}}
+.profile-tile::after {{
+  content: "";
+  position: absolute;
+  inset: 12% 6% auto 6%;
+  height: 55%;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.08);
+  filter: blur(28px);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}}
+.profile-tile:hover {{
+  transform: translate3d(var(--float-x), calc(var(--float-y) - 10px), 0) rotateX(var(--tile-tilt-x)) rotateY(var(--tile-tilt-y));
+  box-shadow: 0 30px 60px -28px rgba(0, 0, 0, 0.7);
+  border-color: rgba(255, 255, 255, 0.35);
+}}
+.profile-tile:hover::before,
+.profile-tile:hover::after {{
+  opacity: 1;
+}}
+.profile-row--upper .profile-tile {{
+  flex: 1 1 240px;
+  min-height: 320px;
+  --tile-tilt-x: 4deg;
+  --tile-tilt-y: 0deg;
+}}
+.profile-row--upper .profile-tile:hover {{
+  flex: 1.55 1 240px;
+}}
+.profile-row--lower .profile-tile {{
+  min-height: 210px;
+}}
+.tile-stack {{
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: rgba(15, 15, 15, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 40px -35px rgba(0, 0, 0, 0.6);
+  transform-style: preserve-3d;
+  pointer-events: none;
+  z-index: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}}
+.tile-stack--one {{
+  transform: translate3d(0, 14px, -40px) scale(0.98);
+  opacity: 0.8;
+}}
+.tile-stack--two {{
+  transform: translate3d(0, 26px, -80px) scale(0.95);
+  opacity: 0.6;
+}}
+.profile-tile:hover .tile-stack--one {{
+  transform: translate3d(0, 18px, -40px) scale(0.98);
+}}
+.profile-tile:hover .tile-stack--two {{
+  transform: translate3d(0, 30px, -80px) scale(0.95);
+}}
+.tile-surface {{
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  background: rgba(0, 0, 0, 0.45);
+}}
+.tile-media {{
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.6) saturate(0.95);
+  transition: transform 0.6s ease, filter 0.4s ease;
+  z-index: 0;
+}}
+.tile-media--alt {{
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  z-index: 0;
+}}
+.profile-tile.has-deck .tile-media {{
+  animation: deck-base 12s ease-in-out infinite;
+  animation-delay: var(--deck-delay, 0s);
+}}
+.profile-tile.has-deck .tile-media--alt {{
+  animation: deck-alt 12s ease-in-out infinite;
+  animation-delay: calc(var(--deck-delay, 0s) + 6s);
+}}
+.profile-row--upper .tile-media {{
+  animation-name: deck-base, media-drift;
+  animation-duration: 12s, 16s;
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-iteration-count: infinite, infinite;
+  animation-delay: var(--deck-delay, 0s), 0s;
+}}
+.profile-row--upper .tile-media--alt {{
+  animation-name: deck-alt, media-drift;
+  animation-duration: 12s, 16s;
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-iteration-count: infinite, infinite;
+  animation-delay: calc(var(--deck-delay, 0s) + 6s), 0s;
+}}
+.profile-tile:hover .tile-media {{
+  transform: scale(1.06);
+  filter: brightness(0.5) saturate(1.1);
+}}
+.profile-tile:hover .tile-media--alt {{
+  opacity: 1;
+}}
+.tile-scrim {{
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.7) 70%);
+  transform: translateZ(10px);
+  z-index: 1;
+}}
+.tile-content {{
+  position: relative;
+  z-index: 2;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transform: translateZ(26px);
+}}
+.tile-content h3 {{
+  margin: 0;
+  font-size: 1.5rem;
+  color: #f8f7f4;
+}}
+.tile-keywords {{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}}
+.tile-keywords span {{
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.45);
+}}
+.tile-action {{
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+}}
+
+@keyframes deck-base {{
+  0%, 45% {{ opacity: 1; }}
+  55%, 100% {{ opacity: 0; }}
+}}
+
+@keyframes deck-alt {{
+  0%, 45% {{ opacity: 0; }}
+  55%, 100% {{ opacity: 1; }}
+}}
+
+@keyframes media-drift {{
+  0%, 100% {{ background-position: 50% 50%; }}
+  50% {{ background-position: 55% 45%; }}
+}}
+
+/* Project Overlays */
+.project-overlay {{
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  perspective: 1200px;
+}}
+.project-overlay.active {{
+  opacity: 1;
+  pointer-events: all;
+}}
+.overlay-backdrop {{
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}}
+.overlay-content {{
+  position: relative;
+  width: min(900px, 92vw);
+  max-height: 85vh;
+  background: var(--paper);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transform: translateY(24px) scale(0.92) rotateX(-8deg);
+  transform-origin: var(--origin-x, 50%) var(--origin-y, 20%);
+  transition: transform 0.45s ease, opacity 0.35s ease;
+}}
+.project-overlay.active .overlay-backdrop {{
+  opacity: 1;
+}}
+.project-overlay.active .overlay-content {{
+  opacity: 1;
+  transform: translateY(0) scaleY(1) rotateX(0deg);
+}}
+.overlay-close {{
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: var(--text-main);
+  cursor: pointer;
+  z-index: 10;
+}}
+.overlay-scroll {{
+  overflow-y: auto;
+  padding: 2rem;
+}}
+.overlay-hero {{
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}}
+.overlay-body {{
+  font-family: var(--font-body);
+  line-height: 1.6;
+}}
+.overlay-body h3 {{
+  font-family: var(--font-heading);
+  margin-top: 1.5rem;
+}}
+
+/* Scroll Reveal */
+.scroll-reveal {{
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}}
+.scroll-reveal.revealed {{
+  opacity: 1;
+  transform: translateY(0);
+}}
+
+@media (max-width: 900px) {{
+  .profile-row--upper .profile-tile {{
+    flex: 1 1 100%;
+  }}
+  .profile-row--upper .profile-tile:hover {{
+    flex: 1 1 100%;
+  }}
+  .profile-row--lower {{
+    grid-template-columns: repeat(2, minmax(200px, 1fr));
+  }}
+}}
+
+@media (max-width: 768px) {{
+  .profile-row--lower {{
+    grid-template-columns: 1fr;
+  }}
+  .burger-nav a {{
+    font-size: 1.5rem;
+  }}
+  .burger-close {{
+    top: 1.5rem;
+    right: 1.25rem;
+    font-size: 2.5rem;
+  }}
+}}
+
+@media (prefers-reduced-motion: reduce) {{
+  .profile-tile,
+  .overlay-content,
+  .scroll-reveal {{
+    transition: none;
+    transform: none;
+  }}
+  .profile-tile:hover {{
+    transform: none;
+  }}
+  .tile-media,
+  .tile-media--alt {{
+    transition: none;
+    animation: none;
+  }}
+}}
 
 /* Components */
 .construction-banner {{
@@ -1319,207 +1905,59 @@ main {{ flex: 1; padding-top: 80px; width: 100%; max-width: var(--max-width); ma
   background: var(--card);
   border: 1px solid var(--card-border);
   border-radius: var(--radius);
-  padding: 30px;
-  box-shadow: 0 4px 20px var(--shadow);
-  transition: transform 0.3s, box-shadow 0.3s;
+  padding: 2rem;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02), 0 2px 4px -1px rgba(0,0,0,0.02);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }}
-
-.card:hover {{ transform: translateY(-3px); box-shadow: 0 8px 30px var(--shadow); }}
+.card:hover {{ transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.05), 0 10px 10px -5px rgba(0,0,0,0.02); border-color: var(--gold); }}
 
 .button {{
-  padding: 12px 28px;
-  background: var(--primary);
-  color: #fff;
-  border-radius: 4px;
-  text-transform: uppercase;
-  font-size: 13px;
-  letter-spacing: 0.1em;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  display: inline-block;
-  text-align: center;
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0.75rem 1.5rem;
+  background: var(--primary); color: #fff;
+  border-radius: 4px; border: 1px solid var(--primary);
+  text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.1em; font-weight: 600;
+  cursor: pointer; transition: all 0.2s ease;
 }}
-.button:hover {{ background: var(--primary-bright); color: #fff; }}
-.button.ghost {{ background: transparent; border: 1px solid var(--primary); color: var(--primary); }}
+.button:hover {{ background: var(--primary-bright); border-color: var(--primary-bright); transform: translateY(-1px); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }}
+.button.ghost {{ background: transparent; color: var(--primary); }}
 .button.ghost:hover {{ background: var(--primary); color: #fff; }}
 
 /* Grid Layouts */
-.content-grid {{ display: grid; grid-template-columns: 1fr; gap: 40px; }}
+.content-grid {{ display: grid; grid-template-columns: 1fr; gap: 3rem; margin: 4rem 0; }}
 @media (min-width: 768px) {{
   .content-grid {{ grid-template-columns: 1fr 1fr; align-items: center; }}
   .content-grid > div:first-child {{ order: 1; }}
   .content-grid > div:last-child {{ order: 2; }}
 }}
 
-.card-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; margin: 40px 0; }}
-
-/* Section Styling */
-.content-section {{
-  margin: 60px 0;
-  padding: 40px;
-  background: var(--glass);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius);
-  box-shadow: 0 12px 30px -20px var(--shadow);
-}}
-.content-section .content-grid {{ align-items: flex-start; }}
-.content-section h2 {{ margin-top: 0; }}
-.content-section ul {{
-  list-style: none;
-  padding: 0;
-  margin: 20px 0 0;
-  display: grid;
-  gap: 16px;
-}}
-.content-section ul li {{
-  padding: 16px 18px;
-  border-radius: calc(var(--radius) - 2px);
-  border: 1px solid var(--card-border);
-  background: var(--card);
-  box-shadow: 0 6px 16px -12px var(--shadow);
-}}
-.content-section blockquote {{
-  margin: 24px 0;
-  padding: 18px 22px;
-  border-left: 4px solid var(--gold);
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: var(--radius);
-}}
-
-/* Forms */
-input, textarea {{
-  width: 100%;
-  padding: 15px;
-  border: 1px solid var(--card-border);
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.8);
-  font-family: var(--font-body);
-  margin-bottom: 20px;
-  box-sizing: border-box;
-}}
-input:focus, textarea:focus {{ border-color: var(--primary); outline: none; box-shadow: 0 0 0 2px var(--card-border); }}
+.card-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; margin: 3rem 0; }}
 
 /* Footer */
 .site-footer {{
-  background: var(--primary-dark);
-  color: var(--cream);
-  padding: 60px 5vw;
-  margin-top: 60px;
+  background: var(--primary-dark); color: var(--cream);
+  padding: 4rem 5vw; margin-top: 6rem;
 }}
 .site-footer a {{ color: var(--gold); opacity: 0.8; }}
 .site-footer a:hover {{ opacity: 1; }}
-.footer-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }}
-.footer-title {{ font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 1rem; color: #fff; }}
+.footer-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem; }}
+.footer-title {{ font-family: var(--font-heading); font-size: 1.25rem; margin-bottom: 1.5rem; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; }}
 
-/* Images */
-img {{ max-width: 100%; height: auto; display: block; }}
-.image-frame {{ margin: 0; overflow: hidden; border-radius: var(--radius); box-shadow: 0 10px 40px -10px var(--shadow); }}
+/* Utilities */
+.sr-only {{ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }}
+.image-frame {{ border-radius: var(--radius); overflow: hidden; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }}
+.image-frame img {{ width: 100%; height: auto; display: block; transition: transform 0.5s ease; }}
+.image-frame:hover img {{ transform: scale(1.03); }}
 
-/* Burger Menu */
-.burger-toggle {{
-  display: none;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 30px;
-  height: 20px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  z-index: 1001;
+/* Form Elements */
+input, textarea {{
+  width: 100%; padding: 1rem;
+  border: 1px solid var(--card-border); border-radius: 4px;
+  background: rgba(255,255,255,0.8);
+  font-family: var(--font-body); font-size: 1rem;
+  margin-bottom: 1.5rem; transition: all 0.2s;
 }}
-
-.burger-toggle span {{
-  display: block;
-  width: 100%;
-  height: 2px;
-  background: var(--text-main);
-  transition: transform 0.3s ease;
-}}
-
-.burger-menu-overlay {{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(10, 10, 10, 0.95);
-  backdrop-filter: blur(16px);
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  overflow-y: auto;
-  padding: 6rem 2rem 3rem;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}}
-
-.burger-menu-overlay.active {{
-  opacity: 1;
-  pointer-events: all;
-}}
-
-.burger-close {{
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-  font-size: 3rem;
-  background: none;
-  border: none;
-  color: var(--text-main);
-  cursor: pointer;
-  z-index: 1001;
-}}
-
-.burger-nav {{
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  text-align: center;
-}}
-
-.burger-nav a {{
-  font-family: var(--font-heading);
-  font-size: 2rem;
-  color: var(--text-main);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}}
-
-.burger-nav a:hover {{
-  color: var(--primary);
-}}
-
-.burger-nav hr {{
-  width: 50%;
-  margin: 1rem auto;
-  border: 0;
-  border-top: 1px solid var(--card-border);
-}}
-
-.header-right {{
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}}
-
-/* Responsive */
-@media (max-width: 768px) {{
-  .nav {{
-    display: none;
-  }}
-  
-  .burger-toggle {{
-    display: flex;
-  }}
-  
-  .cta {{
-    display: none;
-  }}
-}}
+input:focus, textarea:focus {{ border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px rgba(101, 20, 28, 0.1); }}
 
 {theme_overrides}
 """
@@ -1557,6 +1995,259 @@ function smoothScroll() {
       event.preventDefault();
       target.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth' });
     });
+  });
+}
+
+function setupScrollReveal() {
+  const revealItems = document.querySelectorAll('.scroll-reveal');
+  if (!revealItems.length) return;
+  if (prefersReduced) {
+    revealItems.forEach((item) => item.classList.add('revealed'));
+    return;
+  }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  revealItems.forEach((item) => observer.observe(item));
+}
+
+function setupTileBackgrounds() {
+  document.querySelectorAll('[data-bg]').forEach((node) => {
+    const url = node.getAttribute('data-bg');
+    if (!url || node.style.backgroundImage) return;
+    node.style.backgroundImage = `url('${url}')`;
+  });
+}
+
+function setupTileTilt() {
+  if (prefersReduced) return;
+  const tiles = document.querySelectorAll('.profile-row--upper .profile-tile');
+  tiles.forEach((tile) => {
+    let frame = null;
+    const handleMove = (event) => {
+      const rect = tile.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width;
+      const y = (event.clientY - rect.top) / rect.height;
+      const tiltX = (0.5 - y) * 10;
+      const tiltY = (x - 0.5) * 12;
+      const glowX = `${(x * 100).toFixed(1)}%`;
+      const glowY = `${(y * 100).toFixed(1)}%`;
+      if (frame) cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        tile.style.setProperty('--tile-tilt-x', `${tiltX.toFixed(2)}deg`);
+        tile.style.setProperty('--tile-tilt-y', `${tiltY.toFixed(2)}deg`);
+        tile.style.setProperty('--glow-x', glowX);
+        tile.style.setProperty('--glow-y', glowY);
+      });
+    };
+    const handleLeave = () => {
+      if (frame) cancelAnimationFrame(frame);
+      tile.style.setProperty('--tile-tilt-x', '0deg');
+      tile.style.setProperty('--tile-tilt-y', '0deg');
+      tile.style.setProperty('--glow-x', '50%');
+      tile.style.setProperty('--glow-y', '25%');
+    };
+    tile.addEventListener('mousemove', handleMove);
+    tile.addEventListener('mouseleave', handleLeave);
+  });
+}
+
+function setupTileFloat() {
+  if (prefersReduced) return;
+  const tiles = Array.from(document.querySelectorAll('.profile-tile'));
+  if (!tiles.length) return;
+  let raf = null;
+  const animate = (time) => {
+    tiles.forEach((tile, index) => {
+      const offset = parseFloat(tile.style.getPropertyValue('--float-offset')) || (index * 0.6);
+      if (tile.matches(':hover')) {
+        tile.style.setProperty('--float-y', '0px');
+        tile.style.setProperty('--float-x', '0px');
+        return;
+      }
+      const tier = tile.dataset.tier || 'lower';
+      const amp = tier === 'upper' ? 4.5 : 2.5;
+      const ampX = tier === 'upper' ? 3 : 1.8;
+      const speed = tier === 'upper' ? 0.0008 : 0.00065;
+      const y = Math.sin(time * speed + offset) * amp;
+      const x = Math.cos(time * speed + offset) * ampX;
+      tile.style.setProperty('--float-y', `${y.toFixed(2)}px`);
+      tile.style.setProperty('--float-x', `${x.toFixed(2)}px`);
+    });
+    raf = requestAnimationFrame(animate);
+  };
+  const restart = () => {
+    if (!raf) {
+      raf = requestAnimationFrame(animate);
+    }
+  };
+  const stop = () => {
+    if (raf) {
+      cancelAnimationFrame(raf);
+      raf = null;
+    }
+  };
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      stop();
+    } else {
+      restart();
+    }
+  });
+  restart();
+}
+
+function setupOverlays() {
+  const focusableSelector = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex=\"-1\"])';
+  const focusCleanupMap = new WeakMap();
+  const focusReturnMap = new WeakMap();
+  const burgerToggle = document.querySelector('.burger-toggle');
+  if (burgerToggle) {
+    burgerToggle.setAttribute('aria-expanded', 'false');
+  }
+
+  const getFocusable = (container) => Array.from(container.querySelectorAll(focusableSelector));
+
+  const trapFocus = (container) => {
+    const focusables = getFocusable(container);
+    if (!focusables.length) {
+      return () => {};
+    }
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    const handler = (event) => {
+      if (event.key !== 'Tab') return;
+      if (focusables.length === 1) {
+        event.preventDefault();
+        first.focus();
+        return;
+      }
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    container.addEventListener('keydown', handler);
+    return () => container.removeEventListener('keydown', handler);
+  };
+
+  const openOverlay = (overlay, trigger) => {
+    if (!overlay || overlay.classList.contains('active')) return;
+    if (trigger && overlay) {
+      const rect = trigger.getBoundingClientRect();
+      const originX = ((rect.left + rect.width / 2) / window.innerWidth) * 100;
+      const originY = ((rect.top + rect.height / 2) / window.innerHeight) * 100;
+      overlay.style.setProperty('--origin-x', `${originX.toFixed(2)}%`);
+      overlay.style.setProperty('--origin-y', `${Math.min(originY, 60).toFixed(2)}%`);
+    }
+    overlay.classList.add('active');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    focusReturnMap.set(overlay, trigger || document.activeElement);
+    const cleanup = trapFocus(overlay);
+    focusCleanupMap.set(overlay, cleanup);
+    const focusables = getFocusable(overlay);
+    if (focusables.length) {
+      focusables[0].focus({ preventScroll: true });
+    } else {
+      overlay.setAttribute('tabindex', '-1');
+      overlay.focus({ preventScroll: true });
+    }
+  };
+
+  const closeOverlay = (overlay) => {
+    if (!overlay || !overlay.classList.contains('active')) return;
+    overlay.classList.remove('active');
+    overlay.setAttribute('aria-hidden', 'true');
+    const cleanup = focusCleanupMap.get(overlay);
+    if (cleanup) cleanup();
+    focusCleanupMap.delete(overlay);
+    const returnTarget = focusReturnMap.get(overlay);
+    focusReturnMap.delete(overlay);
+    if (!document.querySelector('.project-overlay.active, .burger-menu-overlay.active')) {
+      document.body.style.overflow = '';
+    }
+    if (returnTarget && typeof returnTarget.focus === 'function') {
+      returnTarget.focus({ preventScroll: true });
+    }
+  };
+
+  window.toggleBurgerMenu = function () {
+    const overlay = document.getElementById('burger-menu');
+    if (overlay) {
+      if (overlay.classList.contains('active')) {
+        closeOverlay(overlay);
+        if (burgerToggle) burgerToggle.setAttribute('aria-expanded', 'false');
+      } else {
+        openOverlay(overlay, burgerToggle);
+        if (burgerToggle) burgerToggle.setAttribute('aria-expanded', 'true');
+      }
+    }
+  };
+
+  document.querySelectorAll('[data-type=\"overlay\"]').forEach((trigger) => {
+    trigger.addEventListener('click', (event) => {
+      event.preventDefault();
+      const overlayId = trigger.getAttribute('data-overlay-id');
+      const overlay = document.getElementById(`overlay-${overlayId}`);
+      if (overlay) {
+        openOverlay(overlay, trigger);
+      }
+    });
+  });
+
+  document.querySelectorAll('[data-close-overlay]').forEach((closer) => {
+    closer.addEventListener('click', () => {
+      const overlay = closer.closest('.project-overlay');
+      if (overlay) {
+        closeOverlay(overlay);
+      }
+    });
+  });
+
+  document.querySelectorAll('.project-overlay, .burger-menu-overlay').forEach((overlay) => {
+    overlay.addEventListener('pointerdown', (event) => {
+      if (overlay.classList.contains('project-overlay')) {
+        if (event.target.classList.contains('overlay-backdrop') || event.target === overlay) {
+          closeOverlay(overlay);
+        }
+        return;
+      }
+      if (event.target === overlay) {
+        closeOverlay(overlay);
+        if (burgerToggle) burgerToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+
+  const burgerMenu = document.getElementById('burger-menu');
+  if (burgerMenu) {
+    burgerMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        closeOverlay(burgerMenu);
+        if (burgerToggle) burgerToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      document.querySelectorAll('.project-overlay.active, .burger-menu-overlay.active').forEach((overlay) => {
+        closeOverlay(overlay);
+        if (overlay.id === 'burger-menu' && burgerToggle) {
+          burgerToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
   });
 }
 
@@ -1659,146 +2350,54 @@ function setupContactForm() {
   });
 }
 
-function setupPublicationFilter() {
-  const pubSection = document.querySelector('.publications-section');
-  if (!pubSection) return;
+
+function setupSiteNotice() {
+  const body = document.body;
+  const noticeText = body.dataset.notice;
+  if (!noticeText) return;
+
+  const banner = document.createElement('div');
+  banner.className = 'site-notice-banner';
+  banner.style.cssText = 'background: #ffb84d; color: #000; padding: 10px; text-align: center; font-weight: bold; position: relative; z-index: 9999;';
+  banner.innerHTML = `<span>🚧 ${noticeText}</span><button onclick="this.parentElement.remove()" style="background:none; border:none; color:inherit; font:inherit; cursor:pointer; margin-left:1rem; font-size:1.2em;">&times;</button>`;
+  document.body.prepend(banner);
+}
+
+function setupRhizome() {
+  const container = document.querySelector('.rhizome-container');
+  if (!container) return;
+  const bioBtn = document.getElementById('bio-theme-btn');
+  const technoBtn = document.getElementById('techno-theme-btn');
   
-  const list = pubSection.querySelector('ul');
-  if (!list) return;
-  
-  const items = list.querySelectorAll('li');
-  const categories = new Set(['All']);
-  
-  items.forEach(item => {
-    const text = item.textContent;
-    const match = text.match(/^\\[(.*?)\\]/);
-    if (match) {
-      const cat = match[1];
-      categories.add(cat);
-      item.dataset.category = cat;
-      // Optional: Remove tag from visual text? 
-      // item.innerHTML = item.innerHTML.replace('['+cat+']', '').trim(); 
-      // Keeping it for now as it's explicit.
-    } else {
-      item.dataset.category = 'Other';
-      categories.add('Other');
-    }
-  });
-  
-  if (categories.size <= 2) return; // Don't filter if only All/Other or 1 cat
-  
-  const controls = document.createElement('div');
-  controls.className = 'filter-controls';
-  controls.style.marginBottom = '20px';
-  controls.style.display = 'flex';
-  controls.style.gap = '10px';
-  controls.style.flexWrap = 'wrap';
-  
-  categories.forEach(cat => {
-    const btn = document.createElement('button');
-    btn.className = 'button ghost small';
-    btn.textContent = cat;
-    btn.dataset.filter = cat;
-    if (cat === 'All') btn.classList.add('active');
-    
-    btn.addEventListener('click', () => {
-      controls.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      
-      items.forEach(item => {
-        if (cat === 'All' || item.dataset.category === cat) {
-          item.style.display = '';
-        } else {
-          item.style.display = 'none';
-        }
-      });
+  if (bioBtn && technoBtn) {
+    bioBtn.addEventListener('click', () => {
+        container.classList.remove('theme-techno');
+        container.classList.add('theme-bio');
+        bioBtn.classList.add('active');
+        technoBtn.classList.remove('active');
     });
-    
-    controls.appendChild(btn);
-  });
-  
-  list.parentNode.insertBefore(controls, list);
-}
-
-function setupSentientTerminal() {
-  const terminal = document.querySelector('.terminal-body');
-  if (!terminal) return;
-  
-  const lines = terminal.querySelectorAll('.terminal-output-line, .prompt-command, .terminal-header-block > *');
-  lines.forEach((line, index) => {
-    const text = line.textContent;
-    line.textContent = '';
-    line.style.visibility = 'visible';
-    
-    setTimeout(() => {
-      let i = 0;
-      const interval = setInterval(() => {
-        line.textContent += text[i];
-        i++;
-        if (i >= text.length) clearInterval(interval);
-      }, 20);
-    }, index * 400);
-  });
-}
-
-// Burger Menu Functions
-const burgerToggle = document.querySelector('.burger-toggle');
-
-function openOverlay(overlay, trigger) {
-  overlay.classList.add('active');
-  overlay.setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = 'hidden';
-  
-  // Focus management
-  const firstFocusable = overlay.querySelector('button, a');
-  if (firstFocusable) {
-    setTimeout(() => firstFocusable.focus(), 100);
+    technoBtn.addEventListener('click', () => {
+        container.classList.remove('theme-bio');
+        container.classList.add('theme-techno');
+        technoBtn.classList.add('active');
+        bioBtn.classList.remove('active');
+    });
   }
 }
-
-function closeOverlay(overlay) {
-  overlay.classList.remove('active');
-  overlay.setAttribute('aria-hidden', 'true');
-  document.body.style.overflow = '';
-}
-
-window.toggleBurgerMenu = function () {
-  const overlay = document.getElementById('burger-menu');
-  if (overlay) {
-    if (overlay.classList.contains('active')) {
-      closeOverlay(overlay);
-      if (burgerToggle) burgerToggle.setAttribute('aria-expanded', 'false');
-    } else {
-      openOverlay(overlay, burgerToggle);
-      if (burgerToggle) burgerToggle.setAttribute('aria-expanded', 'true');
-    }
-  }
-};
-
-// Close burger on escape
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    const burgerMenu = document.getElementById('burger-menu');
-    if (burgerMenu && burgerMenu.classList.contains('active')) {
-      window.toggleBurgerMenu();
-    }
-  }
-});
 
 window.addEventListener('DOMContentLoaded', () => {
+  setupSiteNotice();
   revealOnScroll();
+  setupScrollReveal();
+  setupTileBackgrounds();
+  setupTileTilt();
+  setupTileFloat();
+  setupOverlays();
   smoothScroll();
   setupNewsletter();
   setupContactForm();
-  setupPublicationFilter();
-  if (document.querySelector('.sentient-layout')) {
-    setupSentientTerminal();
-  }
+  setupRhizome();
 });
-
-// Import new intricate scripts if available
-document.write('<script src="assets/js/knowledge_graph.js"><\/script>');
-document.write('<script src="assets/js/hud.js"><\/script>');
 """.lstrip()
 
 
@@ -1932,45 +2531,6 @@ def _render_swarm_layout(site: dict[str, str], pages: dict[str, dict[str, object
     """
 
 
-def _render_portfolio_layout(site: dict[str, str], pages: dict[str, dict[str, object]], current_path: Path) -> str:
-    """Renders the 'OnePager' Portfolio layout for Patrick Schimpl."""
-    hero_title = _escape(site.get("site_name", "Academic Portfolio"))
-    hero_tagline = _escape(site.get("site_tagline", "Research & Design"))
-    
-    # Custom Hero HTML with the new abstract image
-    hero_html = f"""
-    <section class="portfolio-hero">
-        <div class="portfolio-hero-bg">
-             <img src="{_escape(_rel_link(current_path, Path("assets/img/patrick_hero_future_academic_1767665411296.png")))}" alt="Abstract Data Visualization" />
-        </div>
-        <div class="portfolio-hero-content">
-            <p class="eyebrow">Academic Portfolio</p>
-            <h1>{hero_title}</h1>
-            <p class="subtitle">{hero_tagline}</p>
-        </div>
-    </section>
-    """
-
-    # Render Sections (Research, Team, Publications)
-    # Reusing standard sections but wrapped in a container class
-    sections_html = ""
-    home_page = pages.get("", {})
-    if home_page and "sections" in home_page:
-        for section in home_page["sections"]:
-            if section.get("kind") == "hero": continue 
-            
-            # Wrap standard sections in a content-section div
-            # We inject a small div wrapper around the standard render
-            sections_html += f'<div class="content-section">{_render_section(section, current_path, pages, [])}</div>'
-
-    return f"""
-    {hero_html}
-    <div class="portfolio-content">
-        {sections_html}
-    </div>
-    """
-
-
 def _render_rhizome_layout(site: dict[str, str], pages: dict[str, dict[str, object]], current_path: Path) -> str:
     hero_title = _escape(site.get("site_name", "Rhizome"))
     tagline = _escape(site.get("site_tagline", ""))
@@ -2058,9 +2618,6 @@ def _render_sentient_layout(site: dict[str, str], pages: dict[str, dict[str, obj
         <div class="terminal-title">system@sentient:~$ {hero_title}</div>
     </div>
     <div class="terminal-body">
-        <div class="terminal-vis-layer">
-            <img src="{_escape(_rel_link(current_path, Path("assets/img/sentient_hero_cyberpunk_crt_1767665692747.png")))}" alt="System Visualization" />
-        </div>
         <div class="terminal-prompt">
             <span class="prompt-user">user@sentient</span>
             <span class="prompt-symbol">$</span>
@@ -2102,50 +2659,6 @@ def _render_sentient_layout(site: dict[str, str], pages: dict[str, dict[str, obj
             </div>
         </div>
         
-        <div class="terminal-prompt">
-            <span class="prompt-user">user@sentient</span>
-            <span class="prompt-symbol">$</span>
-            <span class="prompt-command">show_status</span>
-        </div>
-        <div class="terminal-output">
-            <div class="terminal-status-grid">
-                <div class="status-card">
-                    <p class="status-label">Perception Stack</p>
-                    <p class="status-value">CALIBRATED</p>
-                </div>
-                <div class="status-card">
-                    <p class="status-label">Memory Core</p>
-                    <p class="status-value">STABLE</p>
-                </div>
-                <div class="status-card">
-                    <p class="status-label">Ethics Layer</p>
-                    <p class="status-value">VERIFIED</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="terminal-prompt">
-            <span class="prompt-user">user@sentient</span>
-            <span class="prompt-symbol">$</span>
-            <span class="prompt-command">show_labs</span>
-        </div>
-        <div class="terminal-output">
-            <div class="terminal-lab-grid">
-                <div class="terminal-lab">
-                    <h4>Embodied Cognition</h4>
-                    <p>Robotic perception loops and adaptive control.</p>
-                </div>
-                <div class="terminal-lab">
-                    <h4>Collective Reasoning</h4>
-                    <p>Multi-agent coordination and shared inference.</p>
-                </div>
-                <div class="terminal-lab">
-                    <h4>Safety Protocols</h4>
-                    <p>Alignment frameworks and fail-safe triggers.</p>
-                </div>
-            </div>
-        </div>
-
         <div class="terminal-prompt">
             <span class="prompt-user">user@sentient</span>
             <span class="prompt-symbol">$</span>
@@ -2474,9 +2987,7 @@ def build_site() -> None:
     digests = _read_digests()
     meta_description = site.get("meta_description", "")
     layout_variant = (site.get("layout_variant") or "standard").strip().lower()
-    layout_variant = (site.get("layout_variant") or "standard").strip().lower()
-    if layout_variant not in {"standard", "linkhub", "profile", "mescia_landing", "archive", "swarm", "rhizome", "sentient", "portfolio"}:
-        layout_variant = "standard"
+    if layout_variant not in {"standard", "linkhub", "profile", "mescia_landing", "archive", "swarm", "rhizome", "sentient"}:
         layout_variant = "standard"
     show_digest_home = str(site.get("show_digest_home", "")).strip().lower() in {"1", "true", "yes", "on"}
 
@@ -2500,7 +3011,7 @@ def build_site() -> None:
             print("   ✅ Generated publications.md")
         except Exception as e:
             print(f"   ❌ BibTeX parsing failed: {e}")
-    
+
     # SEO & Syndication
     if site.get("domain"):
         (SITE_DIR / "rss.xml").write_text(_generate_rss(site, posts), encoding="utf-8")
@@ -2589,10 +3100,6 @@ def build_site() -> None:
                 homepage_body = _render_rhizome_layout(site, pages, current_path)
             elif layout_variant == "sentient":
                 homepage_body = _render_sentient_layout(site, pages, current_path)
-            elif layout_variant == "portfolio":
-                homepage_body = _render_portfolio_layout(site, pages, current_path)
-            elif layout_variant == "portfolio":
-                homepage_body = _render_portfolio_layout(site, pages, current_path)
             elif layout_variant == "profile":
                 homepage_body = f"""
       <section class="hero">
@@ -2688,10 +3195,11 @@ def build_site() -> None:
       {page_body_html}
 """
 
-
-    # Search UI
-    search_css = f'<link rel="stylesheet" href="{_escape(_rel_link(current_path, Path("assets/css/search.css")))}" />'
-    search_ui = f"""
+        # Add search CSS
+        search_css = f'<link rel="stylesheet" href="{_escape(_rel_link(current_path, Path("assets/css/search.css")))}" />'
+        
+        # Search UI HTML
+        search_ui = f"""
   <div class="search-container">
     <div class="search-box">
       <div class="search-input-wrapper">
@@ -2703,10 +3211,10 @@ def build_site() -> None:
     </div>
   </div>
 """
-
-    doc = f"""<!doctype html>
+        
+        doc = f"""<!doctype html>
 <html lang=\"en\">
-{_render_head(page['title'], css_href, meta_description, extra_css=extra_css + search_css)}
+{_render_head(page['title'], css_href, meta_description, extra_css=extra_css + search_css, site=site, page_url=site.get('domain', '') + ('/' if slug else ''), og_image=site.get('og_image', ''))}
 <body data-newsletter-mode="{_escape(site.get('newsletter_mode', 'local'))}" data-newsletter-url="{_escape(site.get('newsletter_provider_url', ''))}">
   {search_ui}
   <div class="page-shell">
@@ -2718,13 +3226,14 @@ def build_site() -> None:
   </div>
   <script src="{_escape(js_href)}"></script>
   {f'<script src="{_escape(_rel_link(current_path, Path("assets/js/landing.js")))}"></script>' if slug == "" and layout_variant == "mescia_landing" else ''}
+  {f'<script src="{_escape(_rel_link(current_path, Path("assets/js/optimize.js")))}"></script>' if slug == "" else ''}
   <script src="{_escape(_rel_link(current_path, Path("assets/js/search.js")))}"></script>
 </body>
 </html>
 """
-    output_path = SITE_DIR / current_path
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    output_path.write_text(doc, encoding="utf-8")
+        output_path = SITE_DIR / current_path
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(doc, encoding="utf-8")
 
     for post in posts:
         _render_blog_post(post, pages)
