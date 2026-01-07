@@ -7,6 +7,7 @@ import json
 import os
 import re
 import shutil
+import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Iterable, Any
@@ -561,8 +562,12 @@ def _render_header(current_slug: str, pages: dict[str, dict[str, object]], curre
     logo_text = str(site.get("logo_text") or site.get("site_name") or "ALI")
 
     return f"""
+<div class="construction-banner">
+  <span>🚧 <strong>Beta Protocol:</strong> This platform is evolving live. Content is provisional.</span>
+</div>
 <header class="site-header">
-  <a class="logo" href="{_escape(_rel_page_link(current_path, ""))}">{_escape(logo_text)}</a>
+  <div class="header-left">
+      <a class="logo" href="{_escape(_rel_page_link(current_path, ""))}">{_escape(logo_text)}</a>
   <nav class="nav">{''.join(nav_links)}</nav>
   <a class="cta" href="{_escape(cta_href)}">{_escape(cta_text)}</a>
 </header>
@@ -957,10 +962,27 @@ def _render_digest_page(digest: dict[str, str], pages: dict[str, dict[str, objec
     footer = _render_footer(site, pages, current_path, links)
     back_link = _rel_page_link(current_path, "digest")
     body_html = _render_markdown(_read_block(digest.get("source_md", "")))
+    
+    # Search UI
+    search_css = f'<link rel="stylesheet" href="{_escape(_rel_link(current_path, Path("assets/css/search.css")))}" />'
+    search_ui = f"""
+  <div class="search-container">
+    <div class="search-box">
+      <div class="search-input-wrapper">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search-input" placeholder="Search..." autocomplete="off" />
+        <span class="search-shortcut">Ctrl+K</span>
+      </div>
+      <div id="search-results"></div>
+    </div>
+  </div>
+"""
+    
     doc = f"""<!doctype html>
 <html lang=\"en\">
-{_render_head(digest.get('title', ''), css_href, site.get('meta_description', ''))}
+{_render_head(digest.get('title', ''), css_href, site.get('meta_description', ''), extra_css=search_css)}
 <body data-newsletter-mode="{_escape(site.get('newsletter_mode', 'local'))}" data-newsletter-url="{_escape(site.get('newsletter_provider_url', ''))}">
+  {search_ui}
   <div class="page-shell">
     {header}
     <main>
@@ -981,6 +1003,7 @@ def _render_digest_page(digest: dict[str, str], pages: dict[str, dict[str, objec
     {footer}
   </div>
   <script src="{_escape(_rel_link(current_path, Path('assets/js/main.js')))}"></script>
+  <script src="{_escape(_rel_link(current_path, Path("assets/js/search.js")))}"></script>
 </body>
 </html>
 """
@@ -998,10 +1021,27 @@ def _render_blog_post(post: dict[str, str], pages: dict[str, dict[str, object]])
     footer = _render_footer(site, pages, current_path, _read_links())
     back_link = _rel_page_link(current_path, "blog")
     body_html = _render_paragraphs(post.get("body", ""))
+    
+    # Search UI
+    search_css = f'<link rel="stylesheet" href="{_escape(_rel_link(current_path, Path("assets/css/search.css")))}" />'
+    search_ui = f"""
+  <div class="search-container">
+    <div class="search-box">
+      <div class="search-input-wrapper">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search-input" placeholder="Search..." autocomplete="off" />
+        <span class="search-shortcut">Ctrl+K</span>
+      </div>
+      <div id="search-results"></div>
+    </div>
+  </div>
+"""
+    
     doc = f"""<!doctype html>
 <html lang=\"en\">
-{_render_head(post.get('title', ''), css_href, _read_site_config().get('meta_description', ''))}
+{_render_head(post.get('title', ''), css_href, _read_site_config().get('meta_description', ''), extra_css=search_css)}
 <body data-newsletter-mode="{_escape(_read_site_config().get('newsletter_mode', 'local'))}" data-newsletter-url="{_escape(_read_site_config().get('newsletter_provider_url', ''))}">
+  {search_ui}
   <div class="page-shell">
     {header}
     <main>
@@ -1022,6 +1062,7 @@ def _render_blog_post(post: dict[str, str], pages: dict[str, dict[str, object]])
     {footer}
   </div>
   <script src="{_escape(_rel_link(current_path, Path('assets/js/main.js')))}"></script>
+  <script src="{_escape(_rel_link(current_path, Path("assets/js/search.js")))}"></script>
 </body>
 </html>
 """
@@ -1235,6 +1276,19 @@ main {{ flex: 1; padding-top: 80px; width: 100%; max-width: var(--max-width); ma
 .cta:hover {{ background: var(--primary); color: #fff; }}
 
 /* Components */
+.construction-banner {{
+  background: var(--gold);
+  color: #000;
+  text-align: center;
+  padding: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  position: relative;
+  z-index: 2000;
+}}
+
 .card, .profile-card {{
   background: var(--card);
   border: 1px solid var(--card-border);
@@ -1486,7 +1540,7 @@ function setupPublicationFilter() {
   
   items.forEach(item => {
     const text = item.textContent;
-    const match = text.match(/^\[(.*?)\]/);
+    const match = text.match(/^\\[(.*?)\\]/);
     if (match) {
       const cat = match[1];
       categories.add(cat);
@@ -2259,6 +2313,19 @@ def build_site() -> None:
     _write_contact_php()
     _write_data_protection()
     
+    # BibTeX Automation
+    bib_path = CONTENT_DIR / "publications.bib"
+    if bib_path.exists():
+        import subprocess
+        print(f"📚 Found bibliography: {bib_path.name}")
+        parser_script = BASE_DIR / "tools" / "parse_bibtex.py"
+        output_md = BLOCKS_DIR / "publications.md"
+        try:
+            subprocess.run([sys.executable, str(parser_script), str(bib_path), str(output_md)], check=True)
+            print("   ✅ Generated publications.md")
+        except Exception as e:
+            print(f"   ❌ BibTeX parsing failed: {e}")
+    
     # SEO & Syndication
     if site.get("domain"):
         (SITE_DIR / "rss.xml").write_text(_generate_rss(site, posts), encoding="utf-8")
@@ -2406,9 +2473,9 @@ def build_site() -> None:
             <h3>Dynamic systems, grounded experiments</h3>
             <p>Placeholder for a concise, compelling institute statement.</p>
             <div class="hero-metrics">
-              <div><span>12+</span>Active research threads</div>
-              <div><span>4</span>Cross-faculty labs</div>
-              <div><span>20</span>Years of ALife history</div>
+              <div><span>Global</span>Active Research Network</div>
+              
+              
             </div>
           </div>
         </div>
@@ -2434,9 +2501,9 @@ def build_site() -> None:
             <h3>Dynamic systems, grounded experiments</h3>
             <p>Placeholder for a concise, compelling institute statement.</p>
             <div class="hero-metrics">
-              <div><span>12+</span>Active research threads</div>
-              <div><span>4</span>Cross-faculty labs</div>
-              <div><span>20</span>Years of ALife history</div>
+              <div><span>Global</span>Active Research Network</div>
+              
+              
             </div>
           </div>
         </div>
@@ -2446,10 +2513,27 @@ def build_site() -> None:
       {page_body_html}
 """
 
-        doc = f"""<!doctype html>
+
+    # Search UI
+    search_css = f'<link rel="stylesheet" href="{_escape(_rel_link(current_path, Path("assets/css/search.css")))}" />'
+    search_ui = f"""
+  <div class="search-container">
+    <div class="search-box">
+      <div class="search-input-wrapper">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search-input" placeholder="Search..." autocomplete="off" />
+        <span class="search-shortcut">Ctrl+K</span>
+      </div>
+      <div id="search-results"></div>
+    </div>
+  </div>
+"""
+
+    doc = f"""<!doctype html>
 <html lang=\"en\">
-{_render_head(page['title'], css_href, meta_description, extra_css=extra_css)}
+{_render_head(page['title'], css_href, meta_description, extra_css=extra_css + search_css)}
 <body data-newsletter-mode="{_escape(site.get('newsletter_mode', 'local'))}" data-newsletter-url="{_escape(site.get('newsletter_provider_url', ''))}">
+  {search_ui}
   <div class="page-shell">
     {header}
     <main>
@@ -2459,12 +2543,13 @@ def build_site() -> None:
   </div>
   <script src="{_escape(js_href)}"></script>
   {f'<script src="{_escape(_rel_link(current_path, Path("assets/js/landing.js")))}"></script>' if slug == "" and layout_variant == "mescia_landing" else ''}
+  <script src="{_escape(_rel_link(current_path, Path("assets/js/search.js")))}"></script>
 </body>
 </html>
 """
-        output_path = SITE_DIR / current_path
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-        output_path.write_text(doc, encoding="utf-8")
+    output_path = SITE_DIR / current_path
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(doc, encoding="utf-8")
 
     for post in posts:
         _render_blog_post(post, pages)
