@@ -561,6 +561,18 @@ def _render_header(current_slug: str, pages: dict[str, dict[str, object]], curre
     # Dynamic Logo
     logo_text = str(site.get("logo_text") or site.get("site_name") or "ALI")
 
+    # Burger Menu construction
+    burger_nav_items = []
+    for slug in NAV_SLUGS:
+        if slug not in pages: continue
+        t = pages[slug]["title"]
+        h = _rel_page_link(current_path, slug)
+        burger_nav_items.append(f'<a href="{_escape(h)}">{_escape(t)}</a>')
+    
+    # Add footer-like links to burger
+    burger_nav_items.append('<hr>')
+    burger_nav_items.append(f'<a href="{_escape(cta_href)}">{_escape(cta_text)}</a>')
+
     return f"""
 <div class="construction-banner">
   <span>🚧 <strong>Beta Protocol:</strong> This platform is evolving live. Content is provisional.</span>
@@ -568,8 +580,22 @@ def _render_header(current_slug: str, pages: dict[str, dict[str, object]], curre
 <header class="site-header">
   <div class="header-left">
       <a class="logo" href="{_escape(_rel_page_link(current_path, ""))}">{_escape(logo_text)}</a>
+  </div>
   <nav class="nav">{''.join(nav_links)}</nav>
-  <a class="cta" href="{_escape(cta_href)}">{_escape(cta_text)}</a>
+  <div class="header-right">
+      <a class="cta" href="{_escape(cta_href)}">{_escape(cta_text)}</a>
+      <button class="burger-toggle" aria-label="Toggle Navigation" aria-controls="burger-menu" aria-expanded="false" onclick="toggleBurgerMenu()">
+        <span></span><span></span><span></span>
+      </button>
+  </div>
+  <!-- Burger Overlay -->
+  <div class="burger-menu-overlay" id="burger-menu" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Site navigation" aria-describedby="burger-description">
+      <button class="burger-close" type="button" aria-label="Close navigation" onclick="toggleBurgerMenu()">&times;</button>
+      <p id="burger-description" class="sr-only">Site navigation menu. Press Escape to close.</p>
+      <nav class="burger-nav">
+          {''.join(burger_nav_items)}
+      </nav>
+  </div>
 </header>
 """
 
@@ -1390,6 +1416,111 @@ input:focus, textarea:focus {{ border-color: var(--primary); outline: none; box-
 img {{ max-width: 100%; height: auto; display: block; }}
 .image-frame {{ margin: 0; overflow: hidden; border-radius: var(--radius); box-shadow: 0 10px 40px -10px var(--shadow); }}
 
+/* Burger Menu */
+.burger-toggle {{
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+}}
+
+.burger-toggle span {{
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--text-main);
+  transition: transform 0.3s ease;
+}}
+
+.burger-menu-overlay {{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(16px);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  padding: 6rem 2rem 3rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}}
+
+.burger-menu-overlay.active {{
+  opacity: 1;
+  pointer-events: all;
+}}
+
+.burger-close {{
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  font-size: 3rem;
+  background: none;
+  border: none;
+  color: var(--text-main);
+  cursor: pointer;
+  z-index: 1001;
+}}
+
+.burger-nav {{
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: center;
+}}
+
+.burger-nav a {{
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  color: var(--text-main);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}}
+
+.burger-nav a:hover {{
+  color: var(--primary);
+}}
+
+.burger-nav hr {{
+  width: 50%;
+  margin: 1rem auto;
+  border: 0;
+  border-top: 1px solid var(--card-border);
+}}
+
+.header-right {{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}}
+
+/* Responsive */
+@media (max-width: 768px) {{
+  .nav {{
+    display: none;
+  }}
+  
+  .burger-toggle {{
+    display: flex;
+  }}
+  
+  .cta {{
+    display: none;
+  }}
+}}
+
 {theme_overrides}
 """
 
@@ -1609,6 +1740,50 @@ function setupSentientTerminal() {
     }, index * 400);
   });
 }
+
+// Burger Menu Functions
+const burgerToggle = document.querySelector('.burger-toggle');
+
+function openOverlay(overlay, trigger) {
+  overlay.classList.add('active');
+  overlay.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  
+  // Focus management
+  const firstFocusable = overlay.querySelector('button, a');
+  if (firstFocusable) {
+    setTimeout(() => firstFocusable.focus(), 100);
+  }
+}
+
+function closeOverlay(overlay) {
+  overlay.classList.remove('active');
+  overlay.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+window.toggleBurgerMenu = function () {
+  const overlay = document.getElementById('burger-menu');
+  if (overlay) {
+    if (overlay.classList.contains('active')) {
+      closeOverlay(overlay);
+      if (burgerToggle) burgerToggle.setAttribute('aria-expanded', 'false');
+    } else {
+      openOverlay(overlay, burgerToggle);
+      if (burgerToggle) burgerToggle.setAttribute('aria-expanded', 'true');
+    }
+  }
+};
+
+// Close burger on escape
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const burgerMenu = document.getElementById('burger-menu');
+    if (burgerMenu && burgerMenu.classList.contains('active')) {
+      window.toggleBurgerMenu();
+    }
+  }
+});
 
 window.addEventListener('DOMContentLoaded', () => {
   revealOnScroll();
