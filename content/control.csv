@@ -1,2 +1,15 @@
 page_slug,section,title,kind,order,source_md
-,intro,Welcome,section,1,welcome.md
+,,Home,page,0,
+,intro,Welcome,hero,1,welcome.md
+,modules,System Modules,section,2,systems.md
+,applications,Applications,section,3,applications.md
+research,,Research,page,10,
+research,research_intro,Research,section,1,research.md
+systems,,Systems,page,20,
+systems,systems_intro,System Modules,section,1,systems.md
+applications,,Applications,page,30,
+applications,applications_intro,Applications,section,1,applications.md
+team,,Team,page,40,
+team,team_intro,Team,section,1,team.md
+publications,,Publications,page,50,
+publications,pubs_intro,Publications,section,1,publications.md

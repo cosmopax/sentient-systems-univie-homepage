@@ -448,6 +448,58 @@
   margin-bottom: 15px;
 }
 
+.terminal-status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.status-card {
+  background: var(--terminal-module-bg);
+  border: 1px solid var(--terminal-border);
+  padding: 12px;
+  border-radius: 4px;
+}
+
+.status-label {
+  margin: 0 0 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.7rem;
+  color: var(--terminal-text-secondary);
+}
+
+.status-value {
+  margin: 0;
+  font-weight: bold;
+  color: var(--terminal-status-active);
+}
+
+.terminal-lab-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.terminal-lab {
+  background: rgba(0, 17, 0, 0.6);
+  border: 1px solid var(--terminal-border);
+  padding: 12px;
+  border-radius: 4px;
+}
+
+.terminal-lab h4 {
+  margin: 0 0 6px;
+  font-size: 0.9rem;
+  color: var(--terminal-text);
+}
+
+.terminal-lab p {
+  margin: 0;
+  color: var(--terminal-text-secondary);
+  font-size: 0.85rem;
+}
+
 .terminal-output-line {
   margin: 5px 0;
   font-size: 14px;

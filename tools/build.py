@@ -896,460 +896,58 @@ def _build_css(site: dict[str, Any]) -> str:
 
     if layout_variant == "sentient":
         theme_overrides = f"""
-        /* Sentient / Terminal Theme (Cyberpunk Upgrade) */
-        :root {{
-            --bg-color: #0d1117;
-            --text-main: #00ff41;  /* Terminal Green */
-            --text-muted: #008f11; /* Darker Green */
-            --accent: #003b00;     /* Deep Green */
-            --font-head: 'Fira Code', monospace;
-            --font-body: 'Fira Code', monospace;
-            --border-color: #00ff41;
-        }}
-
+        /* Sentient / Terminal Theme */
         body {{
-            background-color: #000;
-            color: var(--text-main);
-            font-family: var(--font-body);
-            overflow-x: hidden;
+            background-color: #0d1117;
+            background-image: linear-gradient(0deg, transparent 24%, rgba(0, 255, 100, .03) 25%, rgba(0, 255, 100, .03) 26%, transparent 27%, transparent 74%, rgba(0, 255, 100, .03) 75%, rgba(0, 255, 100, .03) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(0, 255, 100, .03) 25%, rgba(0, 255, 100, .03) 26%, transparent 27%, transparent 74%, rgba(0, 255, 100, .03) 75%, rgba(0, 255, 100, .03) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            font-family: 'IBM Plex Mono', monospace;
         }}
-
-        /* CRT Scanline & Curvature Effect */
-        body::before {{
-            content: " ";
-            display: block;
-            position: fixed;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 9999;
-            background-size: 100% 2px, 3px 100%;
-            pointer-events: none;
+        :root {{
+            --card: rgba(13, 17, 23, 0.85);
+            --glass: rgba(13, 17, 23, 0.7);
         }}
-
         .sentient-layout {{
-            max-width: 1000px;
-            margin: 4rem auto;
-            border: 2px solid var(--border-color);
-            background: rgba(0, 10, 0, 0.95);
-            box-shadow: 0 0 40px rgba(0, 255, 65, 0.15), inset 0 0 40px rgba(0, 255, 65, 0.05);
-            min-height: 80vh;
-            position: relative;
-            animation: turnOn 4s linear;
-        }}
-        
-        /* Text Glow */
-        h1, h2, h3, a, p {{
-            text-shadow: 0 0 5px rgba(0, 255, 65, 0.4);
-        }}
-
-        .terminal-header {{
-            background: var(--text-main);
-            color: black;
-            padding: 0.5rem 1rem;
-            display: flex;
-            justify-content: space-between;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: none;
-        }}
-        
-        .terminal-body {{
-            padding: 2rem;
-            position: relative;
-        }}
-
-        /* Hero Image Integration in Terminal */
-        .terminal-vis-layer {{
-            border: 1px solid var(--text-muted);
-            margin-bottom: 2rem;
-            opacity: 0.8;
-            filter: sepia(100%) hue-rotate(90deg) saturate(300%) contrast(1.2);
-            mix-blend-mode: screen;
-        }}
-        
-        .terminal-vis-layer img {{
-             width: 100%;
-             height: auto;
-             display: block;
-             opacity: 0.7;
-        }}
-        
-        .prompt-line {{
-            margin-bottom: 2rem;
-            color: var(--text-main);
-        }}
-        
-        .typing-cursor::after {{
-            content: '█';
-            animation: blink 1s step-end infinite;
-            margin-left: 4px;
-            color: var(--text-main);
-        }}
-        
-        @keyframes blink {{ 50% {{ opacity: 0; }} }}
-        
-        @keyframes turnOn {{
-            0% {{ transform: scale(1, 0.8) translate3d(0, 0, 0); filter: brightness(30); opacity: 1; }}
-            3.5% {{ transform: scale(1, 0.8) translate3d(0, 100%, 0); }}
-            3.6% {{ transform: scale(1, 0.8) translate3d(0, -100%, 0); opacity: 1; }}
-            9% {{ transform: scale(1.3, 0.6) translate3d(0, 100%, 0); opacity: 0; }}
-            11% {{ transform: scale(1, 1) translate3d(0, 0, 0); opacity: 1; filter: contrast(0) brightness(0) ; }}
-            100% {{ transform: scale(1, 1) translate3d(0, 0, 0); filter: contrast(1) brightness(1.1) saturate(1.1); opacity: 1; }}
-        }}
-
-        .module-grid {{
-            display: grid;
-            gap: 1.5rem;
-            margin-top: 2rem;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        }}
-        
-        .module-item {{
-            border: 1px solid var(--text-muted);
-            padding: 1.5rem;
-            transition: all 0.2s;
-            background: rgba(0, 20, 0, 0.5);
-        }}
-        
-        .module-item:hover {{
-            background: rgba(0, 255, 65, 0.1);
-            border-color: var(--text-main);
-            box-shadow: 0 0 15px var(--text-muted);
-            text-shadow: 0 0 8px var(--text-main);
-            transform: translateY(-2px);
-            cursor: pointer;
-        }}
-        
-        a {{ color: var(--text-main); text-decoration: none; border-bottom: 1px dotted var(--text-muted); }}
-        a:hover {{ background: var(--text-main); color: black; text-shadow: none; }}
-        """
-
-    elif layout_variant == "portfolio":
-        # Future-Academic / Portfolio Theme (Patrick Schimpl)
-        theme_overrides += """
-        :root {
-            --bg-color: #09090b;       /* Zinc 950 (Dark Charcoal) */
-            --text-main: #e4e4e7;      /* Zinc 200 */
-            --text-muted: #a1a1aa;     /* Zinc 400 */
-            --accent: #10b981;         /* Emerald 500 */
-            --glass-bg: rgba(24, 24, 27, 0.6); /* Zinc 950 with opacity */
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --font-head: 'Playfair Display', serif;
-            --font-body: 'Inter', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: var(--font-body);
-            background-image: radial-gradient(circle at 50% 0%, #18181b 0%, #09090b 100%);
-        }
-
-        h1, h2, h3, .eyebrow {
-            font-family: var(--font-head);
-            font-weight: 400;
-            letter-spacing: -0.02em;
-        }
-
-        .portfolio-hero {
-            position: relative;
-            min-height: 85vh; /* Taller hero */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            overflow: hidden;
-            padding: 4rem 1rem;
-        }
-        
-        .portfolio-hero-bg {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            z-index: 0;
-            opacity: 0.4; /* Subtle background */
-        }
-        
-        .portfolio-hero-bg img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .portfolio-hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
-            animation: fadeIn Up 1s ease-out;
-        }
-
-        .portfolio-hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #ffffff, #a1a1aa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .portfolio-hero .eyebrow {
-            font-family: var(--font-body);
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 0.15em;
-            color: var(--accent);
-            margin-bottom: 1.5rem;
-            display: inline-block;
-            border: 1px solid var(--glass-border);
-            padding: 0.5rem 1rem;
-            border-radius: 999px;
-            background: rgba(16, 185, 129, 0.05);
-            backdrop-filter: blur(4px);
-        }
-
-        .content-section {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 4rem 1.5rem;
-        }
-
-        /* Glassmorphic Cards for Research/Projects */
-        .content-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
-        
-        @media (min-width: 768px) {
-            .content-grid {
-                grid-template-columns: 1.2fr 0.8fr; /* Text left, Image right */
-                align-items: center;
-            }
-        }
-
-        .content-section {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 8px;
-            padding: 3rem;
-            margin: 4rem auto;
-            backdrop-filter: blur(12px);
-            position: relative;
-            z-index: 10;
-        }
-        
-        /* Layout Widths */
-        .width-full { max-width: 1000px; }
-        .width-split { max-width: 1200px; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-        
-        /* Style Variants */
-        .style-glass { background: rgba(24, 24, 27, 0.6); border: 1px solid rgba(255,255,255,0.05); }
-        .style-terminal { background: rgba(0, 0, 0, 0.8); border: 1px solid #10b981; font-family: monospace; }
-        .style-paper # { background: #e4e4e7; color: #18181b; }
-        
-        /* HUD & Metrics */
-        .hud-sidebar {
-            position: fixed;
-            left: 2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            align-items: center;
-        }
-        
-        .hud-logo { font-weight: 900; letter-spacing: -1px; border: 2px solid var(--text-muted); padding: 5px; }
-        .hud-links { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1rem; }
-        .hud-links a { color: var(--text-muted); font-size: 0.7rem; letter-spacing: 1px; transition: 0.3s; border: none; }
-        .hud-links a.active, .hud-links a:hover { color: var(--accent); transform: scale(1.2); }
-        .hud-status { font-size: 0.6rem; color: #10b981; writing-mode: vertical-rl; text-orientation: mixed; opacity: 0.5; }
-        
-        .metric-ticker {
-            position: absolute;
-            bottom: 2rem;
-            right: 2rem;
-            display: flex;
-            gap: 2rem;
-            font-family: monospace;
-        }
-        .metric-item { display: flex; flex-direction: column; opacity: 0.7; }
-        .metric-item .label { font-size: 0.6rem; color: var(--text-muted); }
-        .metric-item .value { font-size: 1.2rem; color: var(--accent); } 
-
-
-        /* Project & Research Cards */
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .project-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
+            padding: 2rem;
+        }}
+        .terminal-window {{
+            background: rgba(13, 17, 23, 0.95);
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 20px rgba(0, 255, 100, 0.2);
+            border-radius: 6px;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
-            border-color: var(--accent);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .card-image {
-            width: 100%;
-            height: 220px;
-            overflow: hidden;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .card-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
-        .project-card:hover .card-image img {
-            transform: scale(1.05);
-        }
-
-        .card-content {
-            padding: 1.5rem;
-        }
-
-        .card-content h3 {
-            margin-top: 0;
-            font-size: 1.3rem;
-            color: var(--text-main);
-            margin-bottom: 0.5rem;
-        }
-
-        .card-teaser {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.5;
-            margin-bottom: 1.2rem;
-        }
-
-        details {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 1rem;
-        }
-
-        summary {
-            cursor: pointer;
-            color: var(--accent);
-            font-size: 0.9rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            outline: none;
-            list-style: none;
+            font-family: 'IBM Plex Mono', monospace;
+        }}
+        .terminal-header {{
+            background: #161b22;
+            padding: 8px 16px;
+            border-bottom: 1px solid #30363d;
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        summary::-webkit-details-marker { display: none; }
-
-        summary::after {
-            content: "+";
-            font-size: 1.2rem;
-            font-weight: 300;
-            transition: transform 0.3s;
-        }
-
-        details[open] summary::after {
-            transform: rotate(45deg);
-        }
-
-        .card-details {
-            margin-top: 1rem;
-            padding-top: 0.5rem;
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-            animation: slideDown 0.3s ease-out;
-            border-top: 1px dashed rgba(255, 255, 255, 0.1);
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .detail-list {
-            padding-left: 1.2rem;
-            margin: 0.5rem 0;
-            color: var(--text-muted);
-        }
-
-        .project-link {
-            display: inline-block;
-            margin-top: 1rem;
-            color: #fff;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            border-bottom: 1px solid var(--accent);
-            padding-bottom: 2px;
-            transition: all 0.2s;
-        }
-
-        .project-link:hover {
-            color: var(--accent);
-            border-color: transparent;
-        }
-        .content-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            padding: 2rem;
-            border-radius: 2px; /* Brutalist/Academic sharp edges */
-            backdrop-filter: blur(12px);
-            transition: border-color 0.3s ease, transform 0.3s ease;
-        }
-
-        .content-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        .image-frame {
-            border-radius: 2px;
-            overflow: hidden;
-            border: 1px solid var(--glass-border);
-            filter: grayscale(100%) contrast(110%); /* Academic B&W look */
-            transition: filter 0.5s ease;
-        }
-        
-        .image-frame:hover {
-            filter: grayscale(0%) contrast(100%);
-        }
-
-        /* Publication List Styling */
-        .publication-item {
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--glass-border);
-        }
-        .publication-item:last-child {
-            border-bottom: none;
-        }
-        .publication-title {
-            font-family: var(--font-head);
-            font-size: 1.1rem;
-            color: var(--text-main);
-        }
-        .publication-meta {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-top: 0.25rem;
-        }
+        }}
+        .terminal-controls {{ display: flex; gap: 8px; }}
+        .control {{ width: 12px; height: 12px; border-radius: 50%; }}
+        .control.close {{ background: #ff5f56; }}
+        .control.minimize {{ background: #ffbd2e; }}
+        .control.maximize {{ background: #27c93f; }}
+        .terminal-title {{ color: #8b949e; font-size: 14px; }}
+        .terminal-content {{ padding: 20px; color: var(--text-main); }}
+        .prompt-line {{ margin-bottom: 1rem; }}
+        .prompt-user {{ color: #7ee787; font-weight: bold; }}
+        .prompt-char {{ color: #79c0ff; margin-right: 8px; }}
+        .command-input {{ color: var(--text-main); background: transparent; border: none; font-family: inherit; font-size: inherit; width: 80%; outline: none; }}
+        .cursor {{ display: inline-block; width: 10px; height: 1.2em; background: var(--primary); animation: blink 1s step-end infinite; vertical-align: middle; }}
+        @keyframes blink {{ 0%, 100% {{ opacity: 1; }} 50% {{ opacity: 0; }} }}
+        .system-status {{ border: 1px solid var(--primary-dark); padding: 1rem; margin-bottom: 2rem; color: var(--primary); background: rgba(0, 255, 100, 0.05); }}
+        .status-row {{ display: flex; justify-content: space-between; margin-bottom: 0.5rem; }}
+        .status-value {{ font-weight: bold; }}
+        .grid-dashboard {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }}
+        .module-card {{ border: 1px solid #30363d; padding: 1.5rem; background: #0d1117; transition: all 0.2s; }}
+        .module-card:hover {{ border-color: var(--primary); box-shadow: 0 0 15px rgba(0, 255, 100, 0.1); }}
+        .module-header {{ border-bottom: 1px solid #30363d; padding-bottom: 0.5rem; margin-bottom: 1rem; font-weight: bold; color: var(--primary); }}
         """
 
     elif layout_variant == "standard" and "holobiontic" in site.get("site_name", "").lower():
@@ -1404,8 +1002,8 @@ def _build_css(site: dict[str, Any]) -> str:
   --glass: rgba(255, 255, 255, 0.6);
   --shadow: {primary_dark}1a;
   
-  --font-heading: "Cormorant Garamond", serif;
-  --font-body: "Outfit", sans-serif;
+  --font-heading: "IBM Plex Mono", monospace;
+  --font-body: "IBM Plex Mono", monospace;
   --radius: 8px;
   --max-width: 1200px;
 }}
@@ -1421,7 +1019,7 @@ body {{
 }}
 
 /* Typography */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500&family=Fira+Code:wght@400;500&family=Playfair+Display:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
 h1, h2, h3 {{
   font-family: var(--font-heading);
@@ -1468,6 +1066,17 @@ main {{ flex: 1; padding-top: 80px; width: 100%; max-width: var(--max-width); ma
 .nav {{ display: flex; gap: 30px; }}
 .nav a {{ color: var(--text-muted); text-transform: uppercase; font-size: 13px; letter-spacing: 0.1em; font-weight: 600; }}
 .nav a:hover, .nav a.active {{ color: var(--primary); }}
+.cta {{
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 12px;
+  font-weight: 600;
+}}
+.cta:hover {{ background: var(--primary); color: #fff; }}
 
 /* Components */
 .card, .profile-card {{
@@ -1508,6 +1117,39 @@ main {{ flex: 1; padding-top: 80px; width: 100%; max-width: var(--max-width); ma
 }}
 
 .card-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; margin: 40px 0; }}
+
+/* Section Styling */
+.content-section {{
+  margin: 60px 0;
+  padding: 40px;
+  background: var(--glass);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 30px -20px var(--shadow);
+}}
+.content-section .content-grid {{ align-items: flex-start; }}
+.content-section h2 {{ margin-top: 0; }}
+.content-section ul {{
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0;
+  display: grid;
+  gap: 16px;
+}}
+.content-section ul li {{
+  padding: 16px 18px;
+  border-radius: calc(var(--radius) - 2px);
+  border: 1px solid var(--card-border);
+  background: var(--card);
+  box-shadow: 0 6px 16px -12px var(--shadow);
+}}
+.content-section blockquote {{
+  margin: 24px 0;
+  padding: 18px 22px;
+  border-left: 4px solid var(--gold);
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: var(--radius);
+}}
 
 /* Forms */
 input, textarea {{
@@ -2075,6 +1717,50 @@ def _render_sentient_layout(site: dict[str, str], pages: dict[str, dict[str, obj
             </div>
         </div>
         
+        <div class="terminal-prompt">
+            <span class="prompt-user">user@sentient</span>
+            <span class="prompt-symbol">$</span>
+            <span class="prompt-command">show_status</span>
+        </div>
+        <div class="terminal-output">
+            <div class="terminal-status-grid">
+                <div class="status-card">
+                    <p class="status-label">Perception Stack</p>
+                    <p class="status-value">CALIBRATED</p>
+                </div>
+                <div class="status-card">
+                    <p class="status-label">Memory Core</p>
+                    <p class="status-value">STABLE</p>
+                </div>
+                <div class="status-card">
+                    <p class="status-label">Ethics Layer</p>
+                    <p class="status-value">VERIFIED</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="terminal-prompt">
+            <span class="prompt-user">user@sentient</span>
+            <span class="prompt-symbol">$</span>
+            <span class="prompt-command">show_labs</span>
+        </div>
+        <div class="terminal-output">
+            <div class="terminal-lab-grid">
+                <div class="terminal-lab">
+                    <h4>Embodied Cognition</h4>
+                    <p>Robotic perception loops and adaptive control.</p>
+                </div>
+                <div class="terminal-lab">
+                    <h4>Collective Reasoning</h4>
+                    <p>Multi-agent coordination and shared inference.</p>
+                </div>
+                <div class="terminal-lab">
+                    <h4>Safety Protocols</h4>
+                    <p>Alignment frameworks and fail-safe triggers.</p>
+                </div>
+            </div>
+        </div>
+
         <div class="terminal-prompt">
             <span class="prompt-user">user@sentient</span>
             <span class="prompt-symbol">$</span>
