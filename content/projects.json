@@ -1,0 +1,72 @@
+[
+    {
+        "id": "artificial-consciousness",
+        "title": "Artificial Consciousness",
+        "description": "Simulating the neural correlates of subjective experience using IIT-based architectures.",
+        "keywords": [
+            "IIT",
+            "Neural",
+            "Simulation"
+        ],
+        "image": "assets/img/placeholder-hero.svg",
+        "type": "overlay",
+        "tier": "upper",
+        "deck": [
+            "assets/img/placeholder-grid.svg",
+            "assets/img/placeholder-lab.svg"
+        ],
+        "content_file": "overlays/consciousness.md"
+    },
+    {
+        "id": "swarm-intelligence",
+        "title": "Swarm Intelligence",
+        "description": "Emergent problem solving in decentralized autonomous agent collectives.",
+        "keywords": [
+            "Swarm",
+            "Agents",
+            "Decentralized"
+        ],
+        "image": "assets/img/placeholder-lab.svg",
+        "type": "overlay",
+        "tier": "lower",
+        "deck": [
+            "assets/img/placeholder-hero.svg"
+        ],
+        "content_file": "overlays/swarm.md"
+    },
+    {
+        "id": "cognitive-architectures",
+        "title": "Cognitive Architectures",
+        "description": "Building the next generation of general-purpose reasoning engines.",
+        "keywords": [
+            "AGI",
+            "Reasoning",
+            "Logic"
+        ],
+        "image": "assets/img/placeholder-studio.svg",
+        "type": "overlay",
+        "tier": "lower",
+        "deck": [
+            "assets/img/placeholder-grid.svg"
+        ],
+        "content_file": "overlays/cognitive.md"
+    },
+    {
+        "id": "ethics-safety",
+        "title": "AI Safety & Ethics",
+        "description": "Formal verification of value alignment in superintelligent systems.",
+        "keywords": [
+            "Safety",
+            "Alignment",
+            "Ethics"
+        ],
+        "image": "assets/img/placeholder-portrait.svg",
+        "type": "overlay",
+        "tier": "upper",
+        "deck": [
+            "assets/img/placeholder-lab.svg",
+            "assets/img/placeholder-studio.svg"
+        ],
+        "content_file": "overlays/safety.md"
+    }
+]

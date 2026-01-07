@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Neural Dynamics",
+    "teaser": "Oscillatory synchronization in spiking networks.",
+    "description": "We investigate how synchronous oscillations in spiking neural networks facilitate information transfer and attention.",
+    "image": "assets/img/placeholder-grid.svg"
+  },
+  {
+    "title": "Machine Perception",
+    "teaser": "Robust vision in adversarial environments.",
+    "description": "Developing computer vision systems that maintain performance under heavy occlusion and adversarial noise.",
+    "image": "assets/img/placeholder-studio.svg"
+  },
+  {
+    "title": "Embodied Cognition",
+    "teaser": "Learning through sensorimotor interaction.",
+    "description": "Robotic agents that learn optimal policies through continuous interaction with physics simulations.",
+    "image": "assets/img/placeholder-portrait.svg"
+  },
+  {
+    "title": "Symbolic Integration",
+    "teaser": "Merging neural networks with knowledge graphs.",
+    "description": "Research into neuro-symbolic architectures that combine the flexibility of learning with the precision of logic.",
+    "image": "assets/img/placeholder-hero.svg"
+  }
+]

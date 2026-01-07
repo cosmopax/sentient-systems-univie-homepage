@@ -5,3 +5,4 @@ page_slug,section,title,kind,order,source_md
 ,projects,Project Grid,project_grid_v2,3,projects.json
 ,team,The Core,team_grid,4,team.json
 ,form,Contact Protocol,contact_form,5,
+blog,,News,page,90,blog.md
