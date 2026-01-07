@@ -216,7 +216,8 @@ def _read_control() -> dict[str, dict[str, object]]:
         for row in reader:
             data = {key: (value or "").strip() for key, value in row.items()}
             status = (data.get("status") or "").lower()
-            if status in {"draft", "hidden", "archived", "inactive"}:
+            active_flag = (data.get("active") or "true").lower()
+            if status in {"draft", "hidden", "archived", "inactive"} or active_flag != "true":
                 continue
             slug = _normalize_slug(data.get("page_slug", ""))
             order = int(data.get("order") or 0)
@@ -241,7 +242,10 @@ def _read_control() -> dict[str, dict[str, object]]:
                     "order": order,
                     "page_slug": slug,
                     "section_id": section_id,
+                    "section_id": section_id,
                     "kind": kind,
+                    "width": (data.get("width") or "full").lower(),
+                    "style_variant": (data.get("style_variant") or "glass").lower(),
                 }
             )
     for page in pages.values():
@@ -534,7 +538,12 @@ def _render_section(
     image_src = _resolve_image_src(section.get("hero_image", ""), current_path)
     image = f"<figure class=\"image-frame\"><img src=\"{_escape(image_src)}\" alt=\"{heading} image\" /></figure>"
     section_id = _escape(section.get("section_id", ""))
-    section_class = "content-section"
+    
+    # Layout & Style Classes
+    width_class = f"width-{section.get('width', 'full')}"
+    style_class = f"style-{section.get('style_variant', 'glass')}"
+    section_class = f"content-section {width_class} {style_class}"
+    
     if "publications" in heading.lower():
         section_class += " publications-section"
     
@@ -1038,7 +1047,50 @@ def _build_css(site: dict[str, Any]) -> str:
             padding: 3rem;
             margin: 4rem auto;
             backdrop-filter: blur(12px);
+            position: relative;
+            z-index: 10;
         }
+        
+        /* Layout Widths */
+        .width-full { max-width: 1000px; }
+        .width-split { max-width: 1200px; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        
+        /* Style Variants */
+        .style-glass { background: rgba(24, 24, 27, 0.6); border: 1px solid rgba(255,255,255,0.05); }
+        .style-terminal { background: rgba(0, 0, 0, 0.8); border: 1px solid #10b981; font-family: monospace; }
+        .style-paper # { background: #e4e4e7; color: #18181b; }
+        
+        /* HUD & Metrics */
+        .hud-sidebar {
+            position: fixed;
+            left: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .hud-logo { font-weight: 900; letter-spacing: -1px; border: 2px solid var(--text-muted); padding: 5px; }
+        .hud-links { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1rem; }
+        .hud-links a { color: var(--text-muted); font-size: 0.7rem; letter-spacing: 1px; transition: 0.3s; border: none; }
+        .hud-links a.active, .hud-links a:hover { color: var(--accent); transform: scale(1.2); }
+        .hud-status { font-size: 0.6rem; color: #10b981; writing-mode: vertical-rl; text-orientation: mixed; opacity: 0.5; }
+        
+        .metric-ticker {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 2rem;
+            font-family: monospace;
+        }
+        .metric-item { display: flex; flex-direction: column; opacity: 0.7; }
+        .metric-item .label { font-size: 0.6rem; color: var(--text-muted); }
+        .metric-item .value { font-size: 1.2rem; color: var(--accent); } 
+
 
         /* Project & Research Cards */
         .project-grid {
@@ -1606,6 +1658,10 @@ window.addEventListener('DOMContentLoaded', () => {
   setupContactForm();
   setupPublicationFilter();
 });
+
+// Import new intricate scripts if available
+document.write('<script src="assets/js/knowledge_graph.js"><\/script>');
+document.write('<script src="assets/js/hud.js"><\/script>');
 """.lstrip()
 
 
