@@ -534,10 +534,14 @@ def _render_section(
     image_src = _resolve_image_src(section.get("hero_image", ""), current_path)
     image = f"<figure class=\"image-frame\"><img src=\"{_escape(image_src)}\" alt=\"{heading} image\" /></figure>"
     section_id = _escape(section.get("section_id", ""))
+    section_class = "content-section"
+    if "publications" in heading.lower():
+        section_class += " publications-section"
+    
     return f"""
-<section class="content-section" id="{section_id}">
+<section class="{section_class}" id="{section_id}">
   <div class="content-grid">
-    <div>
+    <div class="section-body">
       <h2>{heading}</h2>
       {body}
       {cta}
@@ -791,19 +795,467 @@ def _build_css(site: dict[str, Any]) -> str:
     text_main = theme.get("text_main", "#1a1a1a")
     text_muted = theme.get("text_muted", "#4a4a4a")
 
+    # Theme Specifics
+    theme_overrides = ""
+    layout_variant = site.get("layout_variant", "standard")
+
+    if layout_variant == "sentient":
+        theme_overrides = f"""
+        /* Sentient / Terminal Theme (Cyberpunk Upgrade) */
+        :root {{
+            --bg-color: #0d1117;
+            --text-main: #00ff41;  /* Terminal Green */
+            --text-muted: #008f11; /* Darker Green */
+            --accent: #003b00;     /* Deep Green */
+            --font-head: 'Fira Code', monospace;
+            --font-body: 'Fira Code', monospace;
+            --border-color: #00ff41;
+        }}
+
+        body {{
+            background-color: #000;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+        }}
+
+        /* CRT Scanline & Curvature Effect */
+        body::before {{
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 9999;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }}
+
+        .sentient-layout {{
+            max-width: 1000px;
+            margin: 4rem auto;
+            border: 2px solid var(--border-color);
+            background: rgba(0, 10, 0, 0.95);
+            box-shadow: 0 0 40px rgba(0, 255, 65, 0.15), inset 0 0 40px rgba(0, 255, 65, 0.05);
+            min-height: 80vh;
+            position: relative;
+            animation: turnOn 4s linear;
+        }}
+        
+        /* Text Glow */
+        h1, h2, h3, a, p {{
+            text-shadow: 0 0 5px rgba(0, 255, 65, 0.4);
+        }}
+
+        .terminal-header {{
+            background: var(--text-main);
+            color: black;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: none;
+        }}
+        
+        .terminal-body {{
+            padding: 2rem;
+            position: relative;
+        }}
+
+        /* Hero Image Integration in Terminal */
+        .terminal-vis-layer {{
+            border: 1px solid var(--text-muted);
+            margin-bottom: 2rem;
+            opacity: 0.8;
+            filter: sepia(100%) hue-rotate(90deg) saturate(300%) contrast(1.2);
+            mix-blend-mode: screen;
+        }}
+        
+        .terminal-vis-layer img {{
+             width: 100%;
+             height: auto;
+             display: block;
+             opacity: 0.7;
+        }}
+        
+        .prompt-line {{
+            margin-bottom: 2rem;
+            color: var(--text-main);
+        }}
+        
+        .typing-cursor::after {{
+            content: '█';
+            animation: blink 1s step-end infinite;
+            margin-left: 4px;
+            color: var(--text-main);
+        }}
+        
+        @keyframes blink {{ 50% {{ opacity: 0; }} }}
+        
+        @keyframes turnOn {{
+            0% {{ transform: scale(1, 0.8) translate3d(0, 0, 0); filter: brightness(30); opacity: 1; }}
+            3.5% {{ transform: scale(1, 0.8) translate3d(0, 100%, 0); }}
+            3.6% {{ transform: scale(1, 0.8) translate3d(0, -100%, 0); opacity: 1; }}
+            9% {{ transform: scale(1.3, 0.6) translate3d(0, 100%, 0); opacity: 0; }}
+            11% {{ transform: scale(1, 1) translate3d(0, 0, 0); opacity: 1; filter: contrast(0) brightness(0) ; }}
+            100% {{ transform: scale(1, 1) translate3d(0, 0, 0); filter: contrast(1) brightness(1.1) saturate(1.1); opacity: 1; }}
+        }}
+
+        .module-grid {{
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }}
+        
+        .module-item {{
+            border: 1px solid var(--text-muted);
+            padding: 1.5rem;
+            transition: all 0.2s;
+            background: rgba(0, 20, 0, 0.5);
+        }}
+        
+        .module-item:hover {{
+            background: rgba(0, 255, 65, 0.1);
+            border-color: var(--text-main);
+            box-shadow: 0 0 15px var(--text-muted);
+            text-shadow: 0 0 8px var(--text-main);
+            transform: translateY(-2px);
+            cursor: pointer;
+        }}
+        
+        a {{ color: var(--text-main); text-decoration: none; border-bottom: 1px dotted var(--text-muted); }}
+        a:hover {{ background: var(--text-main); color: black; text-shadow: none; }}
+        """
+
+    elif layout_variant == "portfolio":
+        # Future-Academic / Portfolio Theme (Patrick Schimpl)
+        theme_overrides += """
+        :root {
+            --bg-color: #09090b;       /* Zinc 950 (Dark Charcoal) */
+            --text-main: #e4e4e7;      /* Zinc 200 */
+            --text-muted: #a1a1aa;     /* Zinc 400 */
+            --accent: #10b981;         /* Emerald 500 */
+            --glass-bg: rgba(24, 24, 27, 0.6); /* Zinc 950 with opacity */
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --font-head: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            background-image: radial-gradient(circle at 50% 0%, #18181b 0%, #09090b 100%);
+        }
+
+        h1, h2, h3, .eyebrow {
+            font-family: var(--font-head);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+        }
+
+        .portfolio-hero {
+            position: relative;
+            min-height: 85vh; /* Taller hero */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            padding: 4rem 1rem;
+        }
+        
+        .portfolio-hero-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 0;
+            opacity: 0.4; /* Subtle background */
+        }
+        
+        .portfolio-hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .portfolio-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            animation: fadeIn Up 1s ease-out;
+        }
+
+        .portfolio-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #ffffff, #a1a1aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .portfolio-hero .eyebrow {
+            font-family: var(--font-body);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            border: 1px solid var(--glass-border);
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            background: rgba(16, 185, 129, 0.05);
+            backdrop-filter: blur(4px);
+        }
+
+        .content-section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+        }
+
+        /* Glassmorphic Cards for Research/Projects */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        @media (min-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1.2fr 0.8fr; /* Text left, Image right */
+                align-items: center;
+            }
+        }
+
+        .content-section {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            padding: 3rem;
+            margin: 4rem auto;
+            backdrop-filter: blur(12px);
+        }
+
+        /* Project & Research Cards */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .project-card:hover .card-image img {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-content h3 {
+            margin-top: 0;
+            font-size: 1.3rem;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-teaser {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1.2rem;
+        }
+
+        details {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1rem;
+        }
+
+        summary {
+            cursor: pointer;
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            outline: none;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        summary::-webkit-details-marker { display: none; }
+
+        summary::after {
+            content: "+";
+            font-size: 1.2rem;
+            font-weight: 300;
+            transition: transform 0.3s;
+        }
+
+        details[open] summary::after {
+            transform: rotate(45deg);
+        }
+
+        .card-details {
+            margin-top: 1rem;
+            padding-top: 0.5rem;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            animation: slideDown 0.3s ease-out;
+            border-top: 1px dashed rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .detail-list {
+            padding-left: 1.2rem;
+            margin: 0.5rem 0;
+            color: var(--text-muted);
+        }
+
+        .project-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-bottom: 1px solid var(--accent);
+            padding-bottom: 2px;
+            transition: all 0.2s;
+        }
+
+        .project-link:hover {
+            color: var(--accent);
+            border-color: transparent;
+        }
+        .content-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 2rem;
+            border-radius: 2px; /* Brutalist/Academic sharp edges */
+            backdrop-filter: blur(12px);
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .content-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .image-frame {
+            border-radius: 2px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            filter: grayscale(100%) contrast(110%); /* Academic B&W look */
+            transition: filter 0.5s ease;
+        }
+        
+        .image-frame:hover {
+            filter: grayscale(0%) contrast(100%);
+        }
+
+        /* Publication List Styling */
+        .publication-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .publication-item:last-child {
+            border-bottom: none;
+        }
+        .publication-title {
+            font-family: var(--font-head);
+            font-size: 1.1rem;
+            color: var(--text-main);
+        }
+        .publication-meta {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+        """
+
+    elif layout_variant == "standard" and "holobiontic" in site.get("site_name", "").lower():
+        theme_overrides = f"""
+        /* Holobiontic / Bio Theme */
+        body {{
+            background-color: {cream};
+            background-image: radial-gradient({primary}1a 1px, transparent 1px);
+            background-size: 30px 30px;
+        }}
+        .site-header {{
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(45, 122, 70, 0.2);
+        }}
+        h1, h2, h3 {{ color: {primary_dark}; font-family: "Playfair Display", serif; }}
+        .card {{
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(45, 122, 70, 0.2);
+            box-shadow: 0 4px 20px rgba(45, 122, 70, 0.05);
+            border-radius: 12px;
+        }}
+        .button {{
+            background: linear-gradient(135deg, {primary_bright}, {primary_dark});
+            border-radius: 20px;
+            font-family: var(--font-body);
+            letter-spacing: 0.05em;
+        }}
+        .image-frame img {{ border-radius: 12px; }}
+        """
+
     return f"""
 :root {{
   color-scheme: light;
   
   /* Dynamic Theme Tokens */
-  --bordeaux: {primary};
-  --bordeaux-dark: {primary_dark};
-  --bordeaux-bright: {primary_bright};
+  --primary: {primary};
+  --primary-dark: {primary_dark};
+  --primary-bright: {primary_bright};
   --cream: {cream};
   --paper: {paper};
   --gold: {gold};
   
-  --bg-dark: var(--bordeaux-dark);
+  --bg-dark: var(--primary-dark);
   --bg-light: var(--paper);
   --text-main: {text_main};
   --text-muted: {text_muted};
@@ -817,7 +1269,7 @@ def _build_css(site: dict[str, Any]) -> str:
   --font-heading: "Cormorant Garamond", serif;
   --font-body: "Outfit", sans-serif;
   --radius: 8px;
-  --max-width: 1000px;
+  --max-width: 1200px;
 }}
 
 /* Base */
@@ -827,37 +1279,39 @@ body {{
   background: var(--paper);
   color: var(--text-main);
   line-height: 1.6;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+  transition: background-color 0.3s, color 0.3s;
 }}
 
 /* Typography */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500&family=Fira+Code:wght@400;500&family=Playfair+Display:wght@400;700&display=swap');
 
 h1, h2, h3 {{
   font-family: var(--font-heading);
-  color: var(--bordeaux);
+  color: var(--primary);
   margin-top: 0;
 }}
 
-h1 {{ font-size: 3.5rem; letter-spacing: -0.01em; margin-bottom: 0.5rem; }}
+h1 {{ font-size: 3.5rem; letter-spacing: -0.01em; margin-bottom: 0.5rem; line-height: 1.1; }}
 h2 {{ font-size: 2.2rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--gold); display: inline-block; padding-bottom: 5px; }}
-a {{ color: var(--bordeaux); text-decoration: none; font-weight: 500; transition: color 0.2s; }}
-a:hover {{ color: var(--bordeaux-bright); }}
+a {{ color: var(--primary); text-decoration: none; font-weight: 500; transition: color 0.2s; }}
+a:hover {{ color: var(--primary-bright); }}
 
 /* Layout */
 .page-shell {{ min-height: 100vh; display: flex; flex-direction: column; }}
-main {{ flex: 1; padding-top: 100px; }}
+main {{ flex: 1; padding-top: 80px; width: 100%; max-width: var(--max-width); margin: 0 auto; padding-left: 5vw; padding-right: 5vw; box-sizing: border-box; }}
 
 /* Header */
 .site-header {{
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
-  padding: 20px 5vw;
+  padding: 15px 5vw;
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 100;
+  z-index: 1000;
   background: var(--header-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -868,39 +1322,54 @@ main {{ flex: 1; padding-top: 100px; }}
   font-family: var(--font-heading);
   font-size: 24px;
   font-weight: 700;
-  color: var(--bordeaux);
+  color: var(--primary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }}
 
 .nav {{ display: flex; gap: 30px; }}
-.nav a {{ color: var(--text-muted); text-transform: uppercase; font-size: 14px; letter-spacing: 0.1em; }}
-.nav a:hover, .nav a.active {{ color: var(--bordeaux); }}
+.nav a {{ color: var(--text-muted); text-transform: uppercase; font-size: 13px; letter-spacing: 0.1em; font-weight: 600; }}
+.nav a:hover, .nav a.active {{ color: var(--primary); }}
 
 /* Components */
 .card, .profile-card {{
   background: var(--card);
   border: 1px solid var(--card-border);
   border-radius: var(--radius);
-  padding: 40px;
-  box-shadow: 0 10px 30px -10px var(--shadow);
-  transition: transform 0.3s;
+  padding: 30px;
+  box-shadow: 0 4px 20px var(--shadow);
+  transition: transform 0.3s, box-shadow 0.3s;
 }}
 
-.card:hover {{ transform: translateY(-5px); }}
+.card:hover {{ transform: translateY(-3px); box-shadow: 0 8px 30px var(--shadow); }}
 
 .button {{
   padding: 12px 28px;
-  background: var(--bordeaux);
+  background: var(--primary);
   color: #fff;
   border-radius: 4px;
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 13px;
   letter-spacing: 0.1em;
+  font-weight: 600;
   border: none;
   cursor: pointer;
+  display: inline-block;
+  text-align: center;
 }}
-.button:hover {{ background: var(--bordeaux-bright); box-shadow: 0 5px 15px rgba(101, 20, 28, 0.2); }}
+.button:hover {{ background: var(--primary-bright); color: #fff; }}
+.button.ghost {{ background: transparent; border: 1px solid var(--primary); color: var(--primary); }}
+.button.ghost:hover {{ background: var(--primary); color: #fff; }}
+
+/* Grid Layouts */
+.content-grid {{ display: grid; grid-template-columns: 1fr; gap: 40px; }}
+@media (min-width: 768px) {{
+  .content-grid {{ grid-template-columns: 1fr 1fr; align-items: center; }}
+  .content-grid > div:first-child {{ order: 1; }}
+  .content-grid > div:last-child {{ order: 2; }}
+}}
+
+.card-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; margin: 40px 0; }}
 
 /* Forms */
 input, textarea {{
@@ -908,20 +1377,30 @@ input, textarea {{
   padding: 15px;
   border: 1px solid var(--card-border);
   border-radius: 4px;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.8);
   font-family: var(--font-body);
   margin-bottom: 20px;
+  box-sizing: border-box;
 }}
-input:focus, textarea:focus {{ border-color: var(--bordeaux); outline: none; }}
+input:focus, textarea:focus {{ border-color: var(--primary); outline: none; box-shadow: 0 0 0 2px var(--card-border); }}
 
 /* Footer */
 .site-footer {{
-  background: var(--bordeaux-dark);
+  background: var(--primary-dark);
   color: var(--cream);
   padding: 60px 5vw;
-  margin-top: auto;
+  margin-top: 60px;
 }}
-.site-footer a {{ color: var(--gold); }}
+.site-footer a {{ color: var(--gold); opacity: 0.8; }}
+.site-footer a:hover {{ opacity: 1; }}
+.footer-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }}
+.footer-title {{ font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 1rem; color: #fff; }}
+
+/* Images */
+img {{ max-width: 100%; height: auto; display: block; }}
+.image-frame {{ margin: 0; overflow: hidden; border-radius: var(--radius); box-shadow: 0 10px 40px -10px var(--shadow); }}
+
+{theme_overrides}
 """
 
 
@@ -1059,11 +1538,73 @@ function setupContactForm() {
   });
 }
 
+function setupPublicationFilter() {
+  const pubSection = document.querySelector('.publications-section');
+  if (!pubSection) return;
+  
+  const list = pubSection.querySelector('ul');
+  if (!list) return;
+  
+  const items = list.querySelectorAll('li');
+  const categories = new Set(['All']);
+  
+  items.forEach(item => {
+    const text = item.textContent;
+    const match = text.match(/^\[(.*?)\]/);
+    if (match) {
+      const cat = match[1];
+      categories.add(cat);
+      item.dataset.category = cat;
+      // Optional: Remove tag from visual text? 
+      // item.innerHTML = item.innerHTML.replace('['+cat+']', '').trim(); 
+      // Keeping it for now as it's explicit.
+    } else {
+      item.dataset.category = 'Other';
+      categories.add('Other');
+    }
+  });
+  
+  if (categories.size <= 2) return; // Don't filter if only All/Other or 1 cat
+  
+  const controls = document.createElement('div');
+  controls.className = 'filter-controls';
+  controls.style.marginBottom = '20px';
+  controls.style.display = 'flex';
+  controls.style.gap = '10px';
+  controls.style.flexWrap = 'wrap';
+  
+  categories.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'button ghost small';
+    btn.textContent = cat;
+    btn.dataset.filter = cat;
+    if (cat === 'All') btn.classList.add('active');
+    
+    btn.addEventListener('click', () => {
+      controls.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      items.forEach(item => {
+        if (cat === 'All' || item.dataset.category === cat) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+    
+    controls.appendChild(btn);
+  });
+  
+  list.parentNode.insertBefore(controls, list);
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   revealOnScroll();
   smoothScroll();
   setupNewsletter();
   setupContactForm();
+  setupPublicationFilter();
 });
 """.lstrip()
 
@@ -1198,6 +1739,45 @@ def _render_swarm_layout(site: dict[str, str], pages: dict[str, dict[str, object
     """
 
 
+def _render_portfolio_layout(site: dict[str, str], pages: dict[str, dict[str, object]], current_path: Path) -> str:
+    """Renders the 'OnePager' Portfolio layout for Patrick Schimpl."""
+    hero_title = _escape(site.get("site_name", "Academic Portfolio"))
+    hero_tagline = _escape(site.get("site_tagline", "Research & Design"))
+    
+    # Custom Hero HTML with the new abstract image
+    hero_html = f"""
+    <section class="portfolio-hero">
+        <div class="portfolio-hero-bg">
+             <img src="{_escape(_rel_link(current_path, Path("assets/img/patrick_hero_future_academic_1767665411296.png")))}" alt="Abstract Data Visualization" />
+        </div>
+        <div class="portfolio-hero-content">
+            <p class="eyebrow">Academic Portfolio</p>
+            <h1>{hero_title}</h1>
+            <p class="subtitle">{hero_tagline}</p>
+        </div>
+    </section>
+    """
+
+    # Render Sections (Research, Team, Publications)
+    # Reusing standard sections but wrapped in a container class
+    sections_html = ""
+    home_page = pages.get("", {})
+    if home_page and "sections" in home_page:
+        for section in home_page["sections"]:
+            if section.get("kind") == "hero": continue 
+            
+            # Wrap standard sections in a content-section div
+            # We inject a small div wrapper around the standard render
+            sections_html += f'<div class="content-section">{_render_section(section, current_path, pages, [])}</div>'
+
+    return f"""
+    {hero_html}
+    <div class="portfolio-content">
+        {sections_html}
+    </div>
+    """
+
+
 def _render_rhizome_layout(site: dict[str, str], pages: dict[str, dict[str, object]], current_path: Path) -> str:
     hero_title = _escape(site.get("site_name", "Rhizome"))
     tagline = _escape(site.get("site_tagline", ""))
@@ -1285,6 +1865,9 @@ def _render_sentient_layout(site: dict[str, str], pages: dict[str, dict[str, obj
         <div class="terminal-title">system@sentient:~$ {hero_title}</div>
     </div>
     <div class="terminal-body">
+        <div class="terminal-vis-layer">
+            <img src="{_escape(_rel_link(current_path, Path("assets/img/sentient_hero_cyberpunk_crt_1767665692747.png")))}" alt="System Visualization" />
+        </div>
         <div class="terminal-prompt">
             <span class="prompt-user">user@sentient</span>
             <span class="prompt-symbol">$</span>
@@ -1591,7 +2174,9 @@ def build_site() -> None:
     digests = _read_digests()
     meta_description = site.get("meta_description", "")
     layout_variant = (site.get("layout_variant") or "standard").strip().lower()
-    if layout_variant not in {"standard", "linkhub", "profile", "mescia_landing", "archive", "swarm", "rhizome", "sentient"}:
+    layout_variant = (site.get("layout_variant") or "standard").strip().lower()
+    if layout_variant not in {"standard", "linkhub", "profile", "mescia_landing", "archive", "swarm", "rhizome", "sentient", "portfolio"}:
+        layout_variant = "standard"
         layout_variant = "standard"
     show_digest_home = str(site.get("show_digest_home", "")).strip().lower() in {"1", "true", "yes", "on"}
 
@@ -1686,6 +2271,10 @@ def build_site() -> None:
                 homepage_body = _render_rhizome_layout(site, pages, current_path)
             elif layout_variant == "sentient":
                 homepage_body = _render_sentient_layout(site, pages, current_path)
+            elif layout_variant == "portfolio":
+                homepage_body = _render_portfolio_layout(site, pages, current_path)
+            elif layout_variant == "portfolio":
+                homepage_body = _render_portfolio_layout(site, pages, current_path)
             elif layout_variant == "profile":
                 homepage_body = f"""
       <section class="hero">
