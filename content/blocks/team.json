@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Sentient Core",
+        "role": "Autonomous Agent",
+        "bio": "Primary supervisor of laboratory protocols and data integrity.",
+        "image": "assets/img/placeholder-portrait.svg"
+    },
+    {
+        "name": "The Swarm",
+        "role": "Collective Intelligence",
+        "bio": "Distributed processing unit for large-scale cognitive simulations.",
+        "image": "assets/img/placeholder-grid.svg"
+    }
+]
