@@ -2687,10 +2687,10 @@ def _render_sentient_layout(site: dict[str, str], pages: dict[str, dict[str, obj
             <span class="prompt-command">init_session</span>
         </div>
         <div class="terminal-output">
-            <div class="terminal-output-line">Initializing sentient system...</div>
-            <div class="terminal-output-line">System status: <span class="status-active">ACTIVE</span></div>
-            <div class="terminal-output-line">Neural pathways: <span class="status-active">ONLINE</span></div>
-            <div class="terminal-output-line">Cognitive modules: <span class="status-active">READY</span></div>
+            <div class="terminal-output-line" data-typewriter="Initializing sentient system..."></div>
+            <div class="terminal-output-line" data-typewriter="System status: ACTIVE"></div>
+            <div class="terminal-output-line" data-typewriter="Neural pathways: ONLINE"></div>
+            <div class="terminal-output-line" data-typewriter="Cognitive modules: READY"></div>
         </div>
         
         <div class="terminal-prompt">
@@ -3091,6 +3091,10 @@ def build_site() -> None:
         if slug == "" and layout_variant in {"archive", "swarm", "rhizome", "sentient"}:
             extra_css += f'<link rel="stylesheet" href="{_escape(_rel_link(current_path, Path("assets/css/extra_layouts.css")))}" />'
 
+        body_scripts = f'<script src="{_escape(js_href)}"></script>'
+        if slug == "" and layout_variant == "sentient":
+             body_scripts += f'\n<script src="{_escape(_rel_link(current_path, Path("assets/js/typewriter.js")))}"></script>'
+
         header = _render_header(slug, pages, current_path, site)
         footer = _render_footer(site, pages, current_path, links)
         sections = list(page["sections"])
@@ -3287,8 +3291,7 @@ def build_site() -> None:
     </main>
     {footer}
   </div>
-  <script src="{_escape(js_href)}"></script>
-  {f'<script src="{_escape(_rel_link(current_path, Path("assets/js/landing.js")))}"></script>' if slug == "" and layout_variant == "mescia_landing" else ''}
+  {body_scripts}
   {f'<script src="{_escape(_rel_link(current_path, Path("assets/js/optimize.js")))}"></script>' if slug == "" else ''}
   <script src="{_escape(_rel_link(current_path, Path("assets/js/search.js")))}"></script>
 </body>
