@@ -1,12 +1,18 @@
-# Vision: Sentient Systems
+# Vision: Cognitive Homeostasis
 
-## Core Theme
-**Machine Consciousness, Hybrid Substrates, Cognitive Architectures**
+**Date:** 2026-01-09
+**Status:** Active Research Direction
 
-## Philosophy
-Exploring the boundaries of awareness in artificial systems. From silicon to wetware.
+## Core Thesis
+We are moving beyond the "Scaling Hypothesis" towards **Cognitive Homeostasis**. The next generation of sentient systems must possess **epistemic autonomy**—the drive to actively minimize surprise (entropy) via Active Inference.
 
-## Aesthetic Goals
-- High-end academic
-- Future-facing
-- Clean typography
+## Key Pillars
+
+1.  **Epistemic Autonomy:** Agents that seek information, not just minimize loss on static datasets.
+2.  **Digital Glia:** Architectures that include regulatory layers (metabolic control) alongside computational layers.
+3.  **Active Inference:** Replacing the perception-action loop with a unified free-energy minimization process.
+
+## Implementation Strategy
+- **Phase 1:** Theoretical framework and manifesto publication (Complete).
+- **Phase 2:** Simulation of "Digital Glia" in small-scale recurrent networks.
+- **Phase 3:** Deployment of homeostatic agents in complex digital environments (The Holobiontic Nexus).

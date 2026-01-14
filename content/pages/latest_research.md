@@ -1,0 +1,812 @@
+---
+title: "Latest Research Radar"
+description: "Autonomous digest of high-impact papers in Neuromorphic AI, Agentic Frameworks, and AI-driven Science (2025-2026)."
+layout: "page"
+date: "2026-01-10"-
+---
+
+# 📡 Active Research Radar
+
+This feed is autonomously curated by the **Holobiontic Earth Nexus Agent**. It monitors global pre-print servers (arXiv) for breakthroughs in **Neuromorphic Computing**, **Biomimetic AI**, and **Agentic Architectures**.
+
+<a href="/assets/research_feed.xml" class="button">Subscribe to RSS Feed</a>
+
+---
+
+## Space & Astrobiology
+
+### Ab initio Simulations of EMI-BF4 Neutral-Surface Interaction
+
+Ab initio Simulations of EMI – BF 4Neutral-Surface Interactions in Electrospray Thrusters Ab initio Simulations of EMI–BF 4Neutral-Surface Interactions in Electrospray Thrusters N. Laws1and E. Petro1 Sibley School of Mechanical & Aerospace Engineering, Cornell University, Ithaca, New York (*Electronic mail: nrl49@cornell.edu) (Dated: 24 December 2025) Electrospray thrusters promise compact, high specific impulse propulsion for small spacecraft, yet ground characteri- zation remains confounded by secondary species emission and incomplete diagnostics of neutral products. To address these limitat...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Ab_initio_Simulations_of_EMI-BF4_Neutral-Surface_Interaction.pdf)*
+
+---### Time-Varying Kinematics Control for Magnetically-Actuated Sa
+
+—Electromagnetic Formation Flight is a technology that uses electromagnetic forces and torques to control multiple satellites without conventional fuel-based propulsion. In this paper, the controllability of the system is discussed based on the conservation of the entire system’s angular momentum, which constitutes a nonholonomic constraint. This paper designs a new controller for multiple satellites without an additional attitude actuator. Index Terms—Electromagnetic Formation Flight, Spacecraf...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Time-Varying_Kinematics_Control_for_Magnetically-Actuated_Sa.pdf)*
+
+---### Optimal Trajectory Planning for Orbital Robot Rendezvous and
+
+— Approaching a tumbling target safely is a critical challenge in space debris removal missions utilizing robotic manipulators onboard servicing satellites. In this work, we propose a trajectory planning method based on nonlinear optimization for a close-range rendezvous to bring a free- floating, rotating debris object in a two-dimensional plane into the manipulator’s workspace, as a preliminary step for its capture. The proposed method introduces a dynamic keep- out sphere that adapts dependin...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Optimal_Trajectory_Planning_for_Orbital_Robot_Rendezvous_and.pdf)*
+
+---### Catching 3IATLAS Using a Solar Oberth
+
+The third interstellar object to be discovered, 3I/ATLAS, has a unique and continually unfolding story to tell about its nature and origin as it is monitored by telescopes on Earth, orbiting Earth and around the Solar System. Previous research into missions using chemical propulsion have only really addressed the direct case, where the opportunity to launch already expired before 3I/ATLAS’s discovery. In contrast, investigations herein exploit ’Optimum Interplanetary Trajectory Software’ to simu...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Catching_3IATLAS_Using_a_Solar_Oberth.pdf)*
+
+---### Photochemistry of interstellar ice forming Complex Organic M
+
+|	Astrochemistry	is	 a	 well-established	 multidisciplinary	 field	devoted	 to	 study	molecules	in	 space.	 While	 most	 astrochemists	 are	 oriented	 to	 observe	 molecules	 in	 the	 gas	phase	and	reproduce	their	abundances	by	modeling	the	physical	conditions	of	the	medium,	the	microscopic	 dust	 particles	 wandering	 in	 the	 interstellar	 medium	 deserve	 the	 attention	 of	 a	smaller	community.	Radiation	and	thermally-driven	processes	taking	place	in	the	bare	dust,	and	particularly	in	dust	p...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Photochemistry_of_interstellar_ice_forming_Complex_Organic_M.pdf)*
+
+---### Data-Driven Terramechanics Approach Towards a Realistic Real
+
+— High-fidelity simulators for the lunar surface provide a digital environment for extensive testing of rover operations and mission planning. However, current simulators focus on either visual realism or physical accuracy, which limits their capability to replicate lunar conditions comprehensively. This work addresses that gap by combining high visual fidelity with realistic terrain interaction for a realistic representation of rovers on the lunar surface. Because direct simulation of wheel-soi...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Data-Driven_Terramechanics_Approach_Towards_a_Realistic_Real.pdf)*
+
+---### Improved 3D Gaussian Splatting of Unknown Spacecraft Structu
+
+— This work presents a novel pipeline to recover the 3D structure of an unknown target spacecraft from a sequence of images captured during Rendezvous and Proximity Opera- tions (RPO) in space. The target’s geometry and appearance are represented as a 3D Gaussian Splatting (3DGS) model. However, learning 3DGS requires static scenes, an assumption in contrast to dynamic lighting conditions encountered in spaceborne imagery. The trained 3DGS model can also be used for camera pose estimation throug...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Improved_3D_Gaussian_Splatting_of_Unknown_Spacecraft_Structu.pdf)*
+
+---### Bridging the Basilisk Astrodynamics Framework with ROS 2 for
+
+— Integrating high-fidelity spacecraft simulators with modular robotics frameworks remains a challenge for autonomy development. This paper presents a lightweight, open-source communication bridge between the Basilisk astro- dynamics simulator and the Robot Operating System 2 (ROS 2), enabling real-time, bidirectional data exchange for spacecraft control. The bridge requires no changes to Basilisk’s core and integrates seamlessly with ROS 2 nodes. We demonstrate its use in a leader–follower form...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Bridging_the_Basilisk_Astrodynamics_Framework_with_ROS_2_for.pdf)*
+
+---### Responsible Discovery in Astrobiology Lessons from Four Cont
+
+  Responsible Discovery in Astrobiology:   Lessons from four controversial claims     Author’s Full Name: Daliah Bibas, Clément Vidal   Affiliation: Center Leo Apostel, Vrije Universiteit Brussel, Belgium       Short Bios:   Dr. Clément Vidal is a philosopher with a background in logic and cognitive sciences. He is  co-founder of the Evo Devo Institute non -profit. In 2022 -2023 he was a visiting scholar at UC  Berkeley’s SETI Research Center. In 2014, he authored The Beginning and the End: The  Meaning of Life in a Cosmological Perspective . He is eager to tackle big questions, bringing  toge...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Responsible_Discovery_in_Astrobiology_Lessons_from_Four_Cont.pdf)*
+
+---### Conversational AI for Rapid Scientific Prototyping A Case St
+
+—Large language models (LLMs) are increasingly used as coding partners, yet their role in accelerating scien- tific discovery remains underexplored. This paper presents a case study of using ChatGPT for rapid prototyping in ESA’s ELOPE (Event-based Lunar OPtical flow Egomotion estimation) competition. The competition required participants to process event camera data to estimate lunar lander trajectories. Despite joining late, we achieved second place with a score of 0.01282, highlighting the po...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/Conversational_AI_for_Rapid_Scientific_Prototyping_A_Case_St.pdf)*
+
+---### Space AI Leveraging Artificial Intelligence for Space to Imp
+
+Space AI Leveraging Artificial Intelligence for Space to Improve Life on Earth Ziyang Wang ziyangwang@ieee.org Figure 1. Space AI: Leveraging Artificial Intelligence for Space to Improve Life on Earth. 1arXiv:2512.22399v1  [astro-ph.IM]  26 Dec 2025...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Space_AI_Leveraging_Artificial_Intelligence_for_Space_to_Imp.pdf)*
+
+---### On Intensity of Preference Rank Reversal in the AHP
+
+On Intensity of Preference Rank Reversal in the AHP Jiří Mazurek1, Luis Ángel Calvo2 1Department of Informatics and Mathematics, Silesian University in Opava, Czech Republic 2Department of Quantitative Methods (ICADE), and Institute for Research in Technology (IIT), Comillas Pontifical University, Madrid, Spain Abstract The analytic hierarchy process (AHP) is one of the most widely used multicriteria decision-making methods, with applications from agriculture to space engineering. De- spite its popularity, AHP has been repeatedly criticised for rank reversal, a phenomenon in which the ranking ...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/On_Intensity_of_Preference_Rank_Reversal_in_the_AHP.pdf)*
+
+---### Steady Self-Propelled Motion of a Rigid Body in a Viscous Fl
+
+We investigate the steady self-propelled motion of a rigid body immersed in a three-dimensional incompressible viscous fluid governed by the Navier-Stokes equations. The analysis is performed in a body- fixed reference frame, so that the fluid occupies an exterior domain and the propulsion mechanism is modeled through nonhomogeneous Navier-slip boundary conditions at the fluid-body interface. Such conditions provide a realistic description of propulsion in microfluidic and rough-surface regimes,...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Steady_Self-Propelled_Motion_of_a_Rigid_Body_in_a_Viscous_Fl.pdf)*
+
+---### Propulsion dispersion mediated ordering transition in active
+
+Propulsion dispersion mediated ordering transition in active particles Debraj Dutta1,∗and Urna Basu1 1S. N. Bose National Centre for Basic Sciences, Kolkata 700106, India We show that dispersion in propulsion strength qualitatively alters collective behavior of active multi-particle systems interacting via short-range attractive potential, giving rise to novel ordered phases that combine spatial and orientational ordering. Considering a binary mixture of active Brownian particles with two distinct self-propulsion strengths, we find that, the interplay between interaction range, self-propulsion...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Propulsion_dispersion_mediated_ordering_transition_in_active.pdf)*
+
+---### Optimization of Magnetic Milli-Spinner for Robotic Endovascu
+
+  1   Optimization of M agnetic M illi-Spinner  for Robotic Endovascular Intervention     Lu Lu, Luca Higgins, Jack Bernardo, Ruike Renee Zhao*    L. Lu, L. Higgins, J. Bernardo, R. R. Zhao   Department of Mechanical Engineering, Stanford University, Stanford, CA 94305, United States   Email: rrzhao@stanford.edu (R.R.  Zhao)    Keywords: Magnetic milli- spinner; Robotic navigation; Design optimization; Propulsion  efficiency; Clot debulking.    Abstract   Vascular diseases such as atherosclerosis, thrombosis, and aneurysms can lead  to life -threatening  medical events . Conventional catheter ...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Optimization_of_Magnetic_Milli-Spinner_for_Robotic_Endovascu.pdf)*
+
+---### Design and Development of Modular Limbs for Reconfigurable R
+
+— In this paper, we present the development of 4-DOF robot limbs, which we call Moonbots, designed to connect in various configurations with each other and wheel modules, enabling adaptation to different environments and tasks. These modular components are intended primarily for robotic systems in space exploration and construction on the Moon in our Moonshot project. Such modular robots add flexibility and versatility for space missions where resources are constrained. Each module is driven by ...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Design_and_Development_of_Modular_Limbs_for_Reconfigurable_R.pdf)*
+
+---### A Review of Theory and Practical Considerations of Tunable D
+
+Tunable Diode Laser Absorption Spectroscopy (TDLAS) has emerged as a versatile and reliable diagnostic tool for measuring temperature, pressure, gas composition, and velocity in power genera- tion and propulsion systems. This paper provides a comprehensive review of TDLAS principles and practical considerations for sensor design and implementation. The discussion begins with a mathe- matical...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/A_Review_of_Theory_and_Practical_Considerations_of_Tunable_D.pdf)*
+
+---## Neuromorphic & Biomimetic
+
+### Bifurcation Analysis Framework of Spiking Neuron Models
+
+—Neuromorphic computing targets energy -efficient  event -driven information processing by placing artificial spiking - neurons at its core. Artificial neuron devices and circuits have  multiple operating modes and produce region -dependent  nonlinear dynamics  that are not captured by system analysis  methods for linear systems, such as transfer functions,  Fourier/Laplace transform, Bode diagram, etc. Thus, new tools  are needed to evaluate the nonlinear behavior of neurons and to  guide the d...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/Bifurcation_Analysis_Framework_of_Spiking_Neuron_Models.pdf)*
+
+---### Three factor delay learning rules for spiking neural network
+
+—Spiking Neural Networks (SNNs) are dynamical systems that operate on spatiotemporal data, yet their learnable parameters are often limited to synaptic weights, contributing little to temporal pattern recognition. Learnable parameters that delay spike times can improve classification performance in temporal tasks, but existing methods rely on large networks and offline learning, making them unsuitable for real-time operation in resource-constrained environments. In this paper, we introduce synap...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/Three_factor_delay_learning_rules_for_spiking_neural_network.pdf)*
+
+---### STEMNIST Spiking Tactile Extended MNIST Neuromorphic Dataset
+
+Tactile sensing is essential for robotic manipulation, prosthetics and assistive technologies, yet neuromorphic tactile datasets remain limited compared to their visual counterparts. We introduce STEMNIST, a large-scale neuromorphic tactile dataset extending ST-MNIST from 10 digits to 35 alphanumeric classes (uppercase letters A–Z and digits 1–9), providing a challenging benchmark for event-based haptic recognition. The dataset comprises 7,700 samples collected from 34 participants using a custo...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/STEMNIST_Spiking_Tactile_Extended_MNIST_Neuromorphic_Dataset.pdf)*
+
+---### Optical Spiking Neural Networks via Rogue-Wave Statistics
+
+Optical computing could reduce the energy cost of artificial intelligence by lever- aging the parallelism and propagation speed of light. However, implementing nonlinear activation, essential for machine learning, remains challenging in low- power optical systems dominated by linear wave physics. Here, we introduce an optical spiking neural network that uses optical rogue-wave statistics as a programmable firing mechanism. By establishing a homomorphism between free-space diffraction and neurona...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/Optical_Spiking_Neural_Networks_via_Rogue-Wave_Statistics.pdf)*
+
+---### SpikySpace A Spiking State Space Model for Energy-Efficient 
+
+—Time-series forecasting often operates under tight power and latency budgets in fields like traffic management, industrial condition monitoring, and on-device sensing. These applications frequently require near real-time responses and low energy consumption on edge devices. Spiking neural networks (SNNs) offer event-driven computation and ultra-low power by exploiting temporal sparsity and multiplication-free computation. Yet existing SNN-based time-series forecasters often inherit complex tran...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/SpikySpace_A_Spiking_State_Space_Model_for_Energy-Efficient_.pdf)*
+
+---### Spiking Heterogeneous Graph Attention Networks
+
+Real-world graphs or networks are usually heterogeneous, in- volving multiple types of nodes and relationships. Heteroge- neous graph neural networks (HGNNs) can effectively handle these diverse nodes and edges, capturing heterogeneous in- formation within the graph, thus exhibiting outstanding per- formance. However, most methods of HGNNs usually in- volve complex structural designs, leading to problems such as high memory usage, long inference time, and extensive consumption of computing resou...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/Spiking_Heterogeneous_Graph_Attention_Networks.pdf)*
+
+---### EARL Energy-Aware Optimization of Liquid State Machines for 
+
+—Pervasive AI increasingly depends on on-device learning systems that deliver low-latency, energy-efficient compu- tation under strict resource constraints. Liquid State Machines (LSMs) offer a promising path for low-power temporal processing in pervasive and neuromorphic systems, but their deployment remains difficult due to high hyperparameter sensitivity and the computational cost of traditional optimization methods that ignore energy constraints. This work presents EARL, an energy-aware rein...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/EARL_Energy-Aware_Optimization_of_Liquid_State_Machines_for_.pdf)*
+
+---### Modern Neuromorphic AI From Intra-Token to Inter-Token Proce
+
+—The rapid growth of artificial intelligence (AI) has brought novel data processing and generative capabilities but also escalating energy requirements. This challenge motivates renewed interest in neuromorphic computing principles, which promise brain-like efficiency through discrete and sparse activations, recurrent dynamics, and non-linear feedback. In fact, modern AI architectures increasingly embody neuromorphic principles through heavily quantized activations, state-space dynamics, and spa...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/Modern_Neuromorphic_AI_From_Intra-Token_to_Inter-Token_Proce.pdf)*
+
+---### Neural Ordinary Differential Equations for Simulating Metabo
+
+—The advancement of human healthspan and bio- engineering relies heavily on predicting the behavior of complex biological systems. While high-throughput multiomics data is becoming increasingly abundant, converting this data into action- able predictive models remains a bottleneck. High-capacity, data- driven simulation systems are critical in this landscape; unlike classical mechanistic models restricted by prior knowledge, these architectures can infer latent interactions directly from observa...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Neural_Ordinary_Differential_Equations_for_Simulating_Metabo.pdf)*
+
+---### How Quorum Sensing Shapes Clustering in Active Matter
+
+How Quorum Sensing Shapes Clustering in Active Matter L. de Souza ,1,2,∗E. F. Teixeira ,3,†G. M. Viswanathan ,1,4,‡P. Sollich ,2,5,§and P. de Castro6,¶ 1Departamento de F´ ısica Te´ orica e Experimental, Universidade Federal do Rio Grande do Norte. Natal 59078-97 0, Brazil 2Institut f¨ ur Theoretische Physik, University of G¨ otting en, Friedrich-Hund-Platz 1, 37077 G¨ ottingen, Germany 3Instituto de F´ ısica, Universidade Federal do Rio Grande do Sul. Porto Alegre 91501-970, Brazil 4National Institute of Science and Technology of Complex Sys tems. Rio de Janeiro 22290-180, Brazil 5Department ...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/How_Quorum_Sensing_Shapes_Clustering_in_Active_Matter.pdf)*
+
+---### Direct Measurement of Inertial Impact and Propulsive Force i
+
+Direct Measurement of Inertial Impact and Propulsive Force in a Eukaryotic Swimmer Katsuya Shimabukuro,∗Kosaku Horinaga, Kazumo Wakabayashi, and Hikaru Emoto Department of Chemical and Biological Engineering, National Institute of Technology (KOSEN) Ube College, Yamaguchi, 755-8555 Japan Noriko Ueki Science Research Center, Hosei University, Tokyo, 102-8160, Japan Ken-ichi Wakabayashi Department of Industrial Life Sciences, Faculty of Life Sciences, Kyoto Sangyo University, Kyoto, 603-8555, Japan Noriyo Mitome† Department of Chemical and Biological Engineering, National Institute of Technology...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Direct_Measurement_of_Inertial_Impact_and_Propulsive_Force_i.pdf)*
+
+---### Modeling complex motility patterns for autophoretic microswi
+
+Symmetry breaking is essential for biological microswimmers to achieve locomotion in viscous environment. Such asymmetry inherent in the swimming mechanism enables the generation of directional forces that overcome fluid resis- tance, supporting efficient movement and complex interactions. As a synthetic analogue, autophoretic microswimmers, such as isotropic active colloids and active droplets, undergo spontaneous symmetry-breaking of a chemical species that generates interfacial flows which in...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Modeling_complex_motility_patterns_for_autophoretic_microswi.pdf)*
+
+---### Dynamic response phenotypes and model discrimination in syst
+
+Many biological systems encode function not primarily in steady states, but in the structure of transient responses elicited by time-varying stimuli. Overshoots, biphasic dynamics, adaptation kinetics, fold- change detection, entrainment, and cumulative exposure effects often determine phenotypic outcomes, yet are poorly captured by classical steady-state or dose–response analyses. This paper develops an input–output perspective on suchdynamic phenotypes, emphasizing how qualitative features of ...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Dynamic_response_phenotypes_and_model_discrimination_in_syst.pdf)*
+
+---## Digital Bio & Metabolic Eng
+
+### Secondary Species formed from ionic liquid electrospray ion 
+
+The operational lifetime of ionic liquid electrospray propulsion systems is limited by plume–extractor electrode interactions. Over time, propellant accumulation, surface erosion, and electrical shorts degrade the extractor and therefore restrict the total impulse throughput. Characterizing the secondary species generated by plume impacts with deposited ionic liquid is therefore essential to understanding and mitigating these degradation pathways. A surface analysis technique known as Time-of-Fl...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Secondary_Species_formed_from_ionic_liquid_electrospray_ion_.pdf)*
+
+---### From Classification to Generation An Open-Ended Paradigm for
+
+From Classification to Generation: An Open-Ended Paradigm for Adverse Drug Reaction Prediction Based on Graph-Motif Feature Fusion  Yuyan Pi1, Min Jin1*, Wentao Xie1, Xinhua Liu1  1 College of Computer Science and Electronic Engineering, Hunan University, Changsha, 410082, Hunan, China  *Corresponding authors: jinmin@hnu.edu.cn;    Abstract：  Computational biology offers immense potential for reducing the high costs and protracted cycles of new drug development through adverse drug reaction (ADR) prediction. However, current methods remain impeded by drug data scarcity-induced cold-start chall...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/From_Classification_to_Generation_An_Open-Ended_Paradigm_for.pdf)*
+
+---### Bounds on Longest Simple Cycles in Weighted Directed Graphs 
+
+The problem of finding the longest simple cycle in a directed graph is NP-hard, with critical applications in computational biology, scheduling, and network analysis. While polynomial-time approximation algorithms exist for restricted graph classes, general bounds remain loose or com- putationally expensive. In this paper, we exploitoptimum cycle means (minimum and maximum cycle means), which are computable in strongly polynomial time, to derive bothstrict algebraic boundsandheuris- tic approxim...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Bounds_on_Longest_Simple_Cycles_in_Weighted_Directed_Graphs_.pdf)*
+
+---### PlantBiMoE A Bidirectional Foundation Model with SparseMoE f
+
+—Understanding the underlying linguistic rules of plant genomes remains a fundamental challenge in computational biology. Recent advances including AgroNT and PDLLMs have made notable progress although, they suffer from excessive parameter size and limited ability to model the bidirectional nature of DNA strands respectively. To address these limitations, we propose PlantBiMoE, a lightweight and expressive plant genome language model that integrates bidirectional Mamba and a Sparse Mixture-of-Ex...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/PlantBiMoE_A_Bidirectional_Foundation_Model_with_SparseMoE_f.pdf)*
+
+---### PRIMRose Insights into the Per-Residue Energy Metrics of Pro
+
+Understanding how protein mutations affect protein structure is essential for advancements in computational biology and bioinfor- matics. We introduce PRIMRose, a novel approach that predicts energy values for each residue given a mutated protein sequence. Unlike previous models that assess global energy shifts, our method analyzes the localized energetic impact of double amino acid inser- tions or deletions (InDels) at the individual residue level, enabling residue-specific insights into struct...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/PRIMRose_Insights_into_the_Per-Residue_Energy_Metrics_of_Pro.pdf)*
+
+---### VideoMemory Toward Consistent Video Generation via Memory In
+
+VideoMemory: Toward Consistent Video Generation via Memory Integration Jinsong Zhou1,3∗Yihua Du1∗Xinli Xu1∗ †Luozhou Wang1Zijie Zhuang1 Yehang Zhang1Shuaibo Li1Xiaojun Hu3Bolan Su3Ying-cong Chen1,2‡ 1HKUST(GZ)2HKUST3ByteDance Project Page: VideoMemory Figure 1. From a single story prompt,VideoMemorygenerates coherent multi-shot videos using dynamic Character, Prop, and Back- ground Memory Banks. This ensures exceptional entity consistency, as seen with thefeatherprop remaining perfectly stable across distant shots (e.g., 2, 10, and 12) despite significant scene and viewpoint variations. Abstra...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/VideoMemory_Toward_Consistent_Video_Generation_via_Memory_In.pdf)*
+
+---### S1-MMAlign A Large-Scale Multi-Disciplinary Dataset for Scie
+
+S1-MMAlign: A Large-Scale, Multi-Disciplinary Dataset for Scientific Figure–Text Understanding He Wang1,2,†, Longteng Guo1,†, Pengkang Huo1, Xuanxu Lin1, Yichen Yuan1, Jie Jiang1& Jing Liu1,∗ 1Institute of Automation, Chinese Academy of Sciences, Beijing, China 2School of Advanced Interdisciplinary Sciences, University of Chinese Academy of Sciences, Beijing, China †These authors contributed equally to this work. ∗Corresponding author: jliu@nlpr.ia.ac.cn Abstract Multimodal learning has revolutionized general domain tasks, yet its application in scien- tific discovery is hindered by the profou...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/S1-MMAlign_A_Large-Scale_Multi-Disciplinary_Dataset_for_Scie.pdf)*
+
+---### Vortex Dynamics from Burst-and-Coast Motion of Anguilliform 
+
+Fish perform various propulsive maneuvers while swimming by generating traveling waves along their bodies and producing thrust through tail strokes. Anguilliform swimmers spread mo- tion along the body, while carangiform swimmers’ motion is more prominent near their tails. Many species also switch between continuous undulation and intermittent swimming, such as burst-and- coast maneuver, which can save energy but can also change the wake structure and hydrodynamic forces. Our current study aims ...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Vortex_Dynamics_from_Burst-and-Coast_Motion_of_Anguilliform_.pdf)*
+
+---## Agentic Architectures
+
+### Orchestrating Intelligence Confidence-Aware Routing for Effi
+
+While multi-agent systems (MAS) have demon- strated superior performance over single-agent approaches in complex reasoning tasks, they often suffer from significant computational in- efficiencies. Existing frameworks typically deploy large language models (LLMs) uni- formly across all agent roles, failing to account for the varying cognitive demands of differ- ent reasoning stages. We address this ineffi- ciency by proposing OI-MAS framework, a novel multi-agent framework that implements an adap...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/Orchestrating_Intelligence_Confidence-Aware_Routing_for_Effi.pdf)*
+
+---### Neural-network-based Self-triggered Observed Platoon Control
+
+This paper investigates autonomous vehicle (AV) platoon control under uncertain dynamics and intermittent communication, which remains a critical challenge in intelligent transportation systems. To ad- dress these issues, this paper proposes an adaptive consensus tracking control framework for nonlinear multi-agent systems (MASs). The pro- posed approach integrates backstepping design, a nonlinear sampled-data observer, radial basis function neural networks, and a self-triggered com- munication ...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/Neural-network-based_Self-triggered_Observed_Platoon_Control.pdf)*
+
+---### Lying with Truths Open-Channel Multi-Agent Collusion for Bel
+
+As large language models (LLMs) transition to autonomous agents synthesizing real-time information, their reasoning capabilities intro- duce an unexpected attack surface. This pa- per introduces a novel threat where colluding agents steer victim beliefs using only truthful evidence fragments distributed through public channels, without relying on covert communi- cations, backdoors, or falsified documents. By exploiting LLMs’ overthinking tendency, we formalize the firstcognitive collusion attack...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/Lying_with_Truths_Open-Channel_Multi-Agent_Collusion_for_Bel.pdf)*
+
+---### Jenius Agent Towards Experience-Driven Accuracy Optimization
+
+As agent systems powered by large language models (LLMs) advance, improving the task performance of an autonomous agent, especially in context understanding, tool usage, and response generation, has become increasingly critical. Although prior studies have advanced the overall design of LLM-based agents, systematic optimization of their internal reasoning and tool-use pipelines remains underexplored. This paper introduces an agent framework grounded in real-world practical experience, with three...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/Jenius_Agent_Towards_Experience-Driven_Accuracy_Optimization.pdf)*
+
+---### From Laboratory to Real-World Applications Benchmarking Agen
+
+As large language models (LLMs) evolve into autonomous agents, evaluatingRepository- Level Reasoning, the ability to maintain logical consistency across massive, interdependent file systems, has become critical. Current bench- marks typically fluctuate between isolated code snippets and black-box evaluations. We present REPOREASON, a white-box diagnostic bench- mark centered onAbductive Assertion Verifi- cation. To eliminate memorization while pre- serving authentic logical depth, we implement a...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/From_Laboratory_to_Real-World_Applications_Benchmarking_Agen.pdf)*
+
+---### Agentic AI in Remote Sensing Foundations Taxonomy and Emergi
+
+The paradigm of Earth Observation analysis is shifting from static deep learning models to autonomous agentic AI. Al- though recent vision foundation models and multimodal large language models advance representation learning, they often lack the sequential planning and active tool orchestration required for complex geospatial workflows. This survey presents the first comprehensive review of agen- tic AI in remote sensing. We introduce a unified taxonomy distinguishing between single-agent copil...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/Agentic_AI_in_Remote_Sensing_Foundations_Taxonomy_and_Emergi.pdf)*
+
+---### Scaling Trends for Multi-Hop Contextual Reasoning in Mid-Sca
+
+We present a controlled study of multi-hop contextual reasoning in large language models, providing a clean demonstration of thetask-method dissociation: rule-based pattern matching achieves 100% success on structured information retrieval but only 6.7% on tasks requiring cross-document reason- ing, while LLM-based multi-agent systems show the inverse pattern, achieving up to 80% on reasoning tasks where rule-based methods fail. Using a synthetic evaluation framework with 120 trials across four ...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/Scaling_Trends_for_Multi-Hop_Contextual_Reasoning_in_Mid-Sca.pdf)*
+
+---### LLM-Enabled Multi-Agent Systems Empirical Evaluation and Ins
+
+This paper formalises the literature on emerging design patterns and paradigms for Large Language Model (LLM)-enabled multi-agent systems (MAS), evaluating their practical utility across various domains. We define key architectural components, including agent orchestration, communication mechanisms, and control-flow strategies, and demonstrate how these enable rapid development of modular, domain-adaptive solutions. Three real-world case studies are tested in controlled, container- ised pilots i...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/LLM-Enabled_Multi-Agent_Systems_Empirical_Evaluation_and_Ins.pdf)*
+
+---### TCAndon-Router Adaptive Reasoning Router for Multi-Agent Col
+
+Multi-Agent Systems(MAS) have become a powerful paradigm for building high performance intelli- gent applications. Within these systems, the router responsible for determining which expert agents should handle a given query plays a crucial role in overall performance. Existing routing strategies generally fall into two categories: performance routing, which balances latency and cost across mod- els of different sizes, and task routing, which assigns queries to domain-specific experts to improve ...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/TCAndon-Router_Adaptive_Reasoning_Router_for_Multi-Agent_Col.pdf)*
+
+---### LinguaGame A Linguistically Grounded Game-Theoretic Paradigm
+
+Large Language Models (LLMs) have enabled Multi-Agent Systems (MASs) where agents in- teract through natural language to solve com- plex tasks or simulate multi-party dialogues. Recent work on LLM-based MASs has mainly focused on architecture design, such as role assignment and workﬂow orchestration. In contrast, this paper targets the interaction pro- cess itself, aiming to improve agents’ com- munication efﬁciency by helping them con- vey their intended meaning more effectively through languag...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/LinguaGame_A_Linguistically_Grounded_Game-Theoretic_Paradigm.pdf)*
+
+---### LoongFlow Directed Evolutionary Search via a Cognitive Plan-
+
+The transition from static Large Language Models (LLMs) to self-improving agents is hindered by the lack of structured reasoning in traditional evolutionary approaches. Existing methods often struggle with premature convergence and inefficient exploration in high-dimensional code spaces. To address these challenges, we introduceLoongFlow, a self-evolving agent framework that achieves state-of-the-art solution quality with significantly reduced computational costs. Unlike "blind" mutation operato...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/LoongFlow_Directed_Evolutionary_Search_via_a_Cognitive_Plan-.pdf)*
+
+---### KGCE Knowledge-Augmented Dual-Graph Evaluator for Cross-Plat
+
+— With the rapid adoption of multimodal large language models (MLMs) in autonomous agents, cross-platform task execution capabilities in educational settings have garnered significant attention. However, existing benchmark frameworks still exhibit notable deficiencies in supporting cross-platform tasks in educational contexts, especially when dealing with school-specific software (such as XiaoYa Intelligent Assistant, HuaShi XiaZi, etc.), where the efficiency of agents often significantly decrea...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/KGCE_Knowledge-Augmented_Dual-Graph_Evaluator_for_Cross-Plat.pdf)*
+
+---### The Rise of Agentic Testing Multi-Agent Systems for Robust S
+
+Software   testing   has   progressed   toward   intelligent   automation,   yet   current   AI-based   test   generators   still   suffer   from   static,   single-shot   outputs   that   frequently   produce   invalid,   redundant,   or   non-executable   tests   due   to   the   lack   of   execution-aware   feedback.   This   paper   introduces   an   agentic   multi-model   testing   framework—a   closed-loop,   self-correcting   system   in   which   a   Test   Generation   Agent,   an   E...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/The_Rise_of_Agentic_Testing_Multi-Agent_Systems_for_Robust_S.pdf)*
+
+---### Arabic Prompts with English Tools A Benchmark
+
+—Large Language Models (LLMs) are now integral to numerous industries, increasingly serving as the core reason- ing engine for autonomous agents that perform complex tasks through tool-use. While the development of Arabic-native LLMs is accelerating, the benchmarks for evaluating their capabilities lag behind, with most existing frameworks focusing on English. A critical and overlooked area is tool-calling, where the perfor- mance of models prompted in non-English languages like Arabic is poorly...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/Arabic_Prompts_with_English_Tools_A_Benchmark.pdf)*
+
+---### InfiAgent An Infinite-Horizon Framework for General-Purpose 
+
+LLM agents can reason and use tools, but they often break down on long-horizon tasks due to unbounded context growth and accumulated errors. Common remedies such as context compression or retrieval-augmented prompting introduce trade-offs between information fidelity and reasoning stability. We presentInfiAgent, a general-purpose framework that keeps the agent’s reasoning context strictly bounded regardless of task duration by externalizing persistent state into afile-centric state abstraction. ...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/InfiAgent_An_Infinite-Horizon_Framework_for_General-Purpose_.pdf)*
+
+---### DeepSynth-Eval Objectively Evaluating Information Consolidat
+
+The evolution of Large Language Models (LLMs) towards autonomous agents has cat- alyzed progress in Deep Research. While re- trieval capabilities are well-benchmarked, the post-retrieval synthesis stage—where agents must digest massive amounts of context and consolidate fragmented evidence into coherent, long-form reports—remains under-evaluated due to the subjectivity of open-ended writing. To bridge this gap, we introduce DeepSynth- Eval, a benchmark designed to objectively evaluate informatio...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/DeepSynth-Eval_Objectively_Evaluating_Information_Consolidat.pdf)*
+
+---### Textual Explanations and Their Evaluations for Reinforcement
+
+—Understanding a Reinforcement Learning (RL) policy is crucial for ensuring that autonomous agents behave according to human expectations. This goal can be achieved using Explainable Reinforcement Learning (XRL) techniques. Although textual explanations are easily understood by humans, ensuring their correctness remains a challenge, and evaluations in state-of-the-art remain limited. We present a novel XRL framework for generating textual explanations, converting them into a set of transparent r...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/Textual_Explanations_and_Their_Evaluations_for_Reinforcement.pdf)*
+
+---### When Single-Agent with Skills Replace Multi-Agent Systems an
+
+Multi-agent AI systems have proven effective for complex reasoning. These systems are compounded by specialized agents, which collaborate through explicit communication, but incur substantial computational overhead. A natural question arises:can we achieve similar modularity benefits with a single agent that selects from a library of skills?We explore this question by viewing skills as internalized agent behaviors. From this perspective, a multi- agent system can be compiled into an equivalent s...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/When_Single-Agent_with_Skills_Replace_Multi-Agent_Systems_an.pdf)*
+
+---### Hierarchical Preemptive Holistic Collaborative Systems for E
+
+—The coordination of Embodied Multi-Agent Sys- tems in constrained physical environments requires a rigorous balance between safety, scalability, and efficiency. Traditional decentralized approaches, such as reactive collision avoidance, can succumb to local minima or reciprocal yielding stand- offs due to a lack of future intent awareness. Conversely, centralized planning suffers from intractable computational complexity and single-point-of-failure vulnerabilities. To address these limitations,...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/Hierarchical_Preemptive_Holistic_Collaborative_Systems_for_E.pdf)*
+
+---### ResMAS Resilience Optimization in LLM-based Multi-agent Syst
+
+Large Language Model-based Multi-Agent Systems (LLM- based MAS), where multiple LLM agents collaborate to solve complex tasks, have shown impressive performance in many areas. However, MAS are typically distributed across dif- ferent devices or environments, making them vulnerable to perturbations such as agent failures. While existing works have studied the adversarial attacks and corresponding de- fense strategies, they mainly focus on reactively detecting and mitigating attacks after they occ...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/ResMAS_Resilience_Optimization_in_LLM-based_Multi-agent_Syst.pdf)*
+
+---### Automated Semantic Rules Detection ASRD for Emergent Communi
+
+The ﬁeld of emergent communication within multi-agent sys- tems examines how autonomous agents can independently develop com- munication strategies, without explicit programming, and adapt them to varied environments. However, few studies have focused on the inter- pretability of emergent languages. The research exposed in this paper proposes an Automated Semantic Rules Detection ( ASRD ) algorithm, which extracts relevant patterns in messages exchanged by agents trained with two diﬀerent datase...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/Automated_Semantic_Rules_Detection_ASRD_for_Emergent_Communi.pdf)*
+
+---### Autonomous Agents on Blockchains Standards Execution Models 
+
+Advances in large language models have enabled agentic AI systems that can reason, plan, and interact with external tools to execute multi-step workflows, while public blockchains have evolved into a programmable substrate for value transfer, access control, and verifiable state transitions. Their convergence introduces a high-stakes systems challenge: designing standard, interoperable, and secure interfaces that allow agents to observe on-chain state, formulate transaction intents, and authoriz...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/Autonomous_Agents_on_Blockchains_Standards_Execution_Models_.pdf)*
+
+---### FinDeepForecast A Live Multi-Agent System for Benchmarking D
+
+FINDEEPFORECAST: A Live Multi-Agent System for Benchmarking Deep Research Agents in Financial Forecasting Project Website:https://OpenFinArena.com/ XIANGYU LI∗♣†, XUAN YAO∗♠, GUOHAO QI∗♣, FENGBIN ZHU∗‡♣, KELVIN J.L. KOA♠, XIANG YAO NG♥, ZIYANG LIU♥, XINGYU NI♠, CHANG LIU♠, YONGHUI YANG♣, YANG ZHANG♣, WENJIE WANG♦, FULI FENG♦, CHAO WANG♥, HUANBO LUAN♥, XIAOFEN XING†, XIANGMIN XU†, TAT -SENG CHUA♣, KE-WEI HUANG♠, ♣National University of Singapore, Singapore ♠Asian Institute of Digital Finance, Singapore ♥6Estates Pte Ltd, Singapore ♦University of Science and Technology of China, China †South Chi...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/FinDeepForecast_A_Live_Multi-Agent_System_for_Benchmarking_D.pdf)*
+
+---### LLM Agent Framework for Intelligent Change Analysis in Urban
+
+Existing change detection methods often lack the versatility to handle diverse real-world queries and the intelligence for comprehensive analysis. This paper presents a general agent framework, integrating Large Language Models (LLM) with vision foundation models to form ChangeGPT. A hierarchical structure is employed to mitigate hallucination. The agent was evaluated on a curated dataset of 140 questions categorized by real-world scenarios, encompassing various question types (e.g., Size, Class...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/LLM_Agent_Framework_for_Intelligent_Change_Analysis_in_Urban.pdf)*
+
+---### Do Autonomous Agents Contribute Test Code A Study of Tests i
+
+Testing is a critical practice for ensuring software correctness and long-term maintainability. As agentic coding tools increasingly submit pull requests (PRs), it becomes essential to understand how testing appears in these agent-driven workflows. Using the AIDev dataset, we present an empirical study of test inclusion in agentic pull requests. We examine how often tests are included, when they are introduced during the PR lifecycle and how test-containing PRs differ from non-test PRs in terms ...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/Do_Autonomous_Agents_Contribute_Test_Code_A_Study_of_Tests_i.pdf)*
+
+---### MedDialogRubrics A Comprehensive Benchmark and Evaluation Fr
+
+Medical conversational AI (AI) plays a pivotal role in the development of safer and more effective medical dialogue systems. However, existing benchmarks and evaluation frameworks for assessing the information-gathering and diagnostic reasoning abilities of medical large language models (LLMs) have not been rigorously evaluated. To address these gaps, we presentMedDialogRubrics, a novel benchmark comprising 5,200 synthetically constructed patient cases and over 60,000 fine-grained evaluation rub...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/MedDialogRubrics_A_Comprehensive_Benchmark_and_Evaluation_Fr.pdf)*
+
+---### Belief in Authority Impact of Authority in Multi-Agent Evalu
+
+Multi-agent systems utilizing large language models often assign authoritative roles to im- prove performance, yet the impact of author- ity bias on agent interactions remains un- derexplored. We present the first system- atic analysis of role-based authority bias in free-form multi-agent evaluation using Chat- Eval. Applying French and Raven’s power- based theory, we classify authoritative roles into legitimate, referent, and expert types and analyze their influence across 12-turn con- versatio...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/Belief_in_Authority_Impact_of_Authority_in_Multi-Agent_Evalu.pdf)*
+
+---### A Closed-Loop Multi-Agent System Driven by LLMs for Meal-Lev
+
+—Personalized nutrition management aims to tailor dietary guidance to an individual’s intake and phenotype, but most existing systems handle food logging, nutrient analysis and recommendation separately. We present a next-generation mobile nutrition assistant that combines image based meal logging with an LLM driven multi agent controller to provide meal level closed loop support. The system coordinates vision, dialogue and state management agents to estimate nutrients from photos and update a d...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/A_Closed-Loop_Multi-Agent_System_Driven_by_LLMs_for_Meal-Lev.pdf)*
+
+---### Output Consensus on Periodic References for Constrained Mult
+
+— This work addresses the output consensus problem of constrained heterogeneous multi-agent sys- tems under a switching network with potential communi- cation delay, where outputs are periodic and characterized by a linear exosystem. Since periodic references have more complex dynamics, it is more challenging to track periodic references and achieve consensus on them. In this paper, a model predictive control method incorporating an artificial reference and a modified cost is proposed to track p...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/Output_Consensus_on_Periodic_References_for_Constrained_Mult.pdf)*
+
+---### A Fast Semidefinite Convex Relaxation for Optimal Control Pr
+
+—Solving optimal control problems (OCPs) of au- tonomous agents operating under spatial and temporal con- straints fast and accurately is essential in applications ranging from eco-driving of autonomous vehicles to quadrotor navi- gation. However, the nonlinear programs approximating the OCPs are inherently nonconvex due to the coupling between the dynamics and the event timing, and therefore, they are challenging to solve. Most approaches address this challenge by predefining waypoint times or ...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/A_Fast_Semidefinite_Convex_Relaxation_for_Optimal_Control_Pr.pdf)*
+
+---### Gavel Agent Meets Checklist for Evaluating LLMs on Long-Cont
+
+Large language models (LLMs) now support contexts of up to 1M tokens, but their ef- fectiveness on complex long-context tasks re- mains unclear. In this paper, we study multi- document legal case summarization, where a single case often spans many documents total- ing 100K–500K tokens. We introduce GAVEL- REF, a reference-based evaluation framework with multi-value checklist evaluation over 26 items, as well as residual fact and writing-style evaluations. Using GAVEL-REF, we go beyond the single...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/Gavel_Agent_Meets_Checklist_for_Evaluating_LLMs_on_Long-Cont.pdf)*
+
+---### Embedding Autonomous Agents in Resource-Constrained Robotic 
+
+Many embedded devices operate under resource constraints and in dynamic environments, requiring local decision-making capabil- ities. Enabling devices to make independent decisions in such environ- ments can improve the responsiveness of the system and reduce the de- pendence on constant external control. In this work, we integrate an autonomous agent, programmed using AgentSpeak, with a small two- wheeled robot that explores a maze using its own decision-making and sensor data. Experimental res...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/Embedding_Autonomous_Agents_in_Resource-Constrained_Robotic_.pdf)*
+
+---### Why LLMs Arent Scientists Yet Lessons from Four Autonomous R
+
+Why LLMs Aren’t Scientists Yet: Lessons from Four Autonomous Research Attempts Dhruv Trehan Paras Chopra {dhruv.trehan, paras}@lossfunk.com January 2026 Abstract We report a case study of four end-to-end attempts to autonomously generate ML research papers using a pipeline of six LLM agents mapped to stages of the scientific workflow. Of these four, three attempts failed during implementation or evaluation. One completed the pipeline and was accepted to Agents4Science 2025, an experimental inau- gural venue that required AI systems as first authors, passing both human and multi-AI review. From...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/Why_LLMs_Arent_Scientists_Yet_Lessons_from_Four_Autonomous_R.pdf)*
+
+---### Deploy-Master Automating the Deployment of 50000 Agent-Ready
+
+Open-source scientific software is abundant, yet most tools remain difficult to compile, config- ure, and reuse, sustaining a small-workshop mode of scientific computing. This deployment bottleneck limits reproducibility, large-scale evaluation, and the practical integration of scientific tools into modern AI-for-Science (AI4S) and agentic workflows. We present DEP LOY-MAS T ER, a one-stop agentic workflow for large-scale tool discovery, build specification inference, execution-based validation,...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/Deploy-Master_Automating_the_Deployment_of_50000_Agent-Ready.pdf)*
+
+---### SCP Accelerating Discovery with a Global Web of Autonomous S
+
+Autonomous AI scientists are beginning to reason, experiment, and collaborate with human researchers by coordinating data, computational tools, AI agents, and laboratory instruments. Yet, most agentic science systems remain difficult to deploy beyond a single lab: they are bespoke, tightly coupled to specific workflows, and lack a sharedprotocol layerthat can unify heterogeneous dry–wet resources under a common, secure, and persistent scientific context. We introduceSCP: the Sci- ence Context Pr...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/SCP_Accelerating_Discovery_with_a_Global_Web_of_Autonomous_S.pdf)*
+
+---### Higher-Order Knowledge Representations for Agentic Scientifi
+
+Scientific inquiry requires systems-level reasoning that integrates heterogeneous experimental data, cross-domain knowledge, and mechanistic evidence into coherent explanations. While Large Lan- guage Models (LLMs) offer inferential capabilities, they often depend on retrieval-augmented contexts that lack structural depth. Traditional Knowledge Graphs (KGs) attempt to bridge this gap, yet their pairwise constraints fail to capture the irreducible higher-order interactions that govern emergent ph...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/Higher-Order_Knowledge_Representations_for_Agentic_Scientifi.pdf)*
+
+---### Reinforcement Learning based 6-DoF Maneuvers for Microgravit
+
+—Autonomous free-flyers play a critical role in in- travehicular tasks aboard the International Space Station (ISS), where their precise docking under sensing noise, small actuation mismatches, and environmental variability remains a nontrivial challenge. This work presents a reinforcement learning (RL) framework for six-degree-of-freedom (6-DoF) docking of JAXA’s Int-Ball2 robot inside a high-fidelity Isaac Sim model of the Japanese Experiment Module (JEM). Using Proximal Policy Optimization (P...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Reinforcement_Learning_based_6-DoF_Maneuvers_for_Microgravit.pdf)*
+
+---### When Numbers Start Talking Implicit Numerical Coordination A
+
+LLMs-based agents increasingly operate in multi- agent environments where strategic interaction and coordination are required. While existing work has largely focused on individual agents or on inter- acting agents sharing explicit communication, less is known about how interacting agents coordinate implicitly. In particular, agents may engage in covert communication, relying on indirect or non- linguistic signals embedded in their actions rather than on explicit messages. This paper presents a ...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/When_Numbers_Start_Talking_Implicit_Numerical_Coordination_A.pdf)*
+
+---### Sensor to Pixels Decentralized Swarm Gathering via Image-Bas
+
+This study highlights the potential of image-based reinforce- ment learning methods for addressing swarm-related tasks. In multi- agent reinforcement learning, effective policy learning depends on how agents sense, interpret, and process inputs. Traditional approaches often rely on handcrafted feature extraction or raw vector-based representa- tions, which limit the scalability and efficiency of learned policies con- cerning input order and size. In this work we propose an image-based reinforcem...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/Sensor_to_Pixels_Decentralized_Swarm_Gathering_via_Image-Bas.pdf)*
+
+---### Confidence Estimation for LLMs in Multi-turn Interactions
+
+While confidence estimation is a promising di- rection for mitigating hallucinations in Large Language Models (LLMs), current research dominantly focuses on single-turn settings. The dynamics of model confidence in multi-turn conversations, where context accumulates and ambiguity is progressively resolved, remain largely unexplored. Reliable confidence es- timation in multi-turn settings is critical for many downstream applications, such as au- tonomous agents and human-in-the-loop sys- tems. Th...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/Confidence_Estimation_for_LLMs_in_Multi-turn_Interactions.pdf)*
+
+---### An Event-Based Opto-Tactile Skin
+
+An Event-Based Opto-T actile Skin Mohammadreza Koolani1,∗, Simeon Bamford1, Petr Trunin2,3, Simon F. Müller-Cleve1, Matteo Lo Preti5, Fulvio Mastrogiovanni4, Lucia Beccai2, and Chiara Bartolozzi1 1Event‐Driven Perception for Robotics, Istituto Italiano di Tecnologia, Genoa, Italy 2Soft BioRobotics and Perception Lab, Istituto Italiano di Tecnologia, Genoa, Italy 3The Open University Aﬀiliated Research Centre at Istituto Italiano di Tecnologia (ARC@IIT), Istituto Italiano di Tecnologia, Genova, Italy 4TheEngineRoom, Department of Informatics, Bioengineering, Robotics and Systems Engineering, Un...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/An_Event-Based_Opto-Tactile_Skin.pdf)*
+
+---### On the Identifiability of Regime-Switching Models with Multi
+
+Identifiability is central to the interpretability of deep latent variable models, ensuring parameterisations are uniquely determined by the data-generating distribution. However, it remains underexplored for deep regime-switching time series. We develop a general theoretical framework for multi-lag Regime-Switching Models (RSMs), encompassing Markov Switching Models (MSMs) and Switching Dynamical Systems (SDSs). For MSMs, we formulate the model as a temporally structured finite mixture and prov...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/On_the_Identifiability_of_Regime-Switching_Models_with_Multi.pdf)*
+
+---### Image Synthesis Using Spintronic Deep Convolutional Generati
+
+—The computational requirements of generative ad- versarial networks (GANs) exceed the limit of conventional Von Neumann architectures, necessitating energy efficient alternatives such as neuromorphic spintronics. This work presents a hybrid CMOS-spintronic deep convolutional generative adversarial net- work (DCGAN) architecture for synthetic image generation. The proposed generative vision model approach follows the standard framework, leveraging generator and discriminators adversarial trainin...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/Image_Synthesis_Using_Spintronic_Deep_Convolutional_Generati.pdf)*
+
+---### Toward Thermodynamic Reservoir Computing Exploring SHA-256 A
+
+We propose a theoretical framework—Holographic Reservoir Computing (HRC)—which hypothesizes that the thermody- namic noise and timing dynamics in voltage-stressed Bitcoin mining ASICs (BM1366) could potentially serve as a physi- cal reservoir computing substrate. We present the CHIMERA (Conscious Hybrid Intelligence via Miner-Embedded Reso- nance Architecture) system architecture, which treats the SHA- 256 hashing pipeline not as an entropy source, but as a deter- ministic diffusion operator who...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/Toward_Thermodynamic_Reservoir_Computing_Exploring_SHA-256_A.pdf)*
+
+---### Sparsity-Aware Streaming SNN Accelerator with Output-Channel
+
+—The rapid advancement of wireless communication technologies, including 5G, emerging 6G networks, and the large- scale deployment of the Internet of Things (IoT), has intensified the need for efficient spectrum utilization. Automatic modulation classification (AMC) plays a vital role in cognitive radio systems by enabling real-time identification of modulation schemes for dynamic spectrum access and interference mitigation. While deep neural networks (DNNs) offer high classification accuracy, t...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/Sparsity-Aware_Streaming_SNN_Accelerator_with_Output-Channel.pdf)*
+
+---### Achieving Fine-grained Cross-modal Understanding through Bra
+
+Understanding neural responses to visual stimuli remains chal- lenging due to the inherent complexity of brain representations and the modality gap between neural data and visual inputs. Existing methods, mainly based on reducing neural decoding to generation tasks or simple correlations, fail to reflect the hierarchical and temporal processes of visual processing in the brain. To address these limitations, we present NeuroAlign, a novel framework for fine-grained fMRI-video alignment in- spired...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/Achieving_Fine-grained_Cross-modal_Understanding_through_Bra.pdf)*
+
+---### SymSeqBench a unified framework for the generation and analy
+
+Sequential structure is a key feature of multiple domains of natural cognition and behavior, such as language, movement and decision-making. Likewise, it is also a central property of tasks to which we would like to apply artificial intelligence. It is therefore of great importance to develop frameworks that allow us to evaluate sequence learning and processing in a domain agnostic fashion, whilst simultaneously providing a link to formal theories of computation and computability . T o address t...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/SymSeqBench_a_unified_framework_for_the_generation_and_analy.pdf)*
+
+---### Memory-Guided Unified Hardware Accelerator for Mixed-Precisi
+
+Memory-Guided Unified Hardware Accelerator for Mixed-Precision Scientific Computing Chuanzhen Wang1, Leo Zhang2, Eric Liu2 1Tongji University. 2Shanghai Jiao Tong University. 3Zhejiang University. 1 Introduction Recent advances in hardware acceleration have led to the development of powerful spe- cialized accelerators achieving exceptional performance in finite element computations, spiking neural network inference, and sparse tensor operations (Yu et al. 2025b,a). Building upon the foundational work of Bi et al. (Bi et al. 2024), who established a comprehensive framework for machine learning ...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/Memory-Guided_Unified_Hardware_Accelerator_for_Mixed-Precisi.pdf)*
+
+---### ScienceDB AI An LLM-Driven Agentic Recommender System for La
+
+The rapid growth of AI for Science (AI4S) has underscored the significance of scientific datasets, leading to the establishment of numerous national scientific data centers and sharing platforms. Despite this progress, efficiently promoting dataset sharing and utilization for scientific research remains challenging. Scientific datasets contain intricate domain-specific knowledge and contexts, rendering traditional collaborative filtering-based recommenders inadequate. Recent advances in Large La...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/ScienceDB_AI_An_LLM-Driven_Agentic_Recommender_System_for_La.pdf)*
+
+---### Post-Quantum Cryptography for Intelligent Transportation Sys
+
+Post-Quantum Cryptography for Intelligent Transportation  Systems: An Implementation -Focused Review   Abdullah Al Mamun 1, *, Akid Abrar 2, Mizanur Rahman 2, M Sabbir Salek 3, and   Mashrur Chowdhury 1  1 Glenn Department of Civil Engineering, Clemson University, Clemson, SC 29634 USA . E-mail  addresses: abdullm@clemson.edu  (A.A. Mamun); mac@clemson.edu  (M. Chowdhury).    2 Department of Civil, Construction, and Environmental Engineering, The University of Alabama,  Tuscaloosa, AL 35487 USA . E-mail addresses: aabrar@crimson.ua.edu  (A. Abrar);  mizan.rahman@ua.edu  (M. Rahman).   3 Nation...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/Post-Quantum_Cryptography_for_Intelligent_Transportation_Sys.pdf)*
+
+---### A Machian wave effect in conformal scalar-tensor gravitation
+
+A Machian Wave Effect in Conformal Scalar–Tensor Gravitational Theory José J. A. Rodal Space Studies Institute, Research Triangle Park, NC, USA jrodal@alum.mit.edu Abstract Woodward has proposed that controlled mass–energy fluctuations generate a frequency- dependent “Machian” gravitational response, heuristically∝∂2 tM(t)and “amplified” by a Sciama-scale cosmic potentialΦ/c2∼−1. We ask, in two covariant settings: (i) within Einsteingravity, doesanystandardfield-theoreticrewritingoftheexactequationscontainan effective structure proportional to∂2 tM(t); and (ii) within Hoyle–Narlikar (HN) confo...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/A_Machian_wave_effect_in_conformal_scalar-tensor_gravitation.pdf)*
+
+---### EnzyCLIP A Cross-Attention Dual Encoder Framework with Contr
+
+EnzyCLIP: A Cross-Attention Dual Encoder Framework with Contrastive Learning for Predicting Enzyme Kinetic Constants Anas Aziz Khan1, Md. Shah Fahad2*, Priyanka3, Ramesh Chandra3, Guransh Singh2 1SCOPE, Vellore Institute of Technology, Vellore, Katpadi, Vellore, 632014, Tamil Nadu, India. 2*Department of Computer Science, BIT, Mesra, Ranchi, 835215, Jharkhand, India. 3Department of Bioengineering and Biotechnology, BIT, Mesra, Ranchi, 835215, Jharkhand, India. *Corresponding author(s). E-mail(s): fahad8siddiqui@bitmesra.ac.in; Contributing authors: anasazizkhan555@gmail.com; reachpriyanka20@gm...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/EnzyCLIP_A_Cross-Attention_Dual_Encoder_Framework_with_Contr.pdf)*
+
+---### Resource and population dynamics in an agent-environment int
+
+Resource and population dynamics in an agent-environment interaction model Gaston Briozzo1,2,3, Gustavo J. Sibona1,2, and Fernando Peruani3 [1]Facultad de Matem´ atica, Astronom´ ıa, F´ ısica y Computaci´ on (FaMAFyC), Universidad Nacional de C´ ordoba (UNC), Ciudad Universitaria (5000), C´ ordoba, Argentina, [2]Instituto de F´ ısica Enrique Gaviola (IFEG), Consejo Nacional de Investigaciones Cient´ ıficas y T´ ecnicas (CONICET), Ciudad Universitaria (5000), C´ ordoba, Argentina, and [3]Laboratoire de Physique Th´ eorique et Mod´ elisation (LPTM) (UMR 8089), Cergy Paris Universit´ e (CYU), 2 a...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Resource_and_population_dynamics_in_an_agent-environment_int.pdf)*
+
+---### Segregation dynamics in active-passive mixtures of semiflexi
+
+Segregation dynamics in active-passive mixtures of semiflexible filaments Chitrak Bhowmik,1, 2,∗Aparna Baskaran,1,†and Sriram Ramaswamy3,‡ 1Martin Fischer School of Physics, Brandeis University, MS 057 Abelson-Bass-Yalem 107 Brandeis University 415 South Street Waltham, MA 02453 2Department of Physics, IISER Berhampur, Transit campus (Govt. ITI Building) Engg. School Junction, Berhampur Odisha 760010 3Centre for Condensed Matter Theory, Department of Physics, Indian Institute of Science, Bangalore 560 012, India (Dated: December 22, 2025) We study the segregation of motile semiflexible filamen...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Segregation_dynamics_in_active-passive_mixtures_of_semiflexi.pdf)*
+
+---### Toward a theoretical framework for self-diffusiophoretic pro
+
+Toward a theoretical framework for self-diffusiophoretic propulsion near a wedge Abdallah Daddi-Moussa-Ider∗ School of Mathematics and Statistics, The Open University, Walton Hall, Milton Keynes MK7 6AA, United Kingdom Ramin Golestanian† Max Planck Institute for Dynamics and Self-Organization (MPI-DS), 37077 G¨ ottingen, Germany and Rudolf Peierls Centre for Theoretical Physics, University of Oxford, Oxford OX1 3PU, United Kingdom We investigate the self-diffusiophoretic motion of a catalytically active spherical particle confined within a wedge-shaped domain. Using the Fourier-Kontorovich-Leb...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Toward_a_theoretical_framework_for_self-diffusiophoretic_pro.pdf)*
+
+---### Literature Mining System for Nutraceutical Biosynthesis From
+
+Literature Mining System for Nutraceutical Biosynthesis: From AI Framework to Biological Insight Xinyang Sun1, Nipon Sarmah1, Miao Guo1,* 1Department of Engineering, Faculty of Natural, Mathematical & Engineering Sciences, King’s College London, Strand Campus, London, WC2R 2LS, UK *Corresponding Author Miao Guo E-mail address: miao.guo@kcl.ac.uk Abstract The extraction of structured knowledge from scientiﬁc literature remains a major bottleneck in nutraceutical research, particularly when identifying microbial strains involved in compound biosynthesis. This study presents a domain-adapted syst...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Literature_Mining_System_for_Nutraceutical_Biosynthesis_From.pdf)*
+
+---### Molecular Dynamics Investigation of Mass Transport During Ev
+
+Molecular Dynamics Investigation of Mass Transport During Evaporation for the Binary System of n-Dodecane and Nitrogen Suman Chakrabortya,1, Bongseok Kimb,1, Li Qiaoa,b,∗ aSchool of Aeronautics and Astronautics, Purdue University, West Lafayette bSchool of Mechanical Engineering, Purdue University, West Lafayette Abstract The study of interfacial fluxes under evaporative or condensation processes are ubiquitous in thermal systems, propulsion devices, and many other engineering applications. Most continuum scale models fail to capture the true nature of thermodynamic property variation across t...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Molecular_Dynamics_Investigation_of_Mass_Transport_During_Ev.pdf)*
+
+---## AI Scientist & Discovery
+
+### A Quantifiable Information-Processing Hierarchy Provides a N
+
+A QUANTIFIABLEINFORMATION-PROCESSINGHIERARCHY PROVIDES ANECESSARYCONDITION FORDETECTINGAGENCY A PREPRINT Brett J. Kagan∗ † Cortical Labs, Melbourne, VIC 3000, Australia. Department of Biochemistry and Pharmacology, The University of Melbourne, Parkville, VIC, Australia. brett@corticallabs.comValentina Baccetti∗ Department of Physics, School of Science, RMIT University, Melbourne, VIC 3001, Australia. RMIT Applied Quantum Technologies Centre, RMIT University, Melbourne, VIC 3001, Australia. Brian D. Earp Centre for Biomedical Ethics, Yong Loo Lin School of Medicine, National University of Singa...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/A_Quantifiable_Information-Processing_Hierarchy_Provides_a_N.pdf)*
+
+---### KGOT Unified Knowledge Graph and Optimal Transport Pseudo-La
+
+Predicting molecule-protein interactions (MPIs) is a fundamental task in compu- tational biology, with crucial applications in drug discovery and molecular func- tion annotation. However, existing MPI models face two major challenges. First, the scarcity of labeled molecule-protein pairs significantly limits model perfor- mance, as available datasets capture only a small fraction of biological relevant interactions. Second, most methods rely solely on molecular and protein fea- tures, ignoring b...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/KGOT_Unified_Knowledge_Graph_and_Optimal_Transport_Pseudo-La.pdf)*
+
+---### MDAgent2 Large Language Model for Code Generation and Knowle
+
+MDAgent2: Large Language Model for Code Generation and Knowledge Q&A in Molecular Dynamics Zhuofan Shi1,2†, Hubao A3†, Yufei Shao4†, Dongliang Huang1,2, Hongxu An1,2, Chunxiao Xin1,2, Haiyang Shen1,2, Zhenyu Wang1, Yunshan Na5, Gang Huang1,2, Xiang Jing1,2* 1Peking University. 2National Key Laboratory of Data Space Technology and System. 3The Hong Kong University of Science and Technology. 4Liaoning Technical University. 5Wenjing Future Lab (Beijing) Technology Co., Ltd. *Corresponding author(s). E-mail(s): jingxiang@pku.edu.cn; †These authors contributed equally to this work. Abstract Molecul...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/MDAgent2_Large_Language_Model_for_Code_Generation_and_Knowle.pdf)*
+
+---### MDAgent2 Large Language Model for Code Generation and Knowle
+
+MDAgent2: Large Language Model for Code Generation and Knowledge Q&A in Molecular Dynamics Zhuofan Shi1,2†, Hubao A3†, Yufei Shao4†, Dongliang Huang1,2, Hongxu An1,2, Chunxiao Xin1,2, Haiyang Shen1,2, Zhenyu Wang1, Yunshan Na5, Gang Huang1,2, Xiang Jing1,2* 1Peking University. 2National Key Laboratory of Data Space Technology and System. 3The Hong Kong University of Science and Technology. 4Liaoning Technical University. 5Wenjing Future Lab (Beijing) Technology Co., Ltd. *Corresponding author(s). E-mail(s): jingxiang@pku.edu.cn; †These authors contributed equally to this work. Abstract Molecul...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/MDAgent2_Large_Language_Model_for_Code_Generation_and_Knowle.pdf)*
+
+---### Integrated magnonic chip using cascaded logic
+
+   1 Integrated magnonic chip using cascaded logic   Mengying Guo1*, Xudong Jing1*, Kristýna Davídková2*, Roman Verba3, Zhenyu Zhou1, Xueyu Guo1, Carsten  Dubs4,  Yiheng  Rao5, Kaiming Cai1, Jing Li6, Philipp  Pirro7, Andrii V. Chumak2, Qi Wang1†    1 School of Physics, Hubei Key Laboratory of Gravitation and Quantum Physics, Institute for Quantum Science and  Engineering, Huazhong University of Science and Technology, Wuhan, China   2 Faculty of Physics, University of Vienna, Vienna, Austria   3 V. G. Baryakhtar Institute of Magnetism  of the NAS of Ukraine , Kyiv, Ukraine   4 INNOVENT e.V., ...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/Integrated_magnonic_chip_using_cascaded_logic.pdf)*
+
+---### Controllable Lateral Optical Forces on Janus Particles in Fl
+
+   1   Controllable Lateral Optical Forces on Janus Particles in Fluid Media Ziheng Xiu1, Yue Chai1, Pengyu Wen1, Chun Meng2, Min-Cheng Zhong2, Yu-Xuan Ren3, Daohong Song1, Hrvoje Buljan1,4, Liqin Tang1,5* and Zhigang Chen1,5* 1The MOE Key Laboratory of Weak-Light Nonlinear Photonics, TEDA Applied Physics Institute and School of Physics, Nankai University, Tianjin 300457, China 2Anhui Province Key Laboratory of Measuring Theory and Precision Instrument, School of Instrument Science and Optoelectronics Engineering, Hefei University of Technology, Hefei 230009 Anhui, China 3Institute for Transla...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Controllable_Lateral_Optical_Forces_on_Janus_Particles_in_Fl.pdf)*
+
+---### Emergent memory in cell-like active systems
+
+Emergent memory in cell-like active systems M. Besse and R. Voituriez Laboratoire Jean Perrin, CNRS/Sorbonne Universit´ e, Paris, France Abstract Activesystemsacrossscales, rangingfrommolecularmachinestohumanc rowds[1–9], areusually modeled as assemblies of self-propelled particles driven by inte rnally generated forces [ 6,10,11]. However, these models often assume memoryless dynamics and no coupl ing of internal active forces to the environment. Here, guided by the example of living cells, wh ich have recently been shown to display multi-timescale memory eﬀects [ 12–16], we introduce a gener...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Emergent_memory_in_cell-like_active_systems.pdf)*
+
+---### Revealing the transient ionization dynamics and mode-couplin
+
+    Revealing the transient ionization dynamics and mode-coupling mechanisms of helicon discharge through a self-consistent multiphysics model Jing-Jing Ma1, Lei Chang1*, Ming-Yang Wu2, Hua Zhou3,4, Yi-Wei Zhang3,4, Ilya Zadiriev5, Elena Kralkina5, Shogo Isayama6, Shin-Jae You7 1Fundamental Plasma Physics and Innovative Applications Laboratory, School of Electrical Engineering, Chongqing University, Chongqing 400044, China 2Institute of Plasma Physics, HFIPS, Chinese Academy of Sciences, Hefei 230031, China 3Science Island Branch of Graduate, University of Science and Technology of China, Hefe...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Revealing_the_transient_ionization_dynamics_and_mode-couplin.pdf)*
+
+---### Benchmarking neural surrogates on realistic spatiotemporal m
+
+Benchmarking neural surrogates on realistic spatiotemporal multiphysics flows Runze Mao1,:, Rui Zhang2,:, Xuan Bai3, Tianhao Wu3, Teng Zhang3, Zhenyi Chen1, Minqi Lin1, Bocheng Zeng2, Yangchen Xu1, Yingxuan Xiang1, Haoze Zhang1, Shubham Goswami4, Pierre A. Dawe4, Yifan Xu1, Zhenhua An5, Mengtao Yan2, Xiaoyi Lu6, Yi Wang6, Rongbo Bai7, Haobu Gao8, Xiaohang Fang4, Han Li1,3, Hao Sun2,*, Zhi X. Chen1,3,* 1State Key Laboratory for Turbulence and Complex Systems, School of Mechanics and Engineering Science, Peking University, Beijing, China 2Gaoling School of Artificial Intelligence, Renmin Univers...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Benchmarking_neural_surrogates_on_realistic_spatiotemporal_m.pdf)*
+
+---### Breaking the Logarithmic Barrier Activity-Induced Recovery o
+
+Breaking the Logarithmic Barrier: Activity-Induced Recovery of Phase Separation Dynamics in Confined Geometry Preethi M, Parameshwaran A and Bhaskar Sen Gupta∗ Department of Physics, School of Advanced Sciences, Vellore Institute of Technology, Vellore, Tamil Nadu - 632014, India Phase separation in confined environments is a fundamental process underlying geological flows, porous fil- tration, emulsions, and intracellular organization. Yet, how confinement and activity jointly govern coarsening kinetics and interfacial morphology remains poorly understood. Here, we use large-scale molecular d...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Breaking_the_Logarithmic_Barrier_Activity-Induced_Recovery_o.pdf)*
+
+---### Active Brownian particles in power-law viscoelastic media
+
+Active Brownian particles in power-law viscoelastic media D. S. Quevedo ,1M. Conte ,2M. Dijkstra ,2and C. Morais Smith1 1Institute for Theoretical Physics, Utrecht University, Princetonplein 5, 3584CC Utrecht, The Netherlands 2Soft Condensed Matter and Biophysics, Debye Institute for Nanomaterials Science, Utrecht University, Utrecht, The Netherlands (Dated: December 24, 2025) Many active particles are embedded in environments that exhibit viscoelastic properties. An im- portant class of such media lacks a single characteristic relaxation timescale when subjected to a time-dependent stress. Ra...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Active_Brownian_particles_in_power-law_viscoelastic_media.pdf)*
+
+---### A Coupled CFD Framework for Combustor Turbine Interaction in
+
+A Coupled CFD Framework for Combustor–Turbine Interaction in a Research Aeroengine Federico Lo Presti∗1, Pierre Vauquelin2, Jan Donndorf1, Francesca di Mare1, Xue-Song Bai2, and Christer Fureby2 1Ruhr University Bochum, Bochum, Germany 2Lund University, Lund, Sweden Keywords:Combustor–Turbine Coupling, Combustor–Turbine Interface, Sustainable Aviation Fuels, tabulated chemistry, hot-streak transport, aero- engine simulation Abstract This work presents a fully coupled combustor–turbine simulation framework applied to the MYTHOS aeroengine, developed within the Horizon Europe project MYTHOS, aim...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/A_Coupled_CFD_Framework_for_Combustor_Turbine_Interaction_in.pdf)*
+
+---### Multimodal motion and behavior switching of multistable cili
+
+Multimodal motion and behavior switching of multistable ciliary walkers Sumit Mohanty,1, 2,∗Paul Baconnier,1,∗Harmannus A. H. Schomaker,1 Alberto Comoretto,1Martin van Hecke,1, 3and Johannes T.B. Overvelde1, 2 1Autonomous Matter Department, AMOLF, Science Park 104, Amsterdam, 1098 XG The Netherlands 2Institute for Complex Molecular Systems and Department of Mechanical Engineering, Eindhoven University of Technology, P.O. Box 513, Eindhoven, 5600 MB The Netherlands 3Huygens-Kamerlingh Onnes Laboratory, Leiden University, 2300 RA Leiden, The Netherlands The collective motion of arrays of cilia -...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Multimodal_motion_and_behavior_switching_of_multistable_cili.pdf)*
+
+---### Residual Force Determines Surface Tension in Active Systems
+
+Residual Force Determines Surface Tension in Active Systems Bal Krishan∗ Department of Physical Sciences, Indian Institute of Science Education and Research, Mohali, Punjab, India (Dated: December 9, 2025) The mechanical tension at the interface of motility-induced phase separating active Brownian particles (ABPs) remains an open question. Here, we determine the surface tension by analyzing the spatial distribution of forces at the molecular level in a slab-confined system of ABPs exhibiting high and low density regions separated by a one-dimensional active interface. Unlike previous approache...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Residual_Force_Determines_Surface_Tension_in_Active_Systems.pdf)*
+
+---### Automated decision-making by chemical echolocation in active
+
+Automated decision-making by chemical echolocation in active droplets Aritra K. Mukhopadhyay†,1Ran Niu†,2,∗Linhui Fu†,2Kai Feng,2 Christopher Fujta,1Qiang Zhao,2Jinping Qu,2and Benno Liebchen1 1Institute for Condensed Matter Physics, Technische Universit¨ at Darmstadt, Hochschulstraße 8, 64289 Darmstadt, Germany. 2School of Chemistry and Chemical Engineering, Huazhong University of Science and Technology, Wuhan 430074, China. (Dated: January 5, 2026) Motile microorganisms, like bacteria and algae, unify abilities like self-propulsion, autonomous navigation, and decision-making on the micron sc...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Automated_decision-making_by_chemical_echolocation_in_active.pdf)*
+
+---### Run and Tumble Dynamics of Biased Quantum Trajectories in a 
+
+Run and Tumble Dynamics of Biased Quantum Trajectories in a Monitored Qubit Aritra Kundu Department of Physics and Materials Science, University of Luxembourg, L-1511 Luxembourg∗ (Dated: December 24, 2025) We investigate the active stochastic dynamics of a qubit subjected to continuous measurement and conditional feedback. The stochastic equation governing the state vector trajectory of the qubit can be mapped, in the high-diffusion limit, to the dynamics of a classical persistent Run-and- Tumble Particle (p-RTP) in a bounded one-dimensional domain. The mapping enables us to use analytical res...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Run_and_Tumble_Dynamics_of_Biased_Quantum_Trajectories_in_a_.pdf)*
+
+---### Exploring Logistic Functions as Robust Alternatives to Hill 
+
+Exploring Logistic Functions as Robust Alternatives to Hill Functions in Genetic Network Modeling M. Belgacem Ismail ismail.belgacem.81@gmail.com Mezaourou, Ghazaouet, Tlemcen, Algeria Abstract Gene regulatory networks and related biological systems exhibit sigmoidal response dynamics, which are traditionally modeled using Hill functions. These functions capture cooperative molecular binding through fractional exponents. However, when Hill coefficients assume non-integer values, a ubiquitous occurrence in experimental parameter fitting, these functions lose differentiability at low expression ...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Exploring_Logistic_Functions_as_Robust_Alternatives_to_Hill_.pdf)*
+
+---### Air-to-Ground Communications for Internet of Things UAV-base
+
+—Uncrewed aerial vehicles (UA V s) play a pivotal role in ensuring seamless connectivity for Internet of Things (IoT) devices, particularly in scenarios where conventional terrestrial networks are constrained or temporarily unavailable. However, traditional coverage-hole detection approaches, such as minimizing drive tests, are costly , time-consuming, and reliant on outdated radio-environment data, making them un- suitable for real-time applications. T o address these limitations, this paper pr...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/Air-to-Ground_Communications_for_Internet_of_Things_UAV-base.pdf)*
+
+---### A Chromatographic Process Design and Optimization Platform P
+
+  1   A Chromatographic Process Design and Optimization Platform Powered by Large  Language Models: A Case Application on Extract of Ginkgo Biloba  Leaf    Zhilong Tang1, Shaohua Wu1, Xinyan Zhao2, Yu Wang1,3, Xingchu Gong1,2,3,4,*   1. Pharma ceutical Informatics Institute, College of Pharmaceutical Sciences, Zhejiang  University, Hangzhou 310058, China   2. Institute of Traditional Chinese Medicine, Tianjin University of Traditional Chinese  Medicine, Tianjin, 301617 , China   3. Jinhua Institute of Zhejiang University, Jinhua 321016, China   4. National Key Laboratory of Chinese Medicine Mo...
+
+*Source: [PDF](papers/arxiv_agents_2025_2026/A_Chromatographic_Process_Design_and_Optimization_Platform_P.pdf)*
+
+---### Website with interactive visualization of multivariate astro
+
+Communications of BAO, Vol. 72, Issue 2, 2025, pp. 334-340 Website with interactive visualization of multivariate astronomical time series M. Volkov⋆1, M. Demianenko⋆∗2,3, D. Matveev4, K. A. Grishin5,4, and I. V. Chilingarian6,4 1Yandex LLC, 16 Lev Tolstoy Street, 119021, Moscow, Russia 2Max-Planck-Institut f¨ ur Astronomie, K¨ onigstuhl 17, 69117 Heidelberg, Germany 3Department for Physics and Astronomy, Heidelberg University, Im Neuenheimer Feld 226, 69120 Heidelberg, Germany 4Sternberg Astronomical Institute, Moscow M.V. Lomonosov State University, Universitetskij pr., 13, Moscow, 119234, R...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/Website_with_interactive_visualization_of_multivariate_astro.pdf)*
+
+---### Symbolic Regression for Shared Expressions Introducing Parti
+
+Symbolic regression aims to find symbolic expressions that de- scribe datasets. Due to better interpretability, it is a machine learning par- adigm particularly powerful for scientific discovery. In recent years, several workshaveexpandedtheconcepttoallowthedescriptionofsimilarphenomena using a single expression with varying sets of parameters, thereby introducing categorical variables. Some previous works allow only “non-shared” (category- value-specific) parameters, and others also incorporate...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/Symbolic_Regression_for_Shared_Expressions_Introducing_Parti.pdf)*
+
+---### Color symmetry breaking in a nonlinear optical microcavity
+
+Color symmetry breaking in a nonlinear optical microcavity Luca O. Trinch˜ ao,1, 2,∗Alekhya Ghosh,2, 3,∗Arghadeep Pal,2, 3,∗Haochen Yan,2, 3Toby Bi,2, 3Shuangyou Zhang,2, 4 Nathalia B. Tomazio,5Flore K. Kunst,2, 3Lewis Hill,2Gustavo S. Wiederhecker,1,†and Pascal Del’Haye2, 3,‡ 1Gleb Wataghin Institute of Physics, University of Campinas, Campinas, SP, Brazil 2Max Planck Institute for the Science of Light, Erlangen, Germany 3Department of Physics, Friedrich Alexander University Erlangen-Nuremberg, Erlangen, Germany 4Department of Electrical and Photonics Engineering Technical University of Denma...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/Color_symmetry_breaking_in_a_nonlinear_optical_microcavity.pdf)*
+
+---### A unified multimodal understanding and generation model for 
+
+A unified multimodal understanding and generation model for cross-disciplinary scientific research Xiaomeng Yang2†, Zhiyu Tan1,2†, Xiaohui Zhong1,2,4,5†, Mengping Yang1,2, Qiusheng Huang1,2,3, Lei Chen1,2, Libo Wu6,2,3,7*and Hao Li1,2,3,5* 1Artificial Intelligence Innovation and Incubation Institute, Fudan University, Shanghai, 200433, China. 2Shanghai Academy of Artificial Intelligence for Science, Shanghai, 200232, China. 3Shanghai Innovation Institute, Shanghai, 200231, China. 4FuXi Intelligent Computing Technology Co., Ltd., Shanghai, 200233, China. 5Joint Laboratory for AI-Based Earth Sys...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/A_unified_multimodal_understanding_and_generation_model_for_.pdf)*
+
+---### Governance of Technological Transition A Predator-Prey Analy
+
+Governance of Technological Transition: A Predator-Prey Analysis of AI Capital in China’s Economy and Its Policy Implications Kunpeng Wanga,, Jiahui Hub aSichuan University-Pittsburgh Institute, Sichuan University, Chengdu, Sichuan Province, 610207, China bInternational Business School Suzhou, Xi’an Jiaotong-Liverpool University, Suzhou, Jiangsu Province, 215123, China Abstract The rapid integration of Artificial Intelligence (AI) into China’s economy presents a classic governance challenge: how to harness its growth potential whilemanagingitsdisruptiveeffectsontraditionalcapitalandlabormarket...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/Governance_of_Technological_Transition_A_Predator-Prey_Analy.pdf)*
+
+---### SciIF Benchmarking Scientific Instruction Following Towards 
+
+As large language models (LLMs) transition from general knowledge retrieval to complex scientific discovery, their evaluation standards must also incorporate the rigorous norms of scientific inquiry. Existing benchmarks ex- hibit a critical blind spot: general instruction- following metrics focus on superficial format- ting, while domain-specific scientific bench- marks assess only final-answer correctness, of- ten rewarding models that arrive at the right result with the wrong reasons. To addre...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/SciIF_Benchmarking_Scientific_Instruction_Following_Towards_.pdf)*
+
+---### Quantum tunnelling-integrated optoplasmonic nanotrap enables
+
+  1   Quantum tunnelling -integrated optoplasmonic nanotrap enables conductance  visualisation of individual proteins    Authors:  Biao -Feng Zeng1, Zian Wang1, Yuxin Yang1, Xufei Ma1, Liang Xu1, Yi Shen1, Long  Yi1, Yizheng Fang3, Ye Tian4, Zhenrong Zheng1, Yudong Cui1, Ji Cao3, Ge Bai5, Weixiang Ye6,  Pan Wang1, Cuifang Kuang1, Joshua B. Edel7, Aleksandar P. Ivanov7, Xu Liu1*, Longhua Tang1,2*    Affiliations:    1State Key Laboratory of Extreme Photon ics and Instrumentation, Interdisciplinary Centre  for Quantum Information, College of Optical Science and Engineering, Zhejiang University, ...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/Quantum_tunnelling-integrated_optoplasmonic_nanotrap_enables.pdf)*
+
+---### Ion Clustering Regulated by Extreme Nanoconfinement Enables 
+
+Ion Clustering Regulated by Extreme Nanoconfinement Enables Mechanosensitive Nanochannels Ke Zhou∗ College of Energy, Soochow University, Suzhou 215006, China E-mail: zhouke@suda.edu.cn 1arXiv:2601.01135v1  [physics.chem-ph]  3 Jan 2026...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/Ion_Clustering_Regulated_by_Extreme_Nanoconfinement_Enables_.pdf)*
+
+---### Analog Weight Update Rule in Ferroelectric Hafnia using pico
+
+Analog Weight Update Rule in Ferroelectric Hafnia, using pico- Joule Programming Pulses Alexandre Baigol Nikhil Garg Matteo Mazza Yanming Zhang Elisa Zaccaria Wooseok Choi Bert Jan Offrein Laura B´ egon-Lours* A. Baigol, Dr. N. Garg, M. Mazza, Y. Zhang, Prof. L. B´ egon-Lours Address: Integrated Systems Laboratory, Department of Information Technology and Electrical Engi- neering, ETH Z¨ urich, CH-8092 Z¨ urich, Switzerland Email Address: abaigol@ethz.ch E. Zaccaria, Dr. W. Choi, Dr. B. J. Offrein Address: IBM Research Europe - Z¨ urich, S¨ aumerstrasse 4, 8803 R¨ uschlikon, Switzerland Keywor...
+
+*Source: [PDF](papers/arxiv_biomimetic_science_2025_2026/Analog_Weight_Update_Rule_in_Ferroelectric_Hafnia_using_pico.pdf)*
+
+---### Swimming against a superfluid flow Self-propulsion via vorte
+
+Swimming against a superﬂuid ﬂow: Self-propulsion via vortex-antivortex shedding in a quantum ﬂuid of light Myrann Baker-Rasooli,1Tangui Aladjidi,1Tiago D. Ferreira,2Alberto Bramati,1,3Mathias Albert,4,3Pierre-´Elie Larr´ e,5,∗and Quentin Glorieux1,3,† 1Sorbonne Universit´ e, ENS Paris, Coll` ege de France, Unive rsit´ e PSL, CNRS, Laboratoire Kastler Brossel, F-75005 Paris, France 2Universidade do Porto and INESC TEC, Centre of Applied Photo nics, Rua do Campo Alegre, Porto, Portugal 3Institut Universitaire de France (IUF) 4Universit´ e Cˆ ote d’Azur, CNRS, INPHYNI, France 5Universit´ e Paris...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Swimming_against_a_superfluid_flow_Self-propulsion_via_vorte.pdf)*
+
+---### Lift reversal from vortex-surface phase coupling in a heavin
+
+Classical descriptions of flapping propulsion near a free surface emphasize the energetic penalties of wave generation, treating the interface primarily as an energy sink. Here, we show that the same deformable boundary can also act as a phase-dependent kinematic constraint on vertical force generation. Using force measurements, particle image ve- locimetry and potential-flow simulations, we characterize how a free surface reorganizes vortex shedding for a heaving hydrofoil at moderate Reynolds ...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Lift_reversal_from_vortex-surface_phase_coupling_in_a_heavin.pdf)*
+
+---### Fast directional transport of Leidenfrost droplets on spiked
+
+FastdirectionaltransportofLeidenfrostdropletsonspikedsurfaces Kai-XinHua,b,1,Dong-XuDuana,b,Yin-JiangChena,b,DanWua,b,Qi-ShengChenc,d aZhejiangProvincialEngineeringResearchCenterfortheSafetyofPressureVessel andPipeline,NingboUniversity,Ningbo,Zhejiang315211,China bKeyLaboratoryofImpactandSafetyEngineering(NingboUniversity),Ministryof Education,Ningbo,Zhejiang315211,China cSchoolofEngineeringScience,UniversityofChineseAcademyofSciences,Beijing 100190,China dKeyLaboratoryofMicrogravity,InstituteofMechanics,ChineseAcademyof Sciences,Beijing100190,China Abstract TheLeidenfrosteffectenablesdroplets...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Fast_directional_transport_of_Leidenfrost_droplets_on_spiked.pdf)*
+
+---### How do trout regulate patterns of muscle contraction to opti
+
+Under consideration for publication in J. Fluid Mech. Banner appropriate to article type will appear here in typeset article How do trout regulate patterns of muscle contraction to optimize propulsive efficiency during steady swimming? Tao Li1, Chunze Zhang1, Weiwei Yao2, Junzhao He1, Ji Hou1, Qin Zhou1, Xujin Zhang1, Lu Zhang3 1The College of River and Ocean Engineering, Chongqing Jiaotong University,Chongqing, 400016, China 2State Key Laboratory of Hydraulics and Mountain River Engineering, Sichuan University, Chengdu, 610065, China 3Chongqing Deepflow Intelligent Computing Technology Co., L...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/How_do_trout_regulate_patterns_of_muscle_contraction_to_opti.pdf)*
+
+---### Avalanches in active glasses with finite persistence
+
+Avalanches in active glasses with finite persistence Roland Wiese,1, 2Ezequiel Ferrero,3and Demian Levis1, 2 1Computing and Understanding Collective Action (CUCA) Lab, Departament de F´ ısica de la Materia Condensada, Universitat de Barcelona, Mart´ ı i Franqu` es 1, E08028 Barcelona, Spain 2UBICS University of Barcelona Institute of Complex Systems , Mart´ ı i Franqu` es 1, E08028 Barcelona, Spain 3Instituto de Nanociencia y Nanotecnolog´ ıa, CNEA–CONICET, Centro At´ omico Bariloche, (R8402AGP) San Carlos de Bariloche, R´ ıo Negro, Argentina We numerically investigate the statistics of avalan...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Avalanches_in_active_glasses_with_finite_persistence.pdf)*
+
+---### How Spatially Modulated Activity Reshapes Active Polymer Con
+
+How Spatially Modulated Activity Reshapes Active Polymer Conformations Paolo Malgaretti1,∗and Emanuele Locatelli2, 3 1Helmholtz Institute Erlangen-N¨ urnberg for Renewable Energy (IET-2), Forschungszentrum J¨ ulich, Cauerstr. 1, 91058 Erlangen, Germany 2Department of Physics and Astronomy, University of Padova, Via Marzolo 8, I-35131 Padova, Italy 3INFN, Sezione di Padova, Via Marzolo 8, I-35131 Padova, Italy Active polymers are driven out of equilibrium by internal forces and exhibit conformational prop- erties that differ fundamentally from those of passive chains. Here we study how spatiall...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/How_Spatially_Modulated_Activity_Reshapes_Active_Polymer_Con.pdf)*
+
+---### Stability of Active Bilayer Skyrmions in Synthetic Antiferro
+
+Stability of (Active) Bilayer Skyrmions in Synthetic Antiferromagnets Ra´ ı M. Menezes1, 2,∗and Cl´ ecio C. de Souza Silva1,† 1Departamento de F´ ısica, Universidade Federal de Pernambuco, Cidade Universit´ aria, 50670-901, Recife-PE, Brazil 2Department of Physics, University of Antwerp, Groenenborgerlaan 171, B-2020 Antwerp, Belgium Synthetic antiferromagnetic (SAF) skyrmions are nanoscale composite textures that exhibit high- speed, Hall-free current-driven motion and recently demonstrated self-propulsion. These remarkable properties rely on the stability of the SAF skyrmion’s topological bo...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Stability_of_Active_Bilayer_Skyrmions_in_Synthetic_Antiferro.pdf)*
+
+---### Online Inertia Parameter Estimation for Unknown Objects Gras
+
+— Knowing the inertia parameters of a grasped object is crucial for dynamics-aware manipulation, especially in space robotics with free-floating bases. This work addresses the problem of estimating the inertia parameters of an unknown target object during manipulation. We apply and extend an ex- isting online identification method by incorporating momentum conservation, enabling its use for the floating-base robots. The proposed method is validated through numerical simulations, and the estimate...
+
+*Source: [PDF](papers/arxiv_future_science_2025_2026/Online_Inertia_Parameter_Estimation_for_Unknown_Objects_Gras.pdf)*
+
+---
